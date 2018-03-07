@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -67,6 +69,34 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'verification_token'=>str_random(40),
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        return redirect()->back()
+        ->with('need_verification', 'You need to verify your account before continuing to this forum. Please check your e-mail to verify !');
+
+        // $this->guard()->login($user);
+        //
+        // return $this->registered($request, $user)
+        //                 ?: redirect($this->redirectPath());
+    }
+
+    public function verify($verification_token)
+    {
+        $user=User::where('verification_token', $verification_token)->firstOrFail();
+        if ($user) {
+            $user->update(['verification_token'=>null,'active'=>1]);
+            $this->guard()->login($user);
+            return redirect('home');
+        } else {
+            return response()->json_encode("User Already Verified");
+        }
     }
 }

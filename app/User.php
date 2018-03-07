@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','verification_token','active'
     ];
 
     /**
@@ -26,4 +26,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected $dispatchesEvents = [
+        'created' => Events\NewUserRegistered::class,
+    ];
+
+    public function verified()
+    {
+        return $this->active===1;
+    }
 }

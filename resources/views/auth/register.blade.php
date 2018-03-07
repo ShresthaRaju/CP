@@ -4,11 +4,16 @@
 
 @section('main_content')
 <div class="container">
-    <div class="columns">
+  <div class="columns">
       <div class="column is-4 is-offset-4">
+        @if (Session::has('need_verification'))
+          <b-notification>
+            {{Session::get('need_verification')}}
+          </b-notification>
+        @endif
+        <h1 class="title has-text-centered has-text-grey">Join The Discussion</h1>
         <div class="card">
           <div class="card-content">
-            <h1 class="title has-text-centered">Join The Discussion</h1>
             <form action="{{route('register')}}" method="post">
               @csrf
               <div class="field">
@@ -90,8 +95,8 @@
             </form>
           </div>
         </div> <!--end of .card-->
-        <p class="has-text-grey-light has-text-centered m-t-20 ">Already have an account?
-          <a href="{{route('login')}}" class="has-text-dark">Sign In</a>
+        <p class="has-text-grey-lighter has-text-centered m-t-20 ">Already have an account?
+          <a href="{{route('login')}}" class="has-text-grey">Sign In</a>
         </p>
       </div>
     </div>
