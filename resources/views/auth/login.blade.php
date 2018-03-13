@@ -1,9 +1,9 @@
-@extends('layouts.main')
+@extends('layouts.user')
 
 @section('title','Sign In')
 
 @section('main_content')
-<div class="container">
+<div class="container is-fluid m-t-60">
   <div class="columns">
       <div class="column is-4 is-offset-4">
         <h1 class="title has-text-centered has-text-grey">Sign In</h1>

@@ -11,12 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('verify/{verification_token}', 'Auth\RegisterController@verify')->name('verify');
+
+Route::prefix('admin')->as('admin.')->group(function () {
+    Route::view('dashboard', 'admin.dashboard')->name('dashboard');
+    Route::redirect('/', '/admin/dashboard', 301);
+    Route::resource('users', 'Admin\UsersController');
+});
+
+Route::get('/all','Admin\UsersController@getAllUsers');

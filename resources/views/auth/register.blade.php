@@ -1,9 +1,9 @@
-@extends('layouts.main')
+@extends('layouts.user')
 
 @section('title','Join The Discussion')
 
 @section('main_content')
-<div class="container">
+<div class="container is-fluid m-t-60">
   <div class="columns">
       <div class="column is-4 is-offset-4">
         @if (Session::has('need_verification'))

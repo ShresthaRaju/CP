@@ -5,7 +5,7 @@
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>{{ config('app.name', 'Discussion') }}</title>
+<title>{{ config('app.name', 'Discussion') }} | @yield('title')</title>
 
 <!-- Styles -->
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">

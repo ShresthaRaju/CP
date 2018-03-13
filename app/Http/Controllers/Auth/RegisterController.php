@@ -80,7 +80,8 @@ class RegisterController extends Controller
         event(new Registered($user = $this->create($request->all())));
 
         return redirect()->back()
-        ->with('need_verification', 'You need to verify your account before continuing to this forum. Please check your e-mail to verify !');
+        ->with('need_verification', 'One Last Step!
+        Please check your email and confirm your account. Then, you may begin posting to the forum.!');
 
         // $this->guard()->login($user);
         //

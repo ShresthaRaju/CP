@@ -1,9 +1,9 @@
-@extends('layouts.main')
+@extends('layouts.user')
 
 @section('title','Request Password Reset Link')
 
 @section('main_content')
-<div class="container">
+<div class="container is-fluid m-t-60">
   <div class="columns">
     <div class="column is-4 is-offset-4">
       <h1 class="title has-text-centered has-text-grey">Reset Password</h1>
@@ -36,7 +36,9 @@
 
       {{-- Email status (sent or not)--}}
       @if (Session::has('status'))
-        <p class="has-text-grey has-text-centered m-t-15">{{Session::get('status')}}</p>
+        <b-notification class="m-t-20">
+          {{Session::get('status')}}
+        </b-notification>
       @endif
 
     </div>
