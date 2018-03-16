@@ -8,7 +8,7 @@
     @include('partials._nav')
 
     @yield('main_content')
-    
+
   </div>
 
   <!-- Scripts -->

@@ -24,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token','verification_token','updated_at'
     ];
 
     protected $dispatchesEvents = [

@@ -19,7 +19,7 @@
 
   <!-- Scripts -->
   @include('partials._scripts')
-  <script type="text/javascript" src="{{asset('js/sidemenu.js')}}"></script>
+  <script type="text/javascript" src="{{asset('js/utilities/sidemenu.js')}}"></script>
 
 </body>
 </html>

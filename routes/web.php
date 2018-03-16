@@ -22,7 +22,7 @@ Route::get('verify/{verification_token}', 'Auth\RegisterController@verify')->nam
 Route::prefix('admin')->as('admin.')->group(function () {
     Route::view('dashboard', 'admin.dashboard')->name('dashboard');
     Route::redirect('/', '/admin/dashboard', 301);
-    Route::resource('users', 'Admin\UsersController');
+    Route::resource('users', 'Admin\UsersController')->except(['create']);
 });
 
-Route::get('/all','Admin\UsersController@getAllUsers');
+// Route::view('admins/{vue_capture?}', 'admin')->where('vue_capture', '[\/\w\.-]*'); // {vue-capture} is for vue js history mode

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\admin\users\UserCreateValidation;
 
 class UsersController extends Controller
 {
@@ -16,23 +17,10 @@ class UsersController extends Controller
     public function index()
     {
         $users=User::latest()->paginate(10);
-        return view('admin.users.index', compact('users'));
-    }
-
-    public function getAllUsers()
-    {
-        $users=User::latest()->paginate(10);
-        return response()->json($users);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('admin.users.create');
+        if (request()->ajax()) {
+            return response()->json($users);
+        }
+        return view('admin.users.index');
     }
 
     /**
@@ -41,31 +29,18 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserCreateValidation $request)
     {
-        $response=[];
-        $response['error']=true;
-
-        $request->validate([
-          'name'=>'required|string|min:3|max:60',
-          'email'=>'required|email|max:100',
-          'password'=>'required|string|min:8|max:25',
-        ]);
-
         request()->request->add([
           'active'=>request('active')=="on"?1:0
         ]);
 
-        if (User::create(request(['name','email','password','active']))) {
-            $response['error']=false;
-            $response['message']="User was successfully created :)";
-            $response['redirect']=route('admin.users.index');
+        if ($user=User::create(request(['name','email','password','active']))) {
+            $response['message']="User created successfully :)";
         } else {
             $response['message']="Error creating the user :(";
         }
-
-        $users=User::latest()->paginate(10);
-        return response()->json($response);
+        return response()->json(['status'=>$response,'user'=>$user]);
     }
 
     /**
@@ -76,7 +51,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return $user;
     }
 
     /**
@@ -110,16 +85,11 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        $response=[];
-        $response['error']=true;
-
         if ($user->delete()) {
-            $response['error']=false;
-            $response['message']="User was successfully deleted :)";
+            $response['message']="User deleted successfully :)";
         } else {
             $response['message']="Error deleting the user :(";
         }
-
         return response()->json($response);
     }
 }
