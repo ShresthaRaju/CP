@@ -1,19 +1,19 @@
 @extends('layouts.admin')
 
-@section('title',"All Users")
+@section('title','All Channels')
 
 @section('main_content')
 
 <div class="columns is-mobile">
   <div class="column">
-    <p class="title">Users Manager</p>
+    <p class="title">Channels Manager</p>
   </div>
 
   <div class="column is-hidden-mobile">
     <nav class="breadcrumb has-arrow-separator is-right" aria-label="breadcrumbs">
       <ul>
         <li><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-        <li class="is-active"><a aria-current="page">All Users</a></li>
+        <li class="is-active"><a aria-current="page">All Channels</a></li>
       </ul>
     </nav>
   </div>
@@ -21,7 +21,7 @@
 
 <hr>
 
-{{-- vue Users component --}}
-<Users></Users>
+{{-- vue Channels component --}}
+<Channels></Channels>
 
 @endsection

@@ -29,7 +29,8 @@ Vue.use(Buefy);
 //
 //  Vue.component('example-component', require('./components/ExampleComponent.vue'));
 //
-Vue.component('users', require('./components/users/Users.vue'));
+Vue.component('Users', require('./components/users/Users.vue'));
+Vue.component('Channels', require('./components/channels/Channels.vue'));
 
 const app = new Vue({
   el: '#app',

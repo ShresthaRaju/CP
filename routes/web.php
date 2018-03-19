@@ -22,7 +22,8 @@ Route::get('verify/{verification_token}', 'Auth\RegisterController@verify')->nam
 Route::prefix('admin')->as('admin.')->group(function () {
     Route::view('dashboard', 'admin.dashboard')->name('dashboard');
     Route::redirect('/', '/admin/dashboard', 301);
-    Route::resource('users', 'Admin\UsersController')->except(['create']);
+    Route::resource('users', 'Admin\UsersController')->except(['create','show','edit','update']);
+    Route::resource('channels', 'Admin\ChannelsController')->except(['create','edit']);
 });
 
 // Route::view('admins/{vue_capture?}', 'admin')->where('vue_capture', '[\/\w\.-]*'); // {vue-capture} is for vue js history mode

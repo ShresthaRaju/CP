@@ -1,6 +1,6 @@
 <template lang="html">
 
-  <div>
+  <div class="users">
     <div class="columns">
       <div class="column has-text-centered">
         <button class="button is-primary" @click="isCreateUserModalActive=true"><span class="icon"><i class="fa fa-user-plus"></i></span><span>Create New User</span></button>
@@ -25,15 +25,20 @@
 
                 <tbody>
                   <tr v-for="(user,index) in users">
-                    <td>{{user.id}}</td>
+                    <th>{{user.id}}</th>
                     <td>{{user.email}}</td>
                     <td>{{user.created_at | formatDate}}</td>
                     <td>
                       <span class="tag is-info" v-if="user.active==1">Active</span>
                       <span class="tag is-danger" v-else>Inactive</span>
                     </td>
-                    <td>
-                      <a class="is-pulled-right has-text-danger" @click.prevent="deleteUser(index,user.id)"><span class="icon"><i class="fa fa-trash"></i></span></a>
+                    <td class="has-text-centered">
+                      <b-tooltip label="Delete this user"
+                        type="is-dark"
+                        position="is-left"
+                        animated>
+                        <a class="has-text-danger" @click.prevent="deleteUser(index,user.id)"><span class="icon"><i class="fa fa-trash"></i></span></a>
+                      </b-tooltip>
                     </td>
                   </tr>
                 </tbody>
@@ -43,41 +48,33 @@
         </div> <!--- end of .card-->
 
         <!-- pagination -->
-        <nav class="pagination is-rounded is-small is-centered m-t-25" role="navigation" aria-label="pagination">
-          <a class="pagination-previous" @click="fetchAllUsers(pagination.prevPageUrl)" :disabled="!pagination.prevPageUrl">
-            <span class="icon"><i class="fa fa-arrow-left"></i></span>
-          </a>
-          <a class="pagination-next" @click="fetchAllUsers(pagination.nextPageUrl)" :disabled="!pagination.nextPageUrl">
-            <span class="icon"><i class="fa fa-arrow-right"></i></span>
-          </a>
-          <ul class="pagination-list">
-            <li v-for="i in pagination.lastPage">
-              <a :class="['pagination-link',{'is-current':i==pagination.currentPage}]" @click="fetchAllUsers(`/admin/users?page=${i}`)">{{i}}</a>
-            </li>
-          </ul>
-        </nav>
+        <Pagination :pagination="pagination"></Pagination>
+
       </div>
 
     </div> <!-- end of second .columns-->
 
     <!-- new user create modal -->
-    <userCreateModal v-if="isCreateUserModalActive" @modalClosed="isCreateUserModalActive=false" @success="addUserToTable"></userCreateModal>
+    <user-create-modal v-if="isCreateUserModalActive" @modalClosed="isCreateUserModalActive=false" @success="addUserToTable($event)"></user-create-modal>
 
   </div>
 
 </template>
 
 <script>
-import userCreateModal from './userCreateModal.vue';
+import Pagination from '../Pagination.vue';
+import userCreateModal from './UserCreateModal.vue';
 import moment from 'moment';
+
 export default {
 
   created() {
-    this.fetchAllUsers();
+    this.fetchAll();
   },
 
   components: {
-    userCreateModal
+    'Pagination': Pagination,
+    'user-create-modal': userCreateModal
   },
 
   data() {
@@ -89,8 +86,8 @@ export default {
   },
 
   methods: {
-    fetchAllUsers(page_url) {
-      page_url = page_url || '/admin/users'
+    fetchAll(page_url) {
+      page_url = page_url || `/admin/users`
       axios.get(page_url)
         .then(response => {
           // console.log(response.data);
@@ -98,7 +95,7 @@ export default {
           this.makePagination(response.data);
         })
         .catch(error => {
-          console.log(error);
+          console.log(error.response.data);
         });
     },
 
@@ -121,18 +118,17 @@ export default {
         type: 'is-danger',
         hasIcon: true,
         iconPack: 'fa',
-        onConfirm: () => axios.delete(`users/${user}`)
+        onConfirm: () => axios.delete(`/admin/users/${user}`)
           .then(response => {
             this.users.splice(index, 1); // [splice(at which index, how many item to remove)]
             this.$toast.open({
+              message: response.data,
               duration: 5000,
-              message: response.data.message,
-              type: 'is-success'
             });
 
           })
           .catch(error => {
-            console.log(error);
+            console.log(error.response.data);
           })
       });
     },
@@ -148,6 +144,5 @@ export default {
       return moment(date).format('LL');
     }
   },
-
 }
 </script>

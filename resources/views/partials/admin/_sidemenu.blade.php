@@ -11,8 +11,13 @@
     </p>
     <ul class="menu-list">
       <li>
-        <a href="{{route('admin.users.index')}}" class="is-active"><span class="icon"><i class="fa fa-users"></i></span><span>Users</span></a>
+        <a href="{{route('admin.users.index')}}" class="{{Request::is('admin/users')?'is-active':''}}"><span class="icon"><i class="fa fa-users"></i></span><span>Users</span></a>
       </li>
+
+      <li>
+        <a href="{{route('admin.channels.index')}}" class="{{Request::is('admin/channels')?'is-active':''}}"><span class="icon"><i class="fa fa-circle-o-notch"></i></span><span>Channels</span></a>
+      </li>
+
       <li>
         <a><span class="icon"><i class="fa fa-sticky-note"></i></span><span>Discussions</span></a>
         {{-- <ul>
@@ -20,9 +25,7 @@
           <li><a href=""><span class="icon"><i class="fa fa-plus"></i></span><span>Add</span></a></li>
         </ul> --}}
       </li>
-      <li>
-        <a><span class="icon"><i class="fa fa-circle-o-notch"></i></span><span>Channels</span></a>
-      </li>
+
     </ul>
   </aside>
 </div>

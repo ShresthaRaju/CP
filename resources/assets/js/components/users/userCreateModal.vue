@@ -1,5 +1,6 @@
 <template lang="html">
-  <div class="modal is-active">
+  <transition name="fade">
+    <div class="modal is-active">
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
@@ -8,7 +9,7 @@
       </header>
       <section class="modal-card-body">
 
-        <form method="post" @keydown="errors.clearError($event.target.name)">
+        <form @keydown="errors.clearError($event.target.name)">
           <div class="field">
             <label class="label">Fullname</label>
             <div class="control has-icons-left has-icons-right">
@@ -64,6 +65,7 @@
       </footer>
     </div>
   </div>
+  </transition>
 </template>
 
 <script>
@@ -93,9 +95,9 @@ export default {
           this.$emit('success', response.data.user); // .user is received from "UsersController"
           this.clearForm();
           this.$toast.open({
-            duration: 5000,
-            message: response.data.status.message,
-            // .status is received from 'UsersController'
+            type: 'is-info',
+            message: response.data.status.message, // .status is received from 'UsersController'
+            duration: 5000
           });
         })
         .catch(error => {
@@ -111,9 +113,18 @@ export default {
     closeModal() {
       this.$emit('modalClosed');
     },
-
-
   }
-
 }
 </script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.7s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
