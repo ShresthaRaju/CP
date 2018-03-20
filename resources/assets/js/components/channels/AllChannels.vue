@@ -6,7 +6,7 @@
         <div class="card">
           <div class="card-content">
             <div class="table-responsive">
-              <table class="table is-striped is-hoverable is-narrow is-fullwidth">
+              <table class="table is-hoverable is-narrow is-fullwidth">
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -47,7 +47,7 @@
             </p>
           </header>
           <div class="card-content">
-            <form @keydown="errors.clearError($event.target.name)">
+            <form action="localhost:8000/admin/channels" method="post" @keydown="errors.clearError($event.target.name)">
               <div class="field">
                 <label class="label">Title</label>
                 <div class="control has-icons-left has-icons-right">
@@ -62,14 +62,12 @@
                 <p class="help is-danger" v-if="errors.hasError('title')">{{errors.getErrorMessage('title')}}</p>
               </div>
 
-              <button class="button is-primary is-rounded is-outlined is-fullwidth m-t-25" @click.prevent="addNewChannel" :disabled="errors.hasAnyError()">Add</button>
+              <button type="submit" class="button is-primary is-rounded is-outlined is-fullwidth m-t-25" @click.prevent="addNewChannel" :disabled="errors.hasAnyError()">Add</button>
             </form>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- <view-channel :chan="viewedChannel"></view-channel> -->
   </div>
 
 </template>
@@ -109,7 +107,7 @@ export default {
     },
 
     addNewChannel() {
-      axios.post('/admin/channels', this.$data.channel)
+      axios.post('/admin/channels', this.channel)
         .then(response => {
           // console.log(response);
           this.channels.push(response.data.channel);

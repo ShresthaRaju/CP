@@ -9,7 +9,7 @@
       </header>
       <section class="modal-card-body">
 
-        <form @keydown="errors.clearError($event.target.name)">
+        <form action="localhost:8000/admin/users" method="post" @keydown="errors.clearError($event.target.name)">
           <div class="field">
             <label class="label">Fullname</label>
             <div class="control has-icons-left has-icons-right">
@@ -57,7 +57,7 @@
             <b-switch type="is-success" name="active" v-model="user.active">Active</b-switch>
           </div>
 
-          <button type="buttom" class="button is-primary is-fullwidth" @click.prevent="createNewUser" :disabled="errors.hasAnyError()">Create</button>
+          <button type="submit" class="button is-primary is-fullwidth" @click.prevent="createNewUser" :disabled="errors.hasAnyError()">Create</button>
         </form>
       </section>
       <footer class="modal-card-foot">

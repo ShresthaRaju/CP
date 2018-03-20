@@ -24,6 +24,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::redirect('/', '/admin/dashboard', 301);
     Route::resource('users', 'Admin\UsersController')->except(['create','show','edit','update']);
     Route::resource('channels', 'Admin\ChannelsController')->except(['create','edit']);
+    Route::resource('discussions', 'Admin\DiscussionsController')->except(['create','edit','update']);
 });
 
 // Route::view('admins/{vue_capture?}', 'admin')->where('vue_capture', '[\/\w\.-]*'); // {vue-capture} is for vue js history mode

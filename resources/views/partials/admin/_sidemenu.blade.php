@@ -19,7 +19,7 @@
       </li>
 
       <li>
-        <a><span class="icon"><i class="fa fa-sticky-note"></i></span><span>Discussions</span></a>
+        <a href="{{route('admin.discussions.index')}}" class="{{Request::is('admin/discussions')?'is-active':''}}"><span class="icon"><i class="fa fa-sticky-note"></i></span><span>Discussions</span></a>
         {{-- <ul>
           <li><a href=""><span class="icon"><i class="fa fa-th-list"></i></span><span>List</span></a></li>
           <li><a href=""><span class="icon"><i class="fa fa-plus"></i></span><span>Add</span></a></li>

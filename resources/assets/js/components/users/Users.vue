@@ -12,7 +12,7 @@
         <div class="card">
           <div class="card-content">
             <div class="table-responsive">
-              <table class="table is-striped is-hoverable is-narrow is-fullwidth">
+              <table class="table is-hoverable is-narrow is-fullwidth">
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -48,7 +48,7 @@
         </div> <!--- end of .card-->
 
         <!-- pagination -->
-        <Pagination :pagination="pagination"></Pagination>
+        <Pagination :pagination="pagination" @pageLinkClicked="fetchUsersFrom($event)" v-if="pagination.lastPage>1"></Pagination>
 
       </div>
 
@@ -135,6 +135,10 @@ export default {
 
     addUserToTable(user) {
       this.users.unshift(user);
+    },
+
+    fetchUsersFrom(pageNo) {
+      this.fetchAll(`/admin/users?page=${pageNo}`);
     }
 
   },

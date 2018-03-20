@@ -12,7 +12,27 @@
               animated>
               <a @click="showChannelEditCard=true"><span class="icon"><i class="fa fa-edit"></i></span></a>
             </b-tooltip>
-            <span class="has-text-grey is-italic is-pulled-right m-t-10">[0 Discussions]</span>
+            <span class="has-text-grey is-italic is-pulled-right m-t-10">[{{channel.discussions.length}} Discussions]</span>
+            <hr>
+            <h1 class="title is-5 is-italic has-text-centered has-text-grey" v-if="channel.discussions.length==0">No any discussion yet !</h1>
+
+            <div class="table-responsive" v-else>
+              <table class="table is-hoverable is-narrow is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr v-for="(discussion,index) in channel.discussions">
+                    <th>{{index+1}}</th>
+                    <td><a>{{discussion.title}}</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div> <!--- end of .card-->
       </div> <!-- end of .column-->
@@ -51,7 +71,7 @@
           </span><span>Back To Channels</span>
         </button>
       </div>
-    </div>
+    </div> <!-- end of .columns-->
   </div>
 
 </template>

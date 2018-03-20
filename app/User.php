@@ -35,4 +35,9 @@ class User extends Authenticatable
     {
         return $this->active===1;
     }
+
+    public function discussions()
+    {
+        return $this->hasMany(Discussion::class);
+    }
 }
