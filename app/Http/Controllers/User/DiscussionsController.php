@@ -36,11 +36,11 @@ class DiscussionsController extends Controller
         $discussion->title=$request->title;
         $discussion->slug=str_slug($request->title);
         $discussion->description=$request->description;
-        $discussion->channel_id=$request->channel;
+        $discussion->channel_id=$request->channel_id;
         $discussion->user_id=auth()->id();
 
         if ($discussion->save()) {
-            return redirect('/');
+            return response()->json(['redirect'=>route('welcome')]);
         } else {
             return back()->withInput();
         }
@@ -81,13 +81,13 @@ class DiscussionsController extends Controller
     public function update(DiscussionUpdateValidation $request, $id)
     {
         $discussion=Discussion::where('id', '=', $id)->firstOrFail();
-        $discussion->channel_id=$request->channel;
+        $discussion->channel_id=$request->channel_id;
         $discussion->title=$request->title;
         $discussion->slug=str_slug($request->title);
         $discussion->description=$request->description;
 
         if ($discussion->update()) {
-            return redirect()->route('discussion.show', ['slug'=>$discussion->slug]);
+            return response()->json(['redirect'=>route('discussion.show', $discussion->slug)]);
         } else {
             return back()->withInput();
         }

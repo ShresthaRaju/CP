@@ -29,7 +29,12 @@ class Discussion extends Model
         return $channels;
     }
 
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
     protected $hidden = [
-        'updated_at'
+        'updated_at','slug'
     ];
 }

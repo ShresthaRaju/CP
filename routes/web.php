@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'WelcomePageController@index');
+Route::get('/', 'WelcomePageController@index')->name('welcome');
 
 Auth::routes();
 
@@ -38,8 +38,8 @@ Route::prefix('discussion')->as('discussion.')->group(function () {
     Route::put('/{id}', ['as'=>'update','uses'=>'User\DiscussionsController@update']);
 
     // Replies
-    Route::get('/{discussion}/comments', ['as'=>'comment','uses'=>'User\RepliesController@index']);
-    Route::post('/{discussion}/comment', ['as'=>'comment.create','uses'=>'User\RepliesController@store']);
+    // Route::get('/{discussion}/replies', ['as'=>'replies','uses'=>'User\RepliesController@index']);
+    Route::post('/{discussion}/reply', ['as'=>'reply.create','uses'=>'User\RepliesController@store']);
 });
 
 // Route::view('admins/{vue_capture?}', 'admin')->where('vue_capture', '[\/\w\.-]*'); // {vue-capture} is for vue js history mode

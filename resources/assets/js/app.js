@@ -32,7 +32,10 @@ Vue.use(Buefy);
 Vue.component('Users', require('./components/users/Users.vue'));
 Vue.component('Channels', require('./components/channels/Channels.vue'));
 Vue.component('Discussions', require('./components/discussions/Discussions.vue'));
-Vue.component('Reply', require('./components/Reply.vue'));
+Vue.component('creatediscussion', require('./components/discussions/CreateDiscussion.vue'));
+Vue.component('editdiscussion', require('./components/discussions/EditDiscussion.vue'));
+// Vue.component('Replies', require('./components/Replies.vue'));
+
 const app = new Vue({
   el: '#app',
 });

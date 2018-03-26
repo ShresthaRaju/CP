@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Discussion;
+use Auth;
 
 class RepliesController extends Controller
 {

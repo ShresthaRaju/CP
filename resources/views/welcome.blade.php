@@ -18,7 +18,7 @@
           <p><a href="{{route('discussion.show',['slug'=>$discussion->slug])}}" class="has-text-black-ter has-text-weight-semibold is-size-6 d-title">{{$discussion->title}}</a><br>
             <small><span class="is-italic has-text-grey-light">{{$discussion->created_at->diffForHumans()}}</span><span class="m-l-10">BY <a href="#" class="is-uppercase has-text-weight-semibold">{{$discussion->user->name}}</a></span></small>
           </p>
-          <p>{{substr(strip_tags($discussion->description), 0 , 200)}}{{strlen(strip_tags($discussion->description))>200?'...':''}}</p>
+          <p>{!!substr(strip_tags($discussion->description), 0 , 200)!!}{{strlen(strip_tags($discussion->description))>200?'...':''}}</p>
         </div>
       </div>
     </article>
