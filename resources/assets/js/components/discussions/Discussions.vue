@@ -23,7 +23,7 @@
                   <tr v-for="(discussion,index) in discussions">
                     <td>{{discussion.id}}</td>
                     <td>{{discussion.title.substring(0,15)}}{{discussion.title.length>15?'...':''}}</td>
-                    <td>{{discussion.description.substring(0,70)}}{{discussion.description.length>70?'...':''}}</td>
+                    <td>{{(discussion.description.replace(/(<([^>]+)>)/ig,"")).substring(0,70)}}{{discussion.description.length>70?'...':''}}</td>
                     <td><span class="tag is-light">{{discussion.channel.title}}</span></td>
                     <td>{{discussion.user.name}}</td>
                     <td>{{discussion.created_at | formatDate}}</td>

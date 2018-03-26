@@ -1,5 +1,5 @@
 // Font
-@import url("https://fonts.googleapis.com/css?family=Vollkorn");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 
 // Variables
 @import "variables";
@@ -16,6 +16,6 @@
 // Margin and padding helpers
 @import "helpers";
 
-// body{
-//   font-family: 'Vollkorn', serif;
-// }
+body{
+  font-family: 'Roboto', sans-serif;
+}

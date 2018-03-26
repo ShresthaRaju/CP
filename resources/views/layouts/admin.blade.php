@@ -11,9 +11,11 @@
     @include('partials.admin._nav')
     @include('partials.admin._sidemenu')
 
-    <div id="main-content" class="container is-fluid m-t-10">
-      @yield('main_content')
-    </div>
+    <section class="section">
+      <div id="main-content" class="container is-fluid">
+        @yield('main_content')
+      </div>
+    </section>
   </div>
 
 

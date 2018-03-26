@@ -22,6 +22,7 @@
                   <tr>
                     <th>#</th>
                     <th>Title</th>
+                    <th>Comments</th>
                   </tr>
                 </thead>
 

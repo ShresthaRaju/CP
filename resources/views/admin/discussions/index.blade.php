@@ -4,7 +4,7 @@
 
 @section('main_content')
 
-<div class="columns is-mobile">
+<div class="columns">
   <div class="column">
     <p class="title">Discussions Manager</p>
   </div>

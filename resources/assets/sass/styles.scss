@@ -1,6 +1,29 @@
-.table-responsive{
+.table-responsive {
   display: block;
-  min-height: .01%;
+  min-height: 0.01%;
   overflow-x: auto;
   width: 100%;
+}
+
+.has-border {
+  border-right: 1px solid #e0dfdf;
+}
+// 
+// .user-image {
+//   border: 1px solid red;
+//   height: 40px;
+//   width: 40px;
+//   border-radius: 50%;
+// }
+
+.filters a {
+  border-bottom: 1px solid #e0dfdf;
+
+  &:hover {
+    background-color: #00d1b2 !important;
+  }
+}
+
+.d-title:hover {
+  text-decoration: underline;
 }

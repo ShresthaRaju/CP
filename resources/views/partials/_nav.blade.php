@@ -13,7 +13,7 @@
 
   <div class="navbar-menu" id="navMenu">
     <div class="navbar-start">
-      <a href="#" class="navbar-item is-tab">Discussions</a>
+      <a href="{{url('/')}}" class="navbar-item is-tab {{Request::is('/')?'is-active':''}}">Discussions</a>
       <a href="#" class="navbar-item is-tab">Popular</a>
       <a href="#" class="navbar-item is-tab">Leaderboard</a>
     </div>
@@ -23,10 +23,10 @@
         <div class="navbar-item">
             <div class="field is-grouped">
               <p class="control">
-                <a href="{{route('login')}}" class="button is-dark is-outlined"><span class="icon"><i class="fa fa-sign-in"></i></span>Sign In<span></span></a>
+                <a href="{{route('login')}}" class="button is-light"><span class="icon"><i class="fa fa-sign-in"></i></span>Sign In<span></span></a>
               </p>
               <p class="control">
-                <a href="{{route('register')}}" class="button is-info"><span class="icon"><i class="fa fa-user-plus"></i></span><span>Join the Discussion</span></a>
+                <a href="{{route('register')}}" class="button is-primary is-outlined"><span class="icon"><i class="fa fa-user-plus"></i></span><span>Join the Discussion</span></a>
               </p>
             </div>
         </div>

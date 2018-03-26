@@ -16,6 +16,7 @@ class CreateDiscussionsTable extends Migration
         Schema::create('discussions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title', 180)->unique();
+            $table->string('slug', 255);
             $table->longText('description');
             $table->integer('channel_id')->unsigned();
             $table->foreign('channel_id')->references('id')->on('channels')->onDelete('cascade');

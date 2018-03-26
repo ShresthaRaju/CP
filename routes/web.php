@@ -11,7 +11,7 @@
 |
 */
 
-Route::view('/', 'welcome');
+Route::get('/', 'WelcomePageController@index');
 
 Auth::routes();
 
@@ -25,6 +25,21 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::resource('users', 'Admin\UsersController')->except(['create','show','edit','update']);
     Route::resource('channels', 'Admin\ChannelsController')->except(['create','edit']);
     Route::resource('discussions', 'Admin\DiscussionsController')->except(['create','edit','update']);
+});
+
+// Route::resource('discussion', 'User\DiscussionsController')->except(['index']);
+
+Route::prefix('discussion')->as('discussion.')->group(function () {
+    // Discussions
+    Route::get('create', ['as'=>'create','uses'=>'User\DiscussionsController@create']);
+    Route::post('/', ['as'=>'store','uses'=>'User\DiscussionsController@store']);
+    Route::get('/{slug}', ['as'=>'show','uses'=>'User\DiscussionsController@show']);
+    Route::get('/{slug}/edit', ['as'=>'edit','uses'=>'User\DiscussionsController@edit']);
+    Route::put('/{id}', ['as'=>'update','uses'=>'User\DiscussionsController@update']);
+
+    // Replies
+    Route::get('/{discussion}/comments', ['as'=>'comment','uses'=>'User\RepliesController@index']);
+    Route::post('/{discussion}/comment', ['as'=>'comment.create','uses'=>'User\RepliesController@store']);
 });
 
 // Route::view('admins/{vue_capture?}', 'admin')->where('vue_capture', '[\/\w\.-]*'); // {vue-capture} is for vue js history mode

@@ -32,7 +32,7 @@ Vue.use(Buefy);
 Vue.component('Users', require('./components/users/Users.vue'));
 Vue.component('Channels', require('./components/channels/Channels.vue'));
 Vue.component('Discussions', require('./components/discussions/Discussions.vue'));
-
+Vue.component('Reply', require('./components/Reply.vue'));
 const app = new Vue({
   el: '#app',
 });

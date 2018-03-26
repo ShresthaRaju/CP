@@ -1,7 +1,23 @@
 .table-responsive {
   display: block;
-  min-height: .01%;
+  min-height: 0.01%;
   overflow-x: auto;
   width: 100%;
+}
+
+.has-border {
+  border-right: 1px solid #e0dfdf;
+}
+
+.filters a {
+  border-bottom: 1px solid #e0dfdf;
+}
+
+.filters a:hover {
+  background-color: #00d1b2 !important;
+}
+
+.d-title:hover {
+  text-decoration: underline;
 }
 
