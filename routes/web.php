@@ -38,7 +38,7 @@ Route::prefix('discussion')->as('discussion.')->group(function () {
     Route::put('/{id}', ['as'=>'update','uses'=>'User\DiscussionsController@update']);
 
     // Replies
-    // Route::get('/{discussion}/replies', ['as'=>'replies','uses'=>'User\RepliesController@index']);
+    Route::get('/{discussion}/replies', ['as'=>'replies','uses'=>'User\RepliesController@index']);
     Route::post('/{discussion}/reply', ['as'=>'reply.create','uses'=>'User\RepliesController@store']);
 });
 

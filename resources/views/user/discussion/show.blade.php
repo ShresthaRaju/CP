@@ -33,10 +33,11 @@
 
     <hr>
 
+    {{-- Vue Replies Component --}}
+    <Replies :discussion={{$discussion->id}} loggedin={{Auth::check()}}></Replies>
+
     @guest
-      <p class="has-text-weight-semibold has-text-centered">Please <a href="{{route('login')}}">Sign In</a> or <a href="{{route('register')}}">Create an account</a> to participate in this conversation.</p>
-    @else
-      {{-- <Replies :discussion={{$discussion->id}}></Replies> --}}
+      <small><p class="has-text-weight-semibold has-text-centered">Please <a href="{{route('login')}}">Sign In</a> or <a href="{{route('register')}}">Create an account</a> to participate in this conversation.</p></small>
     @endguest
 
   </div>

@@ -34,6 +34,8 @@ class RepliesController extends Controller
           'user_id'=>Auth::id()
         ]);
 
+        $reply=Reply::where('id', $reply->id)->with('user')->first();
+
         return $reply;
     }
 

@@ -34,7 +34,7 @@ Vue.component('Channels', require('./components/channels/Channels.vue'));
 Vue.component('Discussions', require('./components/discussions/Discussions.vue'));
 Vue.component('creatediscussion', require('./components/discussions/CreateDiscussion.vue'));
 Vue.component('editdiscussion', require('./components/discussions/EditDiscussion.vue'));
-// Vue.component('Replies', require('./components/Replies.vue'));
+Vue.component('Replies', require('./components/replies/Replies.vue'));
 
 const app = new Vue({
   el: '#app',

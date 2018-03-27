@@ -8,13 +8,6 @@
 .has-border {
   border-right: 1px solid #e0dfdf;
 }
-// 
-// .user-image {
-//   border: 1px solid red;
-//   height: 40px;
-//   width: 40px;
-//   border-radius: 50%;
-// }
 
 .filters a {
   border-bottom: 1px solid #e0dfdf;
@@ -26,4 +19,16 @@
 
 .d-title:hover {
   text-decoration: underline;
+}
+
+pre {
+  background-color: #474949;
+  border-radius: 7px;
+  max-width: 95%;
+  margin-top: 10px;
+}
+
+pre > code {
+  color: #fff;
+  font-size: 11px;
 }

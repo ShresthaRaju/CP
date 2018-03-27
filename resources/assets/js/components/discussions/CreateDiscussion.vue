@@ -27,7 +27,7 @@
         <div class="field">
           <label class="label">Ask away</label>
           <div class="control">
-            <textarea class="textarea" placeholder="What do you need help with? Be spcefic, so that your peers are better able ot assist you..." rows="8" name="description" v-model="discussion.description" @input="update"></textarea>
+            <textarea class="textarea" placeholder="What do you need help with? Be spcefic, so that your peers are better able ot assist you..." rows="8" name="description" v-model="discussion.tempDescription"></textarea>
           </div>
         </div>
 
@@ -49,14 +49,15 @@ export default {
       discussion: {
         channel_id: 1,
         title: '',
-        description: ''
+        description: '',
+        tempDescription: '',
       },
     }
   },
 
   computed: {
     compiledMarkdown: function() {
-      return marked(this.discussion.description, {
+      return marked(this.discussion.tempDescription, {
         sanitize: false
       })
     }
@@ -75,12 +76,7 @@ export default {
         .catch(error => console.log(error.response.data))
     },
 
-    update: _.debounce(function(e) {
-      this.discussion.description = e.target.value
-    }, 300)
   },
-
-
 
 }
 </script>

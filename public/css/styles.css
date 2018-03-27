@@ -21,3 +21,15 @@
   text-decoration: underline;
 }
 
+pre {
+  background-color: #474949;
+  border-radius: 7px;
+  max-width: 95%;
+  margin-top: 10px;
+}
+
+pre > code {
+  color: #fff;
+  font-size: 11px;
+}
+

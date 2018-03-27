@@ -17831,9 +17831,9 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(141);
-__webpack_require__(196);
-__webpack_require__(197);
-module.exports = __webpack_require__(198);
+__webpack_require__(202);
+__webpack_require__(203);
+module.exports = __webpack_require__(204);
 
 
 /***/ }),
@@ -17878,9 +17878,9 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_buefy___default.a);
 Vue.component('Users', __webpack_require__(166));
 Vue.component('Channels', __webpack_require__(178));
 Vue.component('Discussions', __webpack_require__(190));
-Vue.component('creatediscussion', __webpack_require__(212));
-Vue.component('editdiscussion', __webpack_require__(218));
-// Vue.component('Replies', require('./components/Replies.vue'));
+Vue.component('creatediscussion', __webpack_require__(193));
+Vue.component('editdiscussion', __webpack_require__(196));
+Vue.component('Replies', __webpack_require__(218));
 
 var app = new Vue({
   el: '#app'
@@ -49671,49 +49671,15 @@ if (false) {
 }
 
 /***/ }),
-/* 193 */,
-/* 194 */,
-/* 195 */,
-/* 196 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 197 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 198 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 199 */,
-/* 200 */,
-/* 201 */,
-/* 202 */,
-/* 203 */,
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */,
-/* 208 */,
-/* 209 */,
-/* 210 */,
-/* 211 */,
-/* 212 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(213)
+var __vue_script__ = __webpack_require__(194)
 /* template */
-var __vue_template__ = __webpack_require__(214)
+var __vue_template__ = __webpack_require__(195)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -49752,7 +49718,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 213 */
+/* 194 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49808,7 +49774,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       discussion: {
         channel_id: 1,
         title: '',
-        description: ''
+        description: '',
+        tempDescription: ''
       }
     };
   },
@@ -49816,7 +49783,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   computed: {
     compiledMarkdown: function compiledMarkdown() {
-      return marked(this.discussion.description, {
+      return marked(this.discussion.tempDescription, {
         sanitize: false
       });
     }
@@ -49833,18 +49800,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).catch(function (error) {
         return console.log(error.response.data);
       });
-    },
-
-
-    update: _.debounce(function (e) {
-      this.discussion.description = e.target.value;
-    }, 300)
+    }
   }
 
 });
 
 /***/ }),
-/* 214 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -49944,8 +49906,8 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.discussion.description,
-                  expression: "discussion.description"
+                  value: _vm.discussion.tempDescription,
+                  expression: "discussion.tempDescription"
                 }
               ],
               staticClass: "textarea",
@@ -49955,17 +49917,18 @@ var render = function() {
                 rows: "8",
                 name: "description"
               },
-              domProps: { value: _vm.discussion.description },
+              domProps: { value: _vm.discussion.tempDescription },
               on: {
-                input: [
-                  function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.discussion, "description", $event.target.value)
-                  },
-                  _vm.update
-                ]
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(
+                    _vm.discussion,
+                    "tempDescription",
+                    $event.target.value
+                  )
+                }
               }
             })
           ])
@@ -50008,18 +49971,15 @@ if (false) {
 }
 
 /***/ }),
-/* 215 */,
-/* 216 */,
-/* 217 */,
-/* 218 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(219)
+var __vue_script__ = __webpack_require__(197)
 /* template */
-var __vue_template__ = __webpack_require__(220)
+var __vue_template__ = __webpack_require__(198)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -50058,7 +50018,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 219 */
+/* 197 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50150,7 +50110,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 220 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -50310,6 +50270,322 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-74d483ba", module.exports)
+  }
+}
+
+/***/ }),
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 203 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 204 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(219)
+/* template */
+var __vue_template__ = __webpack_require__(220)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\replies\\Replies.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1acc53e6", Component.options)
+  } else {
+    hotAPI.reload("data-v-1acc53e6", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 219 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+  props: ['discussion', 'loggedin'],
+
+  data: function data() {
+    return {
+      reply: '',
+      formattedReply: '',
+      replies: []
+    };
+  },
+
+
+  computed: {
+    compiledMarkdown: function compiledMarkdown() {
+      return marked(this.reply, {
+        sanitize: false
+      });
+    }
+  },
+
+  methods: {
+    fetchAllReplies: function fetchAllReplies() {
+      var _this = this;
+
+      axios.get('/discussion/' + this.discussion + '/replies').then(function (response) {
+        return _this.replies = response.data;
+      }).catch(function (error) {
+        return console.log(error.response.data);
+      });
+    },
+    changeReply: function changeReply() {
+      this.formattedReply = this.compiledMarkdown;
+    },
+    publishReply: function publishReply() {
+      var _this2 = this;
+
+      this.changeReply();
+      axios.post('/discussion/' + this.discussion + '/reply', {
+        reply: this.formattedReply
+      }).then(function (response) {
+        _this2.reply = '';
+        _this2.replies.unshift(response.data);
+      }).catch(function (error) {
+        return console.log(error.response.data);
+      });
+    }
+  },
+
+  created: function created() {
+    this.fetchAllReplies();
+  },
+
+
+  filters: {
+    formatDate: function formatDate(date) {
+      return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).fromNow();
+    }
+  }
+});
+
+/***/ }),
+/* 220 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "replies" }, [
+    _vm.replies.length > 0
+      ? _c(
+          "div",
+          [
+            _vm._m(0),
+            _c("span", { staticClass: "title is-4 has-text-grey" }, [
+              _vm._v(
+                _vm._s(_vm.replies.length) +
+                  " " +
+                  _vm._s(_vm.replies.length > 1 ? "Replies" : "Reply")
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.replies, function(reply) {
+              return _c("article", { staticClass: "media m-b-25" }, [
+                _vm._m(1, true),
+                _vm._v(" "),
+                _c("div", { staticClass: "media-content" }, [
+                  _c("div", { staticClass: "content" }, [
+                    _c("span", { staticClass: "title is-6" }, [
+                      _c("a", { staticClass: "m-r-10" }, [
+                        _vm._v(_vm._s(reply.user.name))
+                      ]),
+                      _c("small", { staticClass: "has-text-grey-light" }, [
+                        _vm._v(_vm._s(_vm._f("formatDate")(reply.created_at)))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { domProps: { innerHTML: _vm._s(reply.reply) } })
+                  ])
+                ])
+              ])
+            }),
+            _vm._v(" "),
+            _c("hr")
+          ],
+          2
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.loggedin
+      ? _c("form", [
+          _c("div", { staticClass: "field" }, [
+            _c("div", { staticClass: "control" }, [
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.reply,
+                    expression: "reply"
+                  }
+                ],
+                staticClass: "textarea",
+                attrs: { placeholder: "I have something to say...", rows: "8" },
+                domProps: { value: _vm.reply },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.reply = $event.target.value
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "button is-primary is-outlined is-pulled-right ",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  _vm.publishReply($event)
+                }
+              }
+            },
+            [_vm._v("Post Your Reply")]
+          )
+        ])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon title is-4 m-r-10" }, [
+      _c("i", { staticClass: "fa fa-comments-o" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("figure", { staticClass: "media-left" }, [
+      _c("p", { staticClass: "image is-48x48" }, [
+        _c("img", {
+          attrs: { src: "http://localhost:8000/images/userImage.png" }
+        })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1acc53e6", module.exports)
   }
 }
 
