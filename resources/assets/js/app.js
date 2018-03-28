@@ -35,6 +35,7 @@ Vue.component('Discussions', require('./components/discussions/Discussions.vue')
 Vue.component('creatediscussion', require('./components/discussions/CreateDiscussion.vue'));
 Vue.component('editdiscussion', require('./components/discussions/EditDiscussion.vue'));
 Vue.component('Replies', require('./components/replies/Replies.vue'));
+Vue.component('discussiondesc', require('./components/discussions/DiscussionDescription.vue'));
 
 const app = new Vue({
   el: '#app',

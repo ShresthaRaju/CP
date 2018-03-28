@@ -40,7 +40,7 @@ class DiscussionsController extends Controller
         $discussion->user_id=auth()->id();
 
         if ($discussion->save()) {
-            return response()->json(['redirect'=>route('welcome')]);
+            return response()->json(['redirect'=>route('discussion.show', $discussion->slug)]);
         } else {
             return back()->withInput();
         }

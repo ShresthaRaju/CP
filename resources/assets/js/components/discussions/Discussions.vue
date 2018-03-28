@@ -44,7 +44,6 @@
 
         <!-- pagination -->
         <Pagination :pagination="pagination" @pageLinkClicked="fetchDiscussionsFrom($event)" v-if="pagination.lastPage>1"></Pagination>
-<!-- $parent.fetchAll(`/admin/users?page=${i}`) -->
       </div>
     </div> <!-- end of .columns-->
   </div>

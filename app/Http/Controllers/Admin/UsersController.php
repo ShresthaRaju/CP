@@ -32,11 +32,13 @@ class UsersController extends Controller
      */
     public function store(UserCreateValidation $request)
     {
-        request()->request->add([
-          'active'=>request('active')=="on"?1:0
-        ]);
+        $user=new User();
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->password=bcrypt($request->password);
+        $user->active=$request->active=="on"?1:0;
 
-        if ($user=User::create(request(['name','email','password','active']))) {
+        if ($user->save()) {
             $response['message']="User created successfully :)";
         } else {
             $response['message']="Error creating the user :(";

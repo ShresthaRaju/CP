@@ -21,6 +21,11 @@
   text-decoration: underline;
 }
 
+.disc-desc,
+.replied {
+  font-size: 14px;
+}
+
 pre {
   background-color: #474949;
   border-radius: 7px;
@@ -31,5 +36,10 @@ pre {
 pre > code {
   color: #fff;
   font-size: 11px;
+}
+
+code {
+  background-color: #e8e8e8;
+  border-radius: 3px;
 }
 

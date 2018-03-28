@@ -6,7 +6,7 @@
       <span class="icon title is-4 m-r-10"><i class="fa fa-comments-o"></i></span><span class="title is-4 has-text-grey">{{replies.length}} {{replies.length>1?'Replies':'Reply'}}</span>
 
       <article class="media m-b-25" v-for="reply in replies">
-        <figure class="media-left">
+        <figure class="media-left is-hidden-mobile">
           <p class="image is-48x48">
             <img src="http://localhost:8000/images/userImage.png">
           </p>
@@ -14,7 +14,7 @@
         <div class="media-content">
           <div class="content">
             <span class="title is-6"><a class="m-r-10">{{reply.user.name}}</a><small class="has-text-grey-light">{{reply.created_at|formatDate}}</small></span>
-            <p v-html="reply.reply"></p>
+            <div class="replied" v-html="$options.filters.formatReply(reply.reply)"></div>
           </div>
         </div>
       </article>
@@ -22,14 +22,15 @@
       <hr>
     </div>
 
-    <form v-if="loggedin">
+    <form v-if="loggedin" @keydown="errors.clearError($event.target.name)">
       <div class="field">
         <div class="control">
-          <textarea class="textarea" placeholder="I have something to say..." rows="8" v-model="reply"></textarea>
+          <textarea :class="['textarea',{'is-danger':errors.hasError('reply')}]" placeholder="I have something to say..." rows="8" name="reply" v-model="reply"></textarea>
         </div>
+        <p class="help is-danger" v-if="errors.hasError('reply')">{{errors.getErrorMessage('reply')}}</p>
       </div>
 
-      <button type="button" class="button is-primary is-outlined is-pulled-right " @click.prevent="publishReply">Post Your Reply</button>
+      <button type="button" class="button is-primary is-outlined is-pulled-right m-b-25" @click.prevent="publishReply">Post Your Reply</button>
     </form>
 
   </div>
@@ -38,23 +39,17 @@
 
 <script>
 import moment from 'moment';
+import Errors from '../../utilities/errors.js';
+
 export default {
 
   props: ['discussion', 'loggedin'],
 
   data() {
     return {
-      reply: '',
-      formattedReply: '',
       replies: [],
-    }
-  },
-
-  computed: {
-    compiledMarkdown: function() {
-      return marked(this.reply, {
-        sanitize: false
-      })
+      reply: '',
+      errors: new Errors(),
     }
   },
 
@@ -66,20 +61,15 @@ export default {
         .catch(error => console.log(error.response.data))
     },
 
-    changeReply() {
-      this.formattedReply = this.compiledMarkdown;
-    },
-
     publishReply() {
-      this.changeReply();
       axios.post(`/discussion/${this.discussion}/reply`, {
-          reply: this.formattedReply
+          reply: this.reply
         })
         .then(response => {
           this.reply = '';
           this.replies.unshift(response.data);
         })
-        .catch(error => console.log(error.response.data))
+        .catch(error => this.errors.recordErrors(error.response.data.errors))
     }
   },
 
@@ -90,7 +80,13 @@ export default {
   filters: {
     formatDate(date) {
       return moment(date).fromNow();
-    }
+    },
+
+    formatReply(reply) {
+      return marked(reply, {
+        sanitize: false
+      })
+    },
   }
 }
 </script>

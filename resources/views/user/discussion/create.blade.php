@@ -7,7 +7,7 @@
 @endsection
 
 @section('main_content')
-<div class="columns">
+<div class="columns is-desktop">
   <div class="column is-three-quarters">
     <createDiscussion :channels="{{$channels}}"></createDiscussion>
   </div>

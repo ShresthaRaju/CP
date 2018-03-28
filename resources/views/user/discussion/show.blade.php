@@ -29,7 +29,8 @@
       </b-tooltip>
     </p>
 
-    <p>{!!$discussion->description!!}</p>
+    {{-- Vue component to show only the description of the discussion --}}
+    <DiscussionDesc discussion="{{$discussion->description}}"></DiscussionDesc>
 
     <hr>
 

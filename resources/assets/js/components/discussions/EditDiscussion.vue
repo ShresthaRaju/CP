@@ -1,13 +1,13 @@
 <template lang="html">
 
-  <div class="card m-r-100">
+  <div class="card">
     <div class="card-content">
-      <form>
+      <form @keydown="errors.clearError($event.target.name)">
         <div class="field">
           <label class="label">Pick a Channel</label>
           <p class="control has-icons-left">
             <span class="select">
-              <select name="channel_id" v-model="discussion.channel_id">
+              <select name="channel_id" v-model="updatedDiscussion.channel_id">
                 <option v-for="channel in channels" :value="channel.id">{{channel.title}}</option>
               </select>
             </span>
@@ -20,15 +20,20 @@
         <div class="field">
           <label class="label">Provide a title</label>
           <div class="control has-icons-right">
-            <input type="text" class="input" placeholder="Title here..." name="title" v-model="discussion.title">
+            <input type="text" :class="['input',{'is-danger':errors.hasError('title')}]" placeholder="Title here..." name="title" v-model="updatedDiscussion.title">
+            <span class="icon is-small is-right" v-if="errors.hasError('title')">
+              <i class="fa fa-exclamation-triangle"></i>
+            </span>
           </div>
+          <p class="help is-danger" v-if="errors.hasError('title')">{{errors.getErrorMessage('title')}}</p>
         </div>
 
         <div class="field">
           <label class="label">Ask away</label>
           <div class="control">
-            <textarea class="textarea" placeholder="What do you need help with? Be spcefic, so that your peers are better able ot assist you..." rows="8" name="description" v-model="discussion.description" @input="update"></textarea>
+            <textarea :class="['textarea',{'is-danger':errors.hasError('description')}]" placeholder="What do you need help with? Be spcefic, so that your peers are better able ot assist you..." rows="8" name="description" v-model="updatedDiscussion.description"></textarea>
           </div>
+          <p class="help is-danger" v-if="errors.hasError('description')">{{errors.getErrorMessage('description')}}</p>
         </div>
 
         <button class="button is-primary is-fullwidth" @click.prevent="updateDiscussion">Update Discussion</button>
@@ -40,47 +45,27 @@
 </template>
 
 <script>
+import Errors from '../../utilities/errors.js';
+
+
 export default {
 
   props: ['channels', 'discussion'],
 
   data() {
     return {
-      discussion: {
-        channel_id: '',
-        title: '',
-        description: ''
-      },
-    }
-  },
-
-  computed: {
-    compiledMarkdown: function() {
-      return marked(this.discussion.description, {
-        sanitize: false
-      })
+      updatedDiscussion: this.discussion,
+      errors: new Errors(),
     }
   },
 
   methods: {
-
-    changeDescription() {
-      this.discussion.description = this.compiledMarkdown;
-    },
-
     updateDiscussion() {
-      this.changeDescription();
-      axios.put(`/discussion/${this.discussion.id}`, this.discussion)
+      axios.put(`/discussion/${this.discussion.id}`, this.updatedDiscussion)
         .then(response => window.location = response.data.redirect)
-        .catch(error => console.log(error.response.data))
+        .catch(error => this.errors.recordErrors(error.response.data.errors))
     },
-
-    update: _.debounce(function(e) {
-      this.discussion.description = e.target.value
-    }, 300)
   },
-
-
 
 }
 </script>

@@ -27,8 +27,6 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::resource('discussions', 'Admin\DiscussionsController')->except(['create','edit','update']);
 });
 
-// Route::resource('discussion', 'User\DiscussionsController')->except(['index']);
-
 Route::prefix('discussion')->as('discussion.')->group(function () {
     // Discussions
     Route::get('create', ['as'=>'create','uses'=>'User\DiscussionsController@create']);

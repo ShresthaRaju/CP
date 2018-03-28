@@ -29,6 +29,10 @@ class RepliesController extends Controller
      */
     public function store(Request $request, Discussion $discussion)
     {
+        $request->validate([
+          'reply'=>'required'
+        ]);
+
         $reply=$discussion->replies()->create([
           'reply'=>$request->reply,
           'user_id'=>Auth::id()
