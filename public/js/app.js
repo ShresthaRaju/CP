@@ -50419,19 +50419,59 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-  props: ['discussion', 'loggedin'],
+  props: ['discussion', 'loggedin', 'user'],
 
   data: function data() {
     return {
       replies: [],
       reply: '',
-      errors: new __WEBPACK_IMPORTED_MODULE_1__utilities_errors_js__["a" /* default */]()
+      errors: new __WEBPACK_IMPORTED_MODULE_1__utilities_errors_js__["a" /* default */](),
+      selectedReply: null,
+      updatedReply: ''
     };
   },
 
@@ -50456,6 +50496,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this2.replies.unshift(response.data);
       }).catch(function (error) {
         return _this2.errors.recordErrors(error.response.data.errors);
+      });
+    },
+    editReply: function editReply(index, reply) {
+      this.selectedReply = index;
+      this.updatedReply = reply;
+    },
+    cancel: function cancel() {
+      this.selectedReply = null;
+      this.updatedReply = "";
+    },
+    updateReply: function updateReply(index, reply) {
+      var _this3 = this;
+
+      axios.put('/discussion/replied/' + reply, {
+        reply: this.updatedReply
+      }).then(function (response) {
+        _this3.updatedReply = "";
+        _this3.selectedReply = null;
+        _this3.$snackbar.open(response.data.status);
+        _this3.replies.splice(index, 1, response.data.updatedReply);
+        // console.log(response.data.updatedReply);
+      }).catch(function (error) {
+        return _this3.errors.recordErrors(error.response.data.errors);
+      });
+    },
+    deleteReply: function deleteReply(index, reply) {
+      var _this4 = this;
+
+      axios.delete('/discussion/replied/' + reply).then(function (response) {
+        _this4.replies.splice(index, 1);
+        _this4.$snackbar.open(response.data);
+      }).catch(function (error) {
+        return console.log(error.response.data.errors);
       });
     }
   },
@@ -50485,12 +50558,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "replies" }, [
+  return _c("div", { staticClass: "reply-section" }, [
     _vm.replies.length > 0
       ? _c(
           "div",
+          { staticClass: "replies" },
           [
             _vm._m(0),
+            _vm._v(" "),
             _c("span", { staticClass: "title is-4 has-text-grey" }, [
               _vm._v(
                 _vm._s(_vm.replies.length) +
@@ -50499,31 +50574,210 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._l(_vm.replies, function(reply) {
-              return _c("article", { staticClass: "media m-b-25" }, [
+            _vm._l(_vm.replies, function(reply, index) {
+              return _c("article", { key: reply.id, staticClass: "media" }, [
                 _vm._m(1, true),
                 _vm._v(" "),
                 _c("div", { staticClass: "media-content" }, [
                   _c("div", { staticClass: "content" }, [
                     _c("span", { staticClass: "title is-6" }, [
-                      _c("a", { staticClass: "m-r-10" }, [
+                      _c("a", { staticClass: "m-r-5" }, [
                         _vm._v(_vm._s(reply.user.name))
                       ]),
+                      _vm._v(" "),
                       _c("small", { staticClass: "has-text-grey-light" }, [
                         _vm._v(_vm._s(_vm._f("formatDate")(reply.created_at)))
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", {
-                      staticClass: "replied",
-                      domProps: {
-                        innerHTML: _vm._s(
-                          _vm.$options.filters.formatReply(reply.reply)
-                        )
-                      }
-                    })
+                    _vm.selectedReply != index
+                      ? _c("div", { staticClass: "reply m-t-5" }, [
+                          _c("p", {
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.$options.filters.formatReply(reply.reply)
+                              )
+                            }
+                          })
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.selectedReply == index
+                      ? _c("div", { staticClass: "edit-reply m-t-10" }, [
+                          _c(
+                            "form",
+                            {
+                              on: {
+                                keydown: function($event) {
+                                  _vm.errors.clearError($event.target.name)
+                                }
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "field" }, [
+                                _c("div", { staticClass: "control" }, [
+                                  _c("textarea", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.updatedReply,
+                                        expression: "updatedReply"
+                                      }
+                                    ],
+                                    class: [
+                                      "textarea",
+                                      {
+                                        "is-danger": _vm.errors.hasError(
+                                          "reply"
+                                        )
+                                      }
+                                    ],
+                                    attrs: {
+                                      placeholder: "I have something to say...",
+                                      rows: "8",
+                                      name: "reply"
+                                    },
+                                    domProps: { value: _vm.updatedReply },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.updatedReply = $event.target.value
+                                      }
+                                    }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _vm.errors.hasError("reply")
+                                  ? _c("p", { staticClass: "help is-danger" }, [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.errors.getErrorMessage("reply")
+                                        )
+                                      )
+                                    ])
+                                  : _vm._e()
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "reply-section-buttons is-pulled-right"
+                                },
+                                [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "button is-small is-outlined is-danger",
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          _vm.cancel($event)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Cancel")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "button is-small is-outlined is-primary",
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          _vm.updateReply(index, reply.id)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Update Your Reply")]
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ])
+                      : _vm._e()
                   ])
-                ])
+                ]),
+                _vm._v(" "),
+                _vm.loggedin && _vm.user == reply.user.id
+                  ? _c(
+                      "div",
+                      { staticClass: "media-right" },
+                      [
+                        _c(
+                          "b-tooltip",
+                          {
+                            attrs: {
+                              label: "Edit your reply",
+                              type: "is-dark",
+                              position: "is-left",
+                              animated: ""
+                            }
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    _vm.editReply(index, reply.reply)
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  { staticClass: "icon has-text-grey" },
+                                  [_c("i", { staticClass: "fa fa-pencil" })]
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-tooltip",
+                          {
+                            attrs: {
+                              label: "Delete this reply",
+                              type: "is-dark",
+                              position: "is-left",
+                              animated: ""
+                            }
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    _vm.deleteReply(index, reply.id)
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  { staticClass: "icon has-text-danger" },
+                                  [_c("i", { staticClass: "fa fa-trash" })]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e()
               ])
             }),
             _vm._v(" "),
@@ -50534,72 +50788,76 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _vm.loggedin
-      ? _c(
-          "form",
-          {
-            on: {
-              keydown: function($event) {
-                _vm.errors.clearError($event.target.name)
+      ? _c("div", { staticClass: "add-reply" }, [
+          _c(
+            "form",
+            {
+              on: {
+                keydown: function($event) {
+                  _vm.errors.clearError($event.target.name)
+                }
               }
-            }
-          },
-          [
-            _c("div", { staticClass: "field" }, [
-              _c("div", { staticClass: "control" }, [
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.reply,
-                      expression: "reply"
-                    }
-                  ],
-                  class: [
-                    "textarea",
-                    { "is-danger": _vm.errors.hasError("reply") }
-                  ],
-                  attrs: {
-                    placeholder: "I have something to say...",
-                    rows: "8",
-                    name: "reply"
-                  },
-                  domProps: { value: _vm.reply },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+            },
+            [
+              _c("div", { staticClass: "field" }, [
+                _c("div", { staticClass: "control" }, [
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.reply,
+                        expression: "reply"
                       }
-                      _vm.reply = $event.target.value
+                    ],
+                    class: [
+                      "textarea",
+                      { "is-danger": _vm.errors.hasError("reply") }
+                    ],
+                    attrs: {
+                      placeholder: "I have something to say...",
+                      rows: "8",
+                      name: "reply"
+                    },
+                    domProps: { value: _vm.reply },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.reply = $event.target.value
+                      }
                     }
-                  }
-                })
+                  })
+                ]),
+                _vm._v(" "),
+                _vm.errors.hasError("reply")
+                  ? _c("p", { staticClass: "help is-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.getErrorMessage("reply")))
+                    ])
+                  : _vm._e()
               ]),
               _vm._v(" "),
-              _vm.errors.hasError("reply")
-                ? _c("p", { staticClass: "help is-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.getErrorMessage("reply")))
-                  ])
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass:
-                  "button is-primary is-outlined is-pulled-right m-b-25",
-                attrs: { type: "button" },
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    _vm.publishReply($event)
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "button is-primary is-outlined is-pulled-right m-b-25",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      _vm.publishReply($event)
+                    }
                   }
-                }
-              },
-              [_vm._v("Post Your Reply")]
-            )
-          ]
-        )
+                },
+                [_vm._v("Post Your Reply")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm._m(2)
+        ])
       : _vm._e()
   ])
 }
@@ -50622,6 +50880,20 @@ var staticRenderFns = [
           attrs: { src: "http://localhost:8000/images/userImage.png" }
         })
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("small", { staticClass: "is-hidden-mobile" }, [
+      _vm._v("Use Markdown with "),
+      _c(
+        "a",
+        { attrs: { href: "https://github.github.com/gfm/", target: "_blank" } },
+        [_vm._v("Github-flavored")]
+      ),
+      _vm._v(" code blocks.")
     ])
   }
 ]
@@ -50725,7 +50997,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", {
-    staticClass: "disc-desc",
+    staticClass: "disc-desc has-text-justified",
     domProps: { innerHTML: _vm._s(_vm.formattedDiscussion) }
   })
 }

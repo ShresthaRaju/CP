@@ -35,7 +35,7 @@
     <hr>
 
     {{-- Vue Replies Component --}}
-    <Replies :discussion={{$discussion->id}} loggedin={{Auth::check()}}></Replies>
+    <Replies :discussion={{$discussion->id}} loggedin="{{Auth::check()}}" user="{{Auth::id()}}"></Replies>
 
     @guest
       <small><p class="has-text-weight-semibold has-text-centered">Please <a href="{{route('login')}}">Sign In</a> or <a href="{{route('register')}}">Create an account</a> to participate in this conversation.</p></small>

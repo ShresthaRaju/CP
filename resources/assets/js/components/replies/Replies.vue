@@ -1,37 +1,75 @@
 <template lang="html">
 
-  <div class="replies">
+  <div class="reply-section">
+    <div class="replies" v-if="replies.length>0">
+      <span class="icon title is-4 m-r-10"><i class="fa fa-comments-o"></i></span>
+      <span class="title is-4 has-text-grey">{{replies.length}} {{replies.length>1?'Replies':'Reply'}}</span>
 
-    <div v-if="replies.length>0">
-      <span class="icon title is-4 m-r-10"><i class="fa fa-comments-o"></i></span><span class="title is-4 has-text-grey">{{replies.length}} {{replies.length>1?'Replies':'Reply'}}</span>
-
-      <article class="media m-b-25" v-for="reply in replies">
+      <article class="media" v-for="(reply,index) in replies" :key="reply.id">
         <figure class="media-left is-hidden-mobile">
           <p class="image is-48x48">
             <img src="http://localhost:8000/images/userImage.png">
           </p>
         </figure>
+
         <div class="media-content">
           <div class="content">
-            <span class="title is-6"><a class="m-r-10">{{reply.user.name}}</a><small class="has-text-grey-light">{{reply.created_at|formatDate}}</small></span>
-            <div class="replied" v-html="$options.filters.formatReply(reply.reply)"></div>
+            <span class="title is-6">
+              <a class="m-r-5">{{reply.user.name}}</a>
+              <small class="has-text-grey-light">{{reply.created_at|formatDate}}</small>
+            </span>
+            <div class="reply m-t-5" v-if="selectedReply!=index">
+              <p v-html="$options.filters.formatReply(reply.reply)"></p>
+            </div>
+
+            <!-- show text area only if "edit reply" is clicked -->
+            <div class="edit-reply m-t-10" v-if="selectedReply==index">
+              <form @keydown="errors.clearError($event.target.name)">
+                <div class="field">
+                  <div class="control">
+                    <textarea :class="['textarea',{'is-danger':errors.hasError('reply')}]" placeholder="I have something to say..." rows="8" name="reply" v-model="updatedReply"></textarea>
+                  </div>
+                  <p class="help is-danger" v-if="errors.hasError('reply')">{{errors.getErrorMessage('reply')}}</p>
+                </div>
+                <div class="reply-section-buttons is-pulled-right">
+                  <button class="button is-small is-outlined is-danger" @click.prevent="cancel">Cancel</button>
+                  <button class="button is-small is-outlined is-primary" @click.prevent="updateReply(index,reply.id)">Update Your Reply</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </article>
 
+        <div class="media-right" v-if="loggedin && user==reply.user.id">
+          <b-tooltip label="Edit your reply"
+            type="is-dark"
+            position="is-left"
+            animated>
+            <a @click.prevent="editReply(index,reply.reply)"><span class="icon has-text-grey"><i class="fa fa-pencil"></i></span></a>
+          </b-tooltip>
+          <b-tooltip label="Delete this reply"
+            type="is-dark"
+            position="is-left"
+            animated>
+            <a @click.prevent="deleteReply(index,reply.id)"><span class="icon has-text-danger"><i class="fa fa-trash"></i></span></a>
+          </b-tooltip>
+        </div>
+      </article>
       <hr>
     </div>
 
-    <form v-if="loggedin" @keydown="errors.clearError($event.target.name)">
-      <div class="field">
-        <div class="control">
-          <textarea :class="['textarea',{'is-danger':errors.hasError('reply')}]" placeholder="I have something to say..." rows="8" name="reply" v-model="reply"></textarea>
+    <div class="add-reply" v-if="loggedin">
+      <form @keydown="errors.clearError($event.target.name)">
+        <div class="field">
+          <div class="control">
+            <textarea :class="['textarea',{'is-danger':errors.hasError('reply')}]" placeholder="I have something to say..." rows="8" name="reply" v-model="reply"></textarea>
+          </div>
+          <p class="help is-danger" v-if="errors.hasError('reply')">{{errors.getErrorMessage('reply')}}</p>
         </div>
-        <p class="help is-danger" v-if="errors.hasError('reply')">{{errors.getErrorMessage('reply')}}</p>
-      </div>
-
-      <button type="button" class="button is-primary is-outlined is-pulled-right m-b-25" @click.prevent="publishReply">Post Your Reply</button>
-    </form>
+        <button type="button" class="button is-primary is-outlined is-pulled-right m-b-25" @click.prevent="publishReply">Post Your Reply</button>
+      </form>
+      <small class="is-hidden-mobile">Use Markdown with <a href="https://github.github.com/gfm/" target=_blank>Github-flavored</a> code blocks.</small>
+    </div>
 
   </div>
 
@@ -43,13 +81,15 @@ import Errors from '../../utilities/errors.js';
 
 export default {
 
-  props: ['discussion', 'loggedin'],
+  props: ['discussion', 'loggedin', 'user'],
 
   data() {
     return {
       replies: [],
       reply: '',
       errors: new Errors(),
+      selectedReply: null,
+      updatedReply: '',
     }
   },
 
@@ -70,7 +110,41 @@ export default {
           this.replies.unshift(response.data);
         })
         .catch(error => this.errors.recordErrors(error.response.data.errors))
+    },
+
+    editReply(index, reply) {
+      this.selectedReply = index;
+      this.updatedReply = reply;
+    },
+
+    cancel() {
+      this.selectedReply = null;
+      this.updatedReply = "";
+    },
+
+    updateReply(index, reply) {
+      axios.put(`/discussion/replied/${reply}`, {
+          reply: this.updatedReply
+        })
+        .then(response => {
+          this.updatedReply = "";
+          this.selectedReply = null;
+          this.$snackbar.open(response.data.status);
+          this.replies.splice(index, 1, response.data.updatedReply);
+          // console.log(response.data.updatedReply);
+        })
+        .catch(error => this.errors.recordErrors(error.response.data.errors))
+    },
+
+    deleteReply(index, reply) {
+      axios.delete(`/discussion/replied/${reply}`)
+        .then(response => {
+          this.replies.splice(index, 1);
+          this.$snackbar.open(response.data);
+        })
+        .catch(error => console.log(error.response.data.errors))
     }
+
   },
 
   created() {

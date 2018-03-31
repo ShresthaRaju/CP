@@ -51,7 +51,7 @@ class ChannelsController extends Controller
     public function show(Channel $channel)
     {
         return $channel->load('discussions');
-        // load() method loads the relationship after ther parent model has been loaded which in this 'channel' the parent model
+        // load() method loads the relationship after ther parent model has been loaded which in this case 'channel' is the parent model
     }
 
     /**

@@ -1,6 +1,6 @@
 <template lang="html">
 
-  <div class="disc-desc" v-html="formattedDiscussion"></div>
+  <div class="disc-desc has-text-justified" v-html="formattedDiscussion"></div>
 
 </template>
 

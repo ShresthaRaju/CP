@@ -16,12 +16,14 @@
         <div class="content">
           <span class="title is-6"><a>{{$discussion->channel->title}}</a></span>
           <p><a href="{{route('discussion.show',['slug'=>$discussion->slug])}}" class="has-text-black-ter has-text-weight-semibold is-size-6 d-title">{{$discussion->title}}</a><br>
-            <small><span class="is-italic has-text-grey-light">{{$discussion->created_at->diffForHumans()}}</span><span class="m-l-10">BY <a href="#" class="is-uppercase">{{$discussion->user->name}}</a></span></small>
+            <small>
+              <span class="is-italic has-text-grey-light">{{$discussion->created_at->diffForHumans()}}</span>
+              <span class="m-l-10">BY <a href="#" class="is-uppercase">{{$discussion->user->name}}</a></span>
+            </small>
           </p>
-          <p class="disc-desc">{{substr($discussion->description, 0 , 200)}}{{strlen($discussion->description)>200?'...':''}}</p>
+          <p class="disc-desc">{{substr($discussion->description, 0 , 300)}}{{strlen($discussion->description)>300?'...':''}}</p>
         </div>
       </div>
-
     </article>
     @endforeach
   </div>

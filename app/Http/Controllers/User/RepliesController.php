@@ -44,28 +44,6 @@ class RepliesController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Reply  $reply
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Reply $reply)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Reply  $reply
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Reply $reply)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -74,7 +52,16 @@ class RepliesController extends Controller
      */
     public function update(Request $request, Reply $reply)
     {
-        //
+        $request->validate([
+        'reply'=>'required'
+      ]);
+
+        if ($reply->update(request(['reply']))) {
+            $response['message']="Your reply has been updated !";
+            return response(['status'=>$response,'updatedReply'=>$reply->load('user')]);
+        } else {
+            return $response['message']="Error updating the reply !";
+        }
     }
 
     /**
@@ -85,6 +72,10 @@ class RepliesController extends Controller
      */
     public function destroy(Reply $reply)
     {
-        //
+        if ($reply->delete()) {
+            return $response['message']="The reply has been deleted !";
+        } else {
+            return $response['message']="Error deleting the reply !";
+        }
     }
 }

@@ -22,7 +22,7 @@
 }
 
 .disc-desc,
-.replied {
+.reply {
   font-size: 14px;
 }
 
@@ -41,4 +41,14 @@ pre > code {
 code {
   background-color: #e8e8e8;
   border-radius: 3px;
+}
+
+.replies article {
+  .media-right {
+    visibility: hidden;
+  }
+
+  &:hover .media-right {
+    visibility: visible;
+  }
 }

@@ -38,6 +38,8 @@ Route::prefix('discussion')->as('discussion.')->group(function () {
     // Replies
     Route::get('/{discussion}/replies', ['as'=>'replies','uses'=>'User\RepliesController@index']);
     Route::post('/{discussion}/reply', ['as'=>'reply.create','uses'=>'User\RepliesController@store']);
+    Route::put('/replied/{reply}', ['as'=>'reply.update','uses'=>'User\RepliesController@update']);
+    Route::delete('/replied/{reply}', ['as'=>'reply.delete','uses'=>'User\RepliesController@destroy']);
 });
 
 // Route::view('admins/{vue_capture?}', 'admin')->where('vue_capture', '[\/\w\.-]*'); // {vue-capture} is for vue js history mode
