@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'WelcomePageController@index')->name('welcome');
+Route::get('/', 'PagesController@welcome')->name('welcome');
+Route::get('/popular', 'PagesController@popular')->name('popular');
+Route::get('/channels/{channelTitle}', 'PagesController@channel')->name('channel');
 
 Auth::routes();
 
@@ -41,5 +43,6 @@ Route::prefix('discussion')->as('discussion.')->group(function () {
     Route::put('/replied/{reply}', ['as'=>'reply.update','uses'=>'User\RepliesController@update']);
     Route::delete('/replied/{reply}', ['as'=>'reply.delete','uses'=>'User\RepliesController@destroy']);
 });
+
 
 // Route::view('admins/{vue_capture?}', 'admin')->where('vue_capture', '[\/\w\.-]*'); // {vue-capture} is for vue js history mode

@@ -21,8 +21,14 @@
               <span class="m-l-10">BY <a href="#" class="is-uppercase">{{$discussion->user->name}}</a></span>
             </small>
           </p>
-          <p class="disc-desc">{{substr($discussion->description, 0 , 300)}}{{strlen($discussion->description)>300?'...':''}}</p>
+          <p class="disc-desc has-text-justified">{{substr($discussion->description, 0 , 300)}}{{strlen($discussion->description)>300?'...':''}}</p>
         </div>
+      </div>
+
+      <div class="media-right is-hidden-mobile">
+        <p class="title is-5 has-text-grey-light has-text-weight-bold">
+          {{$discussion->replies()->count()<10?0:''}}{{$discussion->replies()->count()}}
+        </p>
       </div>
     </article>
     @endforeach

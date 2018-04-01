@@ -9,8 +9,8 @@
     Choose a filter
   </p>
   <ul class="menu-list">
-    <li><a href="{{url('/')}}" class="{{Request::is('/')?'is-active':''}}"><span class="icon"><i class="fa fa-globe"></i></span><span>All Threads</span></a></li>
-    <li><a><span class="icon"><i class="fa fa-fire"></i></span><span>Popular All Time</span></a></li>
+    <li><a href="{{route('welcome')}}" class="{{Request::is('/')?'is-active':''}}"><span class="icon"><i class="fa fa-globe"></i></span><span>All Threads</span></a></li>
+    <li><a href="{{route('popular')}}" class="{{Request::is('popular')?'is-active':''}}"><span class="icon"><i class="fa fa-fire"></i></span><span>Popular All Time</span></a></li>
     <li><a><span class="icon"><i class="fa fa-thumbs-up"></i></span><span>Solved</span></a></li>
     <li><a><span class="icon"><i class="fa fa-lightbulb-o"></i></span><span>Unsolved</span></a></li>
     <li><a><span class="icon"><i class="fa fa-list-ol"></i></span><span>LeaderBoard</span></a></li>
@@ -27,7 +27,11 @@
   </p>
   <ul class="menu-list">
     @foreach ($channels->filters() as $channel)
-      <li><a><span class="icon"><i class="fa fa-circle-o-notch"></i></span><span>{{$channel->title}}</span></a></li>
+      <li>
+        <a href="{{route('channel',$channel->title)}}" class="{{Request::segment(2)==$channel->title?'is-active':''}}">
+          <span class="icon"><i class="fa fa-circle-o-notch"></i></span><span>{{$channel->title}}</span>
+        </a>
+      </li>
     @endforeach
   </ul>
 </aside>
