@@ -47080,6 +47080,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -47476,6 +47478,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -47485,8 +47502,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       user: {
         name: '',
         email: '',
+        username: '',
         password: '',
-        active: ''
+        active: 'Inactive'
       },
       errors: new __WEBPACK_IMPORTED_MODULE_0__utilities_errors_js__["a" /* default */]()
     };
@@ -47497,7 +47515,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     createNewUser: function createNewUser() {
       var _this = this;
 
-      axios.post('/admin/users', this.$data.user).then(function (response) {
+      axios.post('/admin/users', this.user).then(function (response) {
         // console.log(response);
         _this.closeModal();
         _this.$emit('success', response.data.user); // .user is received from "UsersController"
@@ -47663,6 +47681,57 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "label" }, [_vm._v("Username")]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-left has-icons-right" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.user.username,
+                          expression: "user.username"
+                        }
+                      ],
+                      class: [
+                        "input",
+                        { "is-danger": _vm.errors.hasError("username") }
+                      ],
+                      attrs: { type: "text", name: "username" },
+                      domProps: { value: _vm.user.username },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.user, "username", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "icon is-small is-left" }, [
+                      _c("i", { staticClass: "fa fa-user" })
+                    ]),
+                    _vm._v(" "),
+                    _vm.errors.hasError("username")
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fa fa-exclamation-triangle" })
+                        ])
+                      : _vm._e()
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.errors.hasError("username")
+                  ? _c("p", { staticClass: "help is-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.getErrorMessage("username")))
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
                 _c("label", { staticClass: "label" }, [_vm._v("Password")]),
                 _vm._v(" "),
                 _c(
@@ -47722,7 +47791,12 @@ var render = function() {
                   _c(
                     "b-switch",
                     {
-                      attrs: { type: "is-success", name: "active" },
+                      attrs: {
+                        type: "is-info",
+                        name: "active",
+                        "true-value": "Active",
+                        "false-value": "Inactive"
+                      },
                       model: {
                         value: _vm.user.active,
                         callback: function($$v) {
@@ -47731,7 +47805,7 @@ var render = function() {
                         expression: "user.active"
                       }
                     },
-                    [_vm._v("Active")]
+                    [_vm._v(_vm._s(_vm.user.active))]
                   )
                 ],
                 1
@@ -48098,6 +48172,8 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(user.email))]),
                             _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(user.username))]),
+                            _vm._v(" "),
                             _c("td", [
                               _vm._v(
                                 _vm._s(_vm._f("formatDate")(user.created_at))
@@ -48211,6 +48287,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("ID")]),
         _vm._v(" "),
         _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Username")]),
         _vm._v(" "),
         _c("th", [_vm._v("Joined on")]),
         _vm._v(" "),
@@ -49562,7 +49640,7 @@ var render = function() {
                             ])
                           ]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(discussion.user.name))]),
+                          _c("td", [_vm._v(_vm._s(discussion.user.username))]),
                           _vm._v(" "),
                           _c("td", [
                             _vm._v(

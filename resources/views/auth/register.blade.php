@@ -6,7 +6,7 @@
 <div class="columns">
   <div class="column is-4 is-offset-4">
     @if (Session::has('need_verification'))
-      <b-notification>
+      <b-notification type="is-info">
         {{Session::get('need_verification')}}
       </b-notification>
     @endif
@@ -50,6 +50,25 @@
               </div>
                 @if ($errors->has('email'))
                   <p class="help is-danger">{{$errors->first('email')}}</p>
+                @endif
+            </div>
+
+            <div class="field">
+              <label class="label">Username</label>
+              <div class="control has-icons-left has-icons-right">
+                <input type="text" class="input {{$errors->has('username')?'is-danger':''}}" placeholder="Choose a username..." name="username" value="{{ old('username') }}">
+                <span class="icon is-small is-left">
+                  <i class="fa fa-user"></i>
+                </span>
+                @if ($errors->has('username'))
+                  <span class="icon is-small is-right">
+                    <i class="fa fa-exclamation-triangle"></i>
+                  </span>
+                @endif
+
+              </div>
+                @if ($errors->has('username'))
+                  <p class="help is-danger">{{$errors->first('username')}}</p>
                 @endif
             </div>
 

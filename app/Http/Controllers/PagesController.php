@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Discussion;
 use App\Models\Channel;
+use App\User;
 
 class PagesController extends Controller
 {
@@ -34,5 +35,11 @@ class PagesController extends Controller
         })->latest()->paginate(10);
 
         return view('pages.channel', compact('discussions'));
+    }
+
+    public function user($username)
+    {
+        $user=User::where('username', $username)->first();
+        return view('user.profile', compact('user'));
     }
 }

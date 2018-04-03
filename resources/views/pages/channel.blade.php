@@ -1,6 +1,6 @@
 @extends('layouts.user')
 
-@section('title','Welcome')
+@section('title',"Channel")
 
 @section('main_content')
 <div class="columns">
@@ -18,7 +18,7 @@
           <p><a href="{{route('discussion.show',['slug'=>$discussion->slug])}}" class="has-text-black-ter has-text-weight-semibold is-size-6 d-title">{{$discussion->title}}</a><br>
             <small>
               <span class="is-italic has-text-grey-light">{{$discussion->created_at->diffForHumans()}}</span>
-              <span class="m-l-10">BY <a href="#" class="is-uppercase">{{$discussion->user->name}}</a></span>
+              <span class="m-l-10">BY <a href="{{route('user',$discussion->user->username)}}" class="is-uppercase">{{$discussion->user->username}}</a></span>
             </small>
           </p>
           <p class="disc-desc has-text-justified">{{substr($discussion->description, 0 , 300)}}{{strlen($discussion->description)>300?'...':''}}</p>

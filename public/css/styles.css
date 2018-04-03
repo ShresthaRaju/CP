@@ -51,3 +51,31 @@ code {
   visibility: visible;
 }
 
+@media screen and (max-width: 769px) {
+  #user-details,
+  #xp-details {
+    text-align: center;
+    margin-top: 0 !important;
+    margin-bottom: 20px;
+  }
+
+  #user-details h1,
+  #xp-details h1 {
+    font-size: 18px;
+  }
+
+  #user-details h4,
+  #xp-details h4 {
+    font-size: 20px;
+  }
+
+  #user-details p,
+  #xp-details p {
+    font-size: 14px;
+  }
+}
+
+.hero.is-primary .tabs.is-boxed li.is-active a {
+  background-color: whitesmoke;
+}
+

@@ -10,7 +10,7 @@
 <div class="columns">
   <div class="column is-three-quarters has-border">
     <p class="m-b-20"> <span class="has-text-black-ter has-text-weight-bold is-size-4">{{$discussion->title}}</span><br>
-      <small><span class="is-italic has-text-grey-light">Published {{$discussion->created_at->diffForHumans()}}</span><span class="m-l-10">BY <a href="#" class="is-uppercase has-text-weight-semibold">{{$discussion->user->name}}</a></span></small>
+      <small><span class="is-italic has-text-grey-light">Published {{$discussion->created_at->diffForHumans()}}</span><span class="m-l-10">BY <a href="{{route('user',$discussion->user->username)}}" class="is-uppercase has-text-weight-semibold">{{$discussion->user->username}}</a></span></small>
       <br>
       @if (Auth::check() && $discussion->user->id==Auth::id())
         <b-tooltip label="Edit this discussion"

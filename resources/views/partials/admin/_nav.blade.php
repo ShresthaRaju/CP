@@ -13,14 +13,14 @@
       <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
     </a>
 
-    <div class="navbar-burger">
+    <div class="navbar-burger" onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
       <span></span>
       <span></span>
       <span></span>
     </div>
   </div> <!--end of navbar-brand-->
 
-  <div class="navbar-menu">
+  <div class="navbar-menu" id="nav-menu">
     <div class="navbar-end">
       <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">

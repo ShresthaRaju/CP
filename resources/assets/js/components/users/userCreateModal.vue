@@ -39,6 +39,20 @@
           </div>
 
           <div class="field">
+            <label class="label">Username</label>
+            <div class="control has-icons-left has-icons-right">
+              <input type="text" :class="['input',{'is-danger':errors.hasError('username')}]" name="username" v-model="user.username">
+              <span class="icon is-small is-left">
+                <i class="fa fa-user"></i>
+              </span>
+              <span class="icon is-small is-right" v-if="errors.hasError('username')">
+                <i class="fa fa-exclamation-triangle"></i>
+              </span>
+            </div>
+            <p class="help is-danger" v-if="errors.hasError('username')">{{errors.getErrorMessage('username')}}</p>
+          </div>
+
+          <div class="field">
             <label class="label">Password</label>
             <div class="control has-icons-left has-icons-right">
               <input type="password" :class="['input',{'is-danger':errors.hasError('password')}]" name="password" v-model="user.password">
@@ -54,7 +68,8 @@
 
           <div class="field">
             <label class="label">Status</label>
-            <b-switch type="is-success" name="active" v-model="user.active">Active</b-switch>
+            <b-switch type="is-info" name="active" v-model="user.active"
+            true-value="Active" false-value="Inactive">{{user.active}}</b-switch>
           </div>
 
           <button type="submit" class="button is-primary is-fullwidth" @click.prevent="createNewUser" :disabled="errors.hasAnyError()">Create</button>
@@ -78,8 +93,9 @@ export default {
       user: {
         name: '',
         email: '',
+        username: '',
         password: '',
-        active: ''
+        active: 'Inactive'
       },
       errors: new Errors()
     }
@@ -88,7 +104,7 @@ export default {
   methods: {
 
     createNewUser() {
-      axios.post('/admin/users', this.$data.user)
+      axios.post('/admin/users', this.user)
         .then(response => {
           // console.log(response);
           this.closeModal();

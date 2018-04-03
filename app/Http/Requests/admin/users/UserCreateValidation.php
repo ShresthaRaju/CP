@@ -26,6 +26,7 @@ class UserCreateValidation extends FormRequest
         return [
           'name'=>'bail|required|string|min:3|max:50',
           'email'=>'bail|required|email|max:100|unique:users,email',
+          'username'=>'bail|required|string|min:5|max:30|unique:users,username',
           'password'=>'bail|required|string|min:8|max:20',
         ];
     }

@@ -17,6 +17,7 @@
                   <tr>
                     <th>ID</th>
                     <th>Email</th>
+                    <th>Username</th>
                     <th>Joined on</th>
                     <th>Status</th>
                     <th></th>
@@ -27,6 +28,7 @@
                   <tr v-for="(user,index) in users">
                     <th>{{user.id}}</th>
                     <td>{{user.email}}</td>
+                    <td>{{user.username}}</td>
                     <td>{{user.created_at | formatDate}}</td>
                     <td>
                       <span class="tag is-info" v-if="user.active==1">Active</span>
@@ -139,8 +141,7 @@ export default {
 
     fetchUsersFrom(pageNo) {
       this.fetchAll(`/admin/users?page=${pageNo}`);
-    }
-
+    },
   },
 
   filters: {

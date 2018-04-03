@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}"  class="has-navbar-fixed-top">
-<head>
-  @include('partials._head')
-  <link rel="stylesheet" href="{{asset('css/styles.css')}}">
-</head>
-<body>
-  <div id="app">
-    @include('partials._nav')
+  <head>
+    @include('partials._head')
+    <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+  </head>
+  <body>
+    <div id="app">
+      @include('partials._nav')
 
-    <section class="section">
-      <div class="container">
-        @yield('main_content')
-      </div>    
-    </section>
+      <section class="section" id="content">
+        <div class="container">
+          @yield('main_content')
+        </div>
+      </section>
 
-  </div>
+      <div id="user-hero">
+        @yield('user_hero')
+      </div>
 
-  <!-- Scripts -->
-  @include('partials._scripts')
+      @include('partials._footer')
+    </div>
 
-  </script>
-</body>
+    <!-- Scripts -->
+    @include('partials._scripts')
+
+  </body>
 </html>
