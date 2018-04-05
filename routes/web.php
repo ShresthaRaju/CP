@@ -16,6 +16,7 @@ Route::get('/popular', 'PagesController@popular')->name('popular');
 Route::get('/channels/{channelTitle}', 'PagesController@channel')->name('channel');
 Route::get('/user/@{username}', 'PagesController@user')->name('user');
 
+
 Auth::routes();
 
 Route::get('verify/{verification_token}', 'Auth\RegisterController@verify')->name('verify');
@@ -41,6 +42,9 @@ Route::prefix('discussion')->as('discussion.')->group(function () {
     Route::post('/{discussion}/reply', ['as'=>'reply.create','uses'=>'User\RepliesController@store']);
     Route::put('/replied/{reply}', ['as'=>'reply.update','uses'=>'User\RepliesController@update']);
     Route::delete('/replied/{reply}', ['as'=>'reply.delete','uses'=>'User\RepliesController@destroy']);
+
+    //Favorite a discussions
+    Route::post('/favorite', ['as'=>'favorite','uses'=>'PagesController@favorite']);
 });
 
 

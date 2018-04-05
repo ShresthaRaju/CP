@@ -20,13 +20,9 @@
           <a href="{{route('discussion.edit',['slug'=>$discussion->slug])}}"><span class="icon"><i class="fa fa-pencil"></i></span></a>
         </b-tooltip>
       @endif
-
-      <b-tooltip label="Favorite this discussion"
-        type="is-dark"
-        position="is-right"
-        animated>
-        <span class="icon"><i class="fa fa-star-o"></i></span>
-      </b-tooltip>
+      @if (Auth::check())
+        <Favorite :discussion="{{$discussion->id}}" :is-favorited="{{json_encode($isFav)}}"></Favorite>
+      @endif
     </p>
 
     {{-- Vue component to show only the description of the discussion --}}

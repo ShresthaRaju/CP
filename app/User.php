@@ -38,11 +38,16 @@ class User extends Authenticatable
 
     public function discussions()
     {
-        return $this->hasMany(Discussion::class);
+        return $this->hasMany('App\Models\Discussion');
     }
 
     public function replies()
     {
-        return $this->hasMany(Reply::class);
+        return $this->hasMany('App\Models\Reply');
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany('App\Models\Favorite');
     }
 }

@@ -14,8 +14,11 @@
       </figure>
       <div class="media-content">
         <div class="content">
-          <span class="title is-6"><a>{{$discussion->channel->title}}</a></span>
-          <p><a href="{{route('discussion.show',['slug'=>$discussion->slug])}}" class="has-text-black-ter has-text-weight-semibold is-size-6 d-title">{{$discussion->title}}</a><br>
+          <span class="title is-6">
+            <a href="{{route('channel',$discussion->channel->title)}}">{{$discussion->channel->title}}</a>
+          </span>
+          <p>
+            <a href="{{route('discussion.show',['slug'=>$discussion->slug])}}" class="has-text-black-ter has-text-weight-semibold is-size-6 d-title">{{$discussion->title}}</a><br>
             <small>
               <span class="is-italic has-text-grey-light">{{$discussion->created_at->diffForHumans()}}</span>
               <span class="m-l-10">BY <a href="{{route('user',$discussion->user->username)}}" class="is-uppercase">{{$discussion->user->username}}</a></span>

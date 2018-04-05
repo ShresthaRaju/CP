@@ -36,6 +36,9 @@ Vue.component('creatediscussion', require('./components/discussions/CreateDiscus
 Vue.component('editdiscussion', require('./components/discussions/EditDiscussion.vue'));
 Vue.component('Replies', require('./components/replies/Replies.vue'));
 Vue.component('discussiondesc', require('./components/discussions/DiscussionDescription.vue'));
+Vue.component('Favorite', require('./components/discussions/FavoriteDiscussion.vue'));
+Vue.component('Profile', require('./components/Profile.vue'));
+Vue.component('Tab', require('./components/Tab.vue'));
 
 const app = new Vue({
   el: '#app',

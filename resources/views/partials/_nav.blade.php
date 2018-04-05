@@ -33,7 +33,7 @@
       @else
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
-            Welcome, {{Auth::user()->name}}
+            Welcome, {{Auth::user()->username}}
           </a>
 
           <div class="navbar-dropdown is-right">

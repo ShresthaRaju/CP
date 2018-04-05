@@ -5,6 +5,9 @@
 @section('main_content')
 <div class="columns">
   <div class="column is-three-quarters has-border">
+    @if ($discussions->count()==0)
+      <h1 class="title is-4">This Channel does not have any discussion yet.</h1>
+    @endif
     @foreach ($discussions as $discussion)
     <article class="media">
       <figure class="media-left is-hidden-mobile">

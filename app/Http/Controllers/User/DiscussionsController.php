@@ -55,7 +55,17 @@ class DiscussionsController extends Controller
     public function show($slug)
     {
         $discussion=Discussion::where('slug', '=', $slug)->first();
-        return view('user.discussion.show', compact('discussion'));
+
+        $isFav=false;
+
+        if (auth()->check()) {
+            $user=auth()->user();
+            $isFavoritedAlready=$user->favorites()->where('discussion_id', $discussion->id)->first();
+            if ($isFavoritedAlready) {
+                $isFav=true;
+            }
+        }
+        return view('user.discussion.show', compact('discussion', 'isFav'));
     }
 
     /**
