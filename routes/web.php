@@ -14,7 +14,8 @@
 Route::get('/', 'PagesController@welcome')->name('welcome');
 Route::get('/popular', 'PagesController@popular')->name('popular');
 Route::get('/channels/{channelTitle}', 'PagesController@channel')->name('channel');
-Route::get('/user/@{username}', 'PagesController@user')->name('user');
+Route::get('/user/@{username}', 'PagesController@userProfile')->name('userProfile');
+Route::put('/user/{user}', 'Admin\UsersController@updateUser')->name('updateUser');
 
 
 Auth::routes();

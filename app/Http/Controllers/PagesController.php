@@ -42,7 +42,7 @@ class PagesController extends Controller
     }
 
     //renders user profile
-    public function user($username)
+    public function userProfile($username)
     {
         $user=User::where('username', $username)->first();
         return view('user.profile', compact('user'));

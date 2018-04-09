@@ -12,7 +12,9 @@
     <article class="media">
       <figure class="media-left is-hidden-mobile">
         <p class="image is-48x48">
-          <img src="{{asset('images/userImage.png')}}">
+          <a href="{{route('userProfile',$discussion->user->username)}}">
+            <img src="{{$discussion->user->display_image?asset('images/users/'.$discussion->user->display_image):asset('images/users/userImage.png')}}" alt="User Image" class="user-image">
+          </a>
         </p>
       </figure>
       <div class="media-content">
@@ -21,7 +23,7 @@
           <p><a href="{{route('discussion.show',['slug'=>$discussion->slug])}}" class="has-text-black-ter has-text-weight-semibold is-size-6 d-title">{{$discussion->title}}</a><br>
             <small>
               <span class="is-italic has-text-grey-light">{{$discussion->created_at->diffForHumans()}}</span>
-              <span class="m-l-10">BY <a href="{{route('user',$discussion->user->username)}}" class="is-uppercase">{{$discussion->user->username}}</a></span>
+              <span class="m-l-10">BY <a href="{{route('userProfile',$discussion->user->username)}}" class="is-uppercase">{{$discussion->user->username}}</a></span>
             </small>
           </p>
           <p class="disc-desc has-text-justified">{{substr($discussion->description, 0 , 300)}}{{strlen($discussion->description)>300?'...':''}}</p>

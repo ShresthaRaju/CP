@@ -79,3 +79,9 @@ code {
   background-color: whitesmoke;
 }
 
+.user-image {
+  border-radius: 50%;
+  max-height: 50px;
+  min-height: 50px;
+}
+

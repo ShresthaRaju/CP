@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('username', 30)->unique();
             $table->string('password', 255);
             $table->string('verification_token', 40)->nullable();
+            $table->text('display_image')->nullable();
+            $table->integer('experience')->unsigned()->nullable();
             $table->boolean('active')->default(0);
             $table->rememberToken();
             $table->timestamps();

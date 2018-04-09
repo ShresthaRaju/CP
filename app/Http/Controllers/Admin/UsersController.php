@@ -10,6 +10,8 @@ use App\Http\Requests\admin\users\UserCreateValidation;
 class UsersController extends Controller
 {
 
+    // For admin
+
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +39,7 @@ class UsersController extends Controller
         $user->email=$request->email;
         $user->username=$request->username;
         $user->password=bcrypt($request->password);
-        $user->active=$request->active=="on"?1:0;
+        $user->active=$request->active=="Active"?1:0;
 
         if ($user->save()) {
             $response['message']="User created successfully :)";
@@ -59,6 +61,24 @@ class UsersController extends Controller
             return $response['message']="User deleted successfully :)";
         } else {
             return $response['message']="Error deleting the user :(";
+        }
+    }
+
+
+    // For user
+
+    public function updateUser(Request $request, User $user)
+    {
+        if ($request->hasFile('display_image')) {
+            $image=$request->file('display_image');
+            $image_name=time().'_'.$user->username.'_'.$image->getClientOriginalName();
+            $directory=public_path().DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'users';
+            $image->move($directory, $image_name);
+        }
+
+        $user->display_image=isset($image_name)?$image_name:$user->display_image;
+        if ($user->update(['display_image'])) {
+          return back();
         }
     }
 }

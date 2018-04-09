@@ -8,14 +8,17 @@
       <article class="media" v-for="(reply,index) in replies" :key="reply.id">
         <figure class="media-left is-hidden-mobile">
           <p class="image is-48x48">
-            <img src="http://localhost:8000/images/userImage.png">
+            <a :href="'http://localhost:8000/user/@'+reply.user.username">
+              <img src="http://localhost:8000/images/users/userImage.png" alt="User image" v-if="reply.user.display_image===null" class="user-image">
+              <img :src="'http://localhost:8000/images/users/'+reply.user.display_image" alt="User image" v-else class="user-image">
+            </a>
           </p>
         </figure>
 
         <div class="media-content">
           <div class="content">
             <span class="title is-6">
-              <a class="m-r-5">{{reply.user.name}}</a>
+              <a :href="'http://localhost:8000/user/@'+reply.user.username" class="m-r-5">{{reply.user.username}}</a>
               <small class="has-text-grey-light">{{reply.created_at|formatDate}}</small>
             </span>
             <div class="reply m-t-5" v-if="selectedReply!=index">

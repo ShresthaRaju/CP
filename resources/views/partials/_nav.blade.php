@@ -37,17 +37,8 @@
           </a>
 
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item">
-              <span class="icon"><i class="fa fa-thumbs-up"></i></span><span>Favorites</span>
-            </a>
-            <a class="navbar-item">
-              <span class="icon"><i class="fa fa-question-circle"></i></span><span>Questions</span>
-            </a>
-            <a class="navbar-item">
+            <a class="navbar-item" href="{{route('userProfile',auth()->user()->username)}}">
               <span class="icon"><i class="fa fa-user"></i></span><span>Profile</span>
-            </a>
-            <a class="navbar-item">
-              <span class="icon"><i class="fa fa-cogs"></i></span><span>Settings</span>
             </a>
             <hr class="navbar-divider">
             <a class="navbar-item" href="{{ route('logout') }}"

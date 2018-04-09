@@ -50538,6 +50538,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -50657,14 +50660,55 @@ var render = function() {
             _vm._v(" "),
             _vm._l(_vm.replies, function(reply, index) {
               return _c("article", { key: reply.id, staticClass: "media" }, [
-                _vm._m(1, true),
+                _c("figure", { staticClass: "media-left is-hidden-mobile" }, [
+                  _c("p", { staticClass: "image is-48x48" }, [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          href:
+                            "http://localhost:8000/user/@" + reply.user.username
+                        }
+                      },
+                      [
+                        reply.user.display_image === null
+                          ? _c("img", {
+                              staticClass: "user-image",
+                              attrs: {
+                                src:
+                                  "http://localhost:8000/images/users/userImage.png",
+                                alt: "User image"
+                              }
+                            })
+                          : _c("img", {
+                              staticClass: "user-image",
+                              attrs: {
+                                src:
+                                  "http://localhost:8000/images/users/" +
+                                  reply.user.display_image,
+                                alt: "User image"
+                              }
+                            })
+                      ]
+                    )
+                  ])
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "media-content" }, [
                   _c("div", { staticClass: "content" }, [
                     _c("span", { staticClass: "title is-6" }, [
-                      _c("a", { staticClass: "m-r-5" }, [
-                        _vm._v(_vm._s(reply.user.name))
-                      ]),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "m-r-5",
+                          attrs: {
+                            href:
+                              "http://localhost:8000/user/@" +
+                              reply.user.username
+                          }
+                        },
+                        [_vm._v(_vm._s(reply.user.username))]
+                      ),
                       _vm._v(" "),
                       _c("small", { staticClass: "has-text-grey-light" }, [
                         _vm._v(_vm._s(_vm._f("formatDate")(reply.created_at)))
@@ -50937,7 +50981,7 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(2)
+          _vm._m(1)
         ])
       : _vm._e()
   ])
@@ -50949,18 +50993,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon title is-4 m-r-10" }, [
       _c("i", { staticClass: "fa fa-comments-o" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("figure", { staticClass: "media-left is-hidden-mobile" }, [
-      _c("p", { staticClass: "image is-48x48" }, [
-        _c("img", {
-          attrs: { src: "http://localhost:8000/images/userImage.png" }
-        })
-      ])
     ])
   },
   function() {
@@ -51373,6 +51405,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -51417,7 +51450,36 @@ var render = function() {
       _c("div", { staticClass: "hero-body" }, [
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "columns" }, [
-            _vm._m(0),
+            _c(
+              "div",
+              {
+                staticClass: "column is-one-third-desktop is-one-third-tablet"
+              },
+              [
+                _c("div", { staticClass: "card" }, [
+                  _c("div", { staticClass: "card-image" }, [
+                    _c("figure", { staticClass: "image is-4by3" }, [
+                      _vm.user.display_image === null
+                        ? _c("img", {
+                            attrs: {
+                              src:
+                                "http://localhost:8000/images/user_image.png",
+                              alt: "User image"
+                            }
+                          })
+                        : _c("img", {
+                            attrs: {
+                              src:
+                                "http://localhost:8000/images/users/" +
+                                _vm.user.display_image,
+                              alt: "User image"
+                            }
+                          })
+                    ])
+                  ])
+                ])
+              ]
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "column" }, [
               _c("div", { attrs: { id: "user-details" } }, [
@@ -51434,7 +51496,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(1)
+            _vm._m(0)
           ])
         ])
       ]),
@@ -51470,29 +51532,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "column is-one-third-desktop is-one-third-tablet" },
-      [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-image" }, [
-            _c("figure", { staticClass: "image is-4by3" }, [
-              _c("img", {
-                attrs: {
-                  src: "http://localhost:8000/images/user_image.png",
-                  alt: "Placeholder image"
-                }
-              })
-            ])
-          ])
-        ])
-      ]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

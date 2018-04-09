@@ -9,7 +9,8 @@
               <div class="card">
                 <div class="card-image">
                   <figure class="image is-4by3">
-                    <img src="http://localhost:8000/images/user_image.png" alt="Placeholder image">
+                    <img src="http://localhost:8000/images/user_image.png" alt="User image" v-if="user.display_image===null">
+                    <img :src="'http://localhost:8000/images/users/'+user.display_image" alt="User image" v-else>
                   </figure>
                 </div>
               </div>
