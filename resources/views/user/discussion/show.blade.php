@@ -13,10 +13,10 @@
       <span class="has-text-black-ter has-text-weight-bold is-size-4">{{$discussion->title}}</span>
       <br>
       <small>
-        <span class="is-italic has-text-grey-light">
+        <span class="is-italic has-text-grey-light is-hidden-mobile m-r-5">
           <span class="icon"><i class="fa fa-clock-o"></i></span>Published {{$discussion->created_at->diffForHumans()}}
         </span>
-        <span class="m-l-10">
+        <span>
           BY <a href="{{route('userProfile',$discussion->user->username)}}" class="is-uppercase has-text-weight-semibold">{{$discussion->user->username}}</a>
         </span>
       </small>
@@ -34,13 +34,8 @@
       @endif
     </p>
 
-    {{-- Vue component to show only the description of the discussion --}}
-    <DiscussionDesc discussion="{{$discussion->description}}"></DiscussionDesc>
-
-    <hr>
-
-    {{-- Vue Replies Component --}}
-    <Replies :discussion={{$discussion->id}} :dis-user-id="{{$discussion->user->id}}" :loggedin="{{json_encode(Auth::check())}}" user="{{Auth::id()}}"></Replies>
+    {{-- Vue component to show the discussion and all of its replies --}}
+    <DiscussionDesc :discussion="{{json_encode($discussion)}}" :logged-in="{{json_encode(Auth::check())}}" :user="{{json_encode(Auth::id())}}"></DiscussionDesc>
 
     @guest
       <small><p class="has-text-weight-semibold has-text-centered">Please <a href="{{route('login')}}">Sign In</a> or <a href="{{route('register')}}">Create an account</a> to participate in this conversation.</p></small>

@@ -14,7 +14,7 @@
 
 <Profile :user="{{$user}}">
 
-  @if (Auth::user()->username==substr(Request()->segment(2),1)))
+  @if (Auth::check() && Auth::user()->username==substr(Request()->segment(2),1))
 
     <Tab name="My Questions" :active="true">
 

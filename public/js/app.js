@@ -17856,7 +17856,6 @@ window.Vue = __webpack_require__(163);
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_buefy___default.a);
-
 // import VueRouter from 'vue-router'
 // Vue.use(VueRouter);
 //
@@ -17880,8 +17879,7 @@ Vue.component('Channels', __webpack_require__(178));
 Vue.component('Discussions', __webpack_require__(190));
 Vue.component('creatediscussion', __webpack_require__(193));
 Vue.component('editdiscussion', __webpack_require__(196));
-Vue.component('Replies', __webpack_require__(199));
-Vue.component('discussiondesc', __webpack_require__(202));
+Vue.component('discussiondesc', __webpack_require__(199));
 Vue.component('Favorite', __webpack_require__(205));
 Vue.component('Profile', __webpack_require__(208));
 Vue.component('Tab', __webpack_require__(211));
@@ -50414,7 +50412,157 @@ var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(200)
 /* template */
-var __vue_template__ = __webpack_require__(201)
+var __vue_template__ = __webpack_require__(204)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\discussions\\DiscussionDescription.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-36da7cfc", Component.options)
+  } else {
+    hotAPI.reload("data-v-36da7cfc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 200 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__replies_Replies_vue__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__replies_Replies_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__replies_Replies_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['discussion', 'loggedIn', 'user'],
+
+  components: {
+    'all-replies': __WEBPACK_IMPORTED_MODULE_0__replies_Replies_vue___default.a
+  },
+
+  data: function data() {
+    return {
+      formattedDiscussion: '',
+      replies: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.formattedDiscussion = this.compiledMarkdown;
+    this.$on('repliesLoaded', function (data) {
+      _this.replies = data;
+    });
+  },
+
+
+  computed: {
+    compiledMarkdown: function compiledMarkdown() {
+      return marked(this.discussion.description, {
+        sanitize: false
+      });
+    }
+  },
+
+  filters: {
+    formatDate: function formatDate(date) {
+      return __WEBPACK_IMPORTED_MODULE_1_moment___default()(date).fromNow();
+    },
+    formatReply: function formatReply(reply) {
+      return marked(reply, {
+        sanitize: false
+      });
+    }
+  }
+
+});
+
+/***/ }),
+/* 201 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(202)
+/* template */
+var __vue_template__ = __webpack_require__(203)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -50453,7 +50601,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 200 */
+/* 202 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50573,7 +50721,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-  props: ['discussion', 'loggedin', 'user', 'disUserId'],
+  props: ['discussion', 'loggedIn', 'user'],
 
   data: function data() {
     return {
@@ -50582,7 +50730,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       errors: new __WEBPACK_IMPORTED_MODULE_1__utilities_errors_js__["a" /* default */](),
       selectedReply: null,
       updatedReply: '',
-      isBestReplySelected: false
+      bestReply: null
     };
   },
 
@@ -50591,8 +50739,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     fetchAllReplies: function fetchAllReplies() {
       var _this = this;
 
-      axios.get('/discussion/' + this.discussion + '/replies').then(function (response) {
-        return _this.replies = response.data;
+      axios.get('/discussion/' + this.discussion.id + '/replies').then(function (response) {
+        _this.replies = response.data;
+        _this.$parent.$emit('repliesLoaded', _this.replies);
       }).catch(function (error) {
         return console.log(error.response.data);
       });
@@ -50600,7 +50749,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     publishReply: function publishReply() {
       var _this2 = this;
 
-      axios.post('/discussion/' + this.discussion + '/reply', {
+      axios.post('/discussion/' + this.discussion.id + '/reply', {
         reply: this.reply
       }).then(function (response) {
         _this2.reply = '';
@@ -50644,18 +50793,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this4.replies.splice(index, 1);
         _this4.$snackbar.open(response.data);
       }).catch(function (error) {
-        return console.log(error.response.data.errors);
+        return console.log(error.response.data);
       });
     },
-    markBestReply: function markBestReply(discussion, reply) {
+    markBestReply: function markBestReply(replyIndex, discussion, reply) {
       var _this5 = this;
 
       axios.put('/discussion/' + discussion + '/replied/best/' + reply, {
         discussion: discussion,
         reply: reply
       }).then(function (response) {
-        _this5.isBestReplySelected = !_this5.isBestReplySelected;
-      }).catch();
+        _this5.bestReply = replyIndex;
+        _this5.$snackbar.open("Reply maked as best");
+      }).catch(function (error) {
+        return console.log(error.response.data);
+      });
     }
   },
 
@@ -50677,7 +50829,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 201 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -50752,16 +50904,29 @@ var render = function() {
                         [_vm._v(_vm._s(reply.user.username))]
                       ),
                       _vm._v(" "),
-                      _c("small", { staticClass: "has-text-grey-light" }, [
-                        _vm._m(1, true),
-                        _vm._v(
-                          _vm._s(_vm._f("formatDate")(reply.created_at)) +
-                            "\n              "
-                        ),
-                        _c("span", { staticClass: "title is-6 m-l-10" }, [
-                          _vm._v("(" + _vm._s(reply.user.experience) + " XP)")
-                        ])
-                      ])
+                      _c(
+                        "small",
+                        { staticClass: "has-text-grey-light is-hidden-mobile" },
+                        [
+                          _vm._m(1, true),
+                          _vm._v(
+                            _vm._s(_vm._f("formatDate")(reply.created_at)) +
+                              "\n              "
+                          ),
+                          _c(
+                            "span",
+                            {
+                              staticClass: "title is-6 m-l-10",
+                              attrs: { id: "xp" }
+                            },
+                            [
+                              _vm._v(
+                                "(" + _vm._s(reply.user.experience) + " XP)"
+                              )
+                            ]
+                          )
+                        ]
+                      )
                     ]),
                     _vm._v(" "),
                     _vm.selectedReply != index
@@ -50883,7 +51048,7 @@ var render = function() {
                       : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _vm.loggedin && _vm.user == _vm.disUserId
+                  _vm.loggedIn && _vm.user == _vm.discussion.user.id
                     ? _c(
                         "nav",
                         {
@@ -50914,7 +51079,8 @@ var render = function() {
                                         click: function($event) {
                                           $event.preventDefault()
                                           _vm.markBestReply(
-                                            _vm.discussion,
+                                            index,
+                                            _vm.discussion.id,
                                             reply.id
                                           )
                                         }
@@ -50925,7 +51091,8 @@ var render = function() {
                                         "span",
                                         { staticClass: "icon has-text-grey" },
                                         [
-                                          reply.best_reply == 1
+                                          reply.best_reply == 1 ||
+                                          index == _vm.bestReply
                                             ? _c("i", {
                                                 staticClass:
                                                   "fa fa-check-circle fa-lg"
@@ -50948,7 +51115,7 @@ var render = function() {
                     : _vm._e()
                 ]),
                 _vm._v(" "),
-                _vm.loggedin && _vm.user == reply.user.id
+                _vm.loggedIn && _vm.user == reply.user.id
                   ? _c(
                       "div",
                       { staticClass: "media-right" },
@@ -51029,7 +51196,7 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    _vm.loggedin
+    _vm.loggedIn
       ? _c("div", { staticClass: "add-reply" }, [
           _c(
             "form",
@@ -51145,88 +51312,6 @@ if (false) {
 }
 
 /***/ }),
-/* 202 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-var __vue_script__ = __webpack_require__(203)
-/* template */
-var __vue_template__ = __webpack_require__(204)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\discussions\\DiscussionDescription.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-36da7cfc", Component.options)
-  } else {
-    hotAPI.reload("data-v-36da7cfc", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 203 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['discussion'],
-
-  data: function data() {
-    return {
-      formattedDiscussion: ''
-    };
-  },
-  created: function created() {
-    this.formattedDiscussion = this.compiledMarkdown;
-  },
-
-
-  computed: {
-    compiledMarkdown: function compiledMarkdown() {
-      return marked(this.discussion, {
-        sanitize: false
-      });
-    }
-  }
-});
-
-/***/ }),
 /* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -51234,12 +51319,163 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {
-    staticClass: "disc-desc has-text-justified",
-    domProps: { innerHTML: _vm._s(_vm.formattedDiscussion) }
-  })
+  return _c(
+    "div",
+    { attrs: { id: "discussion" } },
+    [
+      _c("div", {
+        staticClass: "disc-desc has-text-justified",
+        domProps: { innerHTML: _vm._s(_vm.formattedDiscussion) }
+      }),
+      _vm._v(" "),
+      _vm._l(_vm.replies, function(reply, index) {
+        return reply.best_reply == 1
+          ? _c("nav", { key: reply.id, staticClass: "panel m-t-30" }, [
+              _c("p", { staticClass: "panel-heading" }, [
+                _c("span", { staticClass: "is-size-5 has-text-white" }, [
+                  _vm._v("Best Reply")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass:
+                      "is-pulled-right is-size-7 has-text-white m-t-5"
+                  },
+                  [
+                    _vm._v(
+                      "(As selected by " +
+                        _vm._s(_vm.discussion.user.username) +
+                        ")"
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "panel-block" }, [
+                _c("article", { staticClass: "media m-t-20 m-b-20" }, [
+                  _c("figure", { staticClass: "media-left is-hidden-mobile" }, [
+                    _c("p", { staticClass: "image is-48x48" }, [
+                      _c(
+                        "a",
+                        {
+                          attrs: {
+                            href:
+                              "http://localhost:8000/user/@" +
+                              reply.user.username
+                          }
+                        },
+                        [
+                          reply.user.display_image === null
+                            ? _c("img", {
+                                staticClass: "user-image",
+                                attrs: {
+                                  src:
+                                    "http://localhost:8000/images/users/userImage.png",
+                                  alt: "User image"
+                                }
+                              })
+                            : _c("img", {
+                                staticClass: "user-image",
+                                attrs: {
+                                  src:
+                                    "http://localhost:8000/images/users/" +
+                                    reply.user.display_image,
+                                  alt: "User image"
+                                }
+                              })
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "media-content" }, [
+                    _c("div", { staticClass: "content" }, [
+                      _c("span", { staticClass: "title is-6" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "m-r-5",
+                            attrs: {
+                              href:
+                                "http://localhost:8000/user/@" +
+                                reply.user.username
+                            }
+                          },
+                          [_vm._v(_vm._s(reply.user.username))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "small",
+                          {
+                            staticClass: "has-text-grey-light is-hidden-mobile"
+                          },
+                          [
+                            _vm._m(0, true),
+                            _vm._v(
+                              _vm._s(_vm._f("formatDate")(reply.created_at)) +
+                                "\n                "
+                            ),
+                            _c(
+                              "span",
+                              {
+                                staticClass: "title is-6 m-l-10",
+                                attrs: { id: "xp" }
+                              },
+                              [
+                                _vm._v(
+                                  "(" + _vm._s(reply.user.experience) + " XP)"
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "reply m-t-5 has-text-justified" },
+                        [
+                          _c("p", {
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.$options.filters.formatReply(reply.reply)
+                              )
+                            }
+                          })
+                        ]
+                      )
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          : _vm._e()
+      }),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c("all-replies", {
+        attrs: {
+          discussion: _vm.discussion,
+          "logged-in": _vm.loggedIn,
+          user: _vm.user
+        }
+      })
+    ],
+    2
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fa fa-clock-o" })
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

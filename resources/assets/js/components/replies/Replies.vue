@@ -10,7 +10,7 @@
           <p class="image is-48x48">
             <a :href="'http://localhost:8000/user/@'+reply.user.username">
               <img src="http://localhost:8000/images/users/userImage.png" alt="User image" v-if="reply.user.display_image===null" class="user-image">
-              <img :src="'http://localhost:8000/images/users/'+reply.user.display_image" alt="User image" v-else class="user-image">
+              <img :src="'http://localhost:8000/images/users/'+reply.user.display_image" alt="User image" class="user-image"  v-else>
             </a>
           </p>
         </figure>
@@ -19,9 +19,9 @@
           <div class="content">
             <span class="title is-6">
               <a :href="'http://localhost:8000/user/@'+reply.user.username" class="m-r-5">{{reply.user.username}}</a>
-              <small class="has-text-grey-light">
+              <small class="has-text-grey-light is-hidden-mobile">
                 <span class="icon"><i class="fa fa-clock-o"></i></span>{{reply.created_at|formatDate}}
-                <span class="title is-6 m-l-10">({{reply.user.experience}} XP)</span>
+                <span class="title is-6 m-l-10" id="xp">({{reply.user.experience}} XP)</span>
               </small>
             </span>
             <div class="reply m-t-5 has-text-justified" v-if="selectedReply!=index">
@@ -45,16 +45,16 @@
             </div>
           </div>
 
-          <nav class="level is-mobile" id="best-reply" v-if="loggedin && user==disUserId">
+          <nav class="level is-mobile" id="best-reply" v-if="loggedIn && user==discussion.user.id">
            <div class="level-left">
              <b-tooltip label="Mark as best reply"
                type="is-dark"
                position="is-right"
                animated>
-               <a class="level-item" @click.prevent="markBestReply(discussion,reply.id)">
+               <a class="level-item" @click.prevent="markBestReply(index,discussion.id,reply.id)">
                  <span class="icon has-text-grey">
                    <!-- <i :class="[{'fa fa-check-circle-o fa-lg':true},{'fa fa-check-circle fa-lg':reply.best_reply==1}]"></i> -->
-                   <i class="fa fa-check-circle fa-lg" v-if="reply.best_reply==1"></i>
+                   <i class="fa fa-check-circle fa-lg" v-if="reply.best_reply==1 || index==bestReply"></i>
                    <i class="fa fa-check-circle-o fa-lg" v-else></i>
                  </span>
                </a>
@@ -64,7 +64,7 @@
 
        </div> <!-- end of .content-->
 
-        <div class="media-right" v-if="loggedin && user==reply.user.id">
+        <div class="media-right" v-if="loggedIn && user==reply.user.id">
           <b-tooltip label="Edit your reply"
             type="is-dark"
             position="is-left"
@@ -87,7 +87,7 @@
       <hr>
     </div>
 
-    <div class="add-reply" v-if="loggedin">
+    <div class="add-reply" v-if="loggedIn">
       <form @keydown="errors.clearError($event.target.name)">
         <div class="field">
           <div class="control">
@@ -110,7 +110,7 @@ import Errors from '../../utilities/errors.js';
 
 export default {
 
-  props: ['discussion', 'loggedin', 'user', 'disUserId'],
+  props: ['discussion', 'loggedIn', 'user'],
 
   data() {
     return {
@@ -119,20 +119,23 @@ export default {
       errors: new Errors(),
       selectedReply: null,
       updatedReply: '',
-      isBestReplySelected: false,
+      bestReply: null,
     }
   },
 
   methods: {
 
     fetchAllReplies() {
-      axios.get(`/discussion/${this.discussion}/replies`)
-        .then(response => this.replies = response.data)
+      axios.get(`/discussion/${this.discussion.id}/replies`)
+        .then(response => {
+          this.replies = response.data;
+          this.$parent.$emit('repliesLoaded', this.replies);
+        })
         .catch(error => console.log(error.response.data))
     },
 
     publishReply() {
-      axios.post(`/discussion/${this.discussion}/reply`, {
+      axios.post(`/discussion/${this.discussion.id}/reply`, {
           reply: this.reply
         })
         .then(response => {
@@ -177,18 +180,19 @@ export default {
           this.replies.splice(index, 1);
           this.$snackbar.open(response.data);
         })
-        .catch(error => console.log(error.response.data.errors))
+        .catch(error => console.log(error.response.data))
     },
 
-    markBestReply(discussion, reply) {
+    markBestReply(replyIndex, discussion, reply) {
       axios.put(`/discussion/${discussion}/replied/best/${reply}`, {
           discussion: discussion,
           reply: reply
         })
         .then(response => {
-          this.isBestReplySelected = !this.isBestReplySelected;
+          this.bestReply = replyIndex;
+          this.$snackbar.open("Reply maked as best");
         })
-        .catch()
+        .catch(error => console.log(error.response.data))
     }
 
   },

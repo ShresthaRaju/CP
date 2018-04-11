@@ -10,7 +10,6 @@ window.Vue = require('vue');
 
 import Buefy from 'buefy'
 Vue.use(Buefy);
-
 // import VueRouter from 'vue-router'
 // Vue.use(VueRouter);
 //
@@ -34,7 +33,6 @@ Vue.component('Channels', require('./components/channels/Channels.vue'));
 Vue.component('Discussions', require('./components/discussions/Discussions.vue'));
 Vue.component('creatediscussion', require('./components/discussions/CreateDiscussion.vue'));
 Vue.component('editdiscussion', require('./components/discussions/EditDiscussion.vue'));
-Vue.component('Replies', require('./components/replies/Replies.vue'));
 Vue.component('discussiondesc', require('./components/discussions/DiscussionDescription.vue'));
 Vue.component('Favorite', require('./components/discussions/FavoriteDiscussion.vue'));
 Vue.component('Profile', require('./components/Profile.vue'));
