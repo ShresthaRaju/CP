@@ -44,12 +44,17 @@ code {
 }
 
 .replies article {
-  .media-right {
-    visibility: hidden;
+  .media-content {
+    overflow: hidden;
   }
+  @media screen and (min-width: 1024px) {
+    .media-right {
+      visibility: hidden;
+    }
 
-  &:hover .media-right {
-    visibility: visible;
+    &:hover .media-right {
+      visibility: visible;
+    }
   }
 }
 // user-profile

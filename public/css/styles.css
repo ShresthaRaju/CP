@@ -43,12 +43,18 @@ code {
   border-radius: 3px;
 }
 
-.replies article .media-right {
-  visibility: hidden;
+.replies article .media-content {
+  overflow: hidden;
 }
 
-.replies article:hover .media-right {
-  visibility: visible;
+@media screen and (min-width: 1024px) {
+  .replies article .media-right {
+    visibility: hidden;
+  }
+
+  .replies article:hover .media-right {
+    visibility: visible;
+  }
 }
 
 @media screen and (max-width: 769px) {

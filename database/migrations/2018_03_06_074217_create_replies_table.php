@@ -20,6 +20,7 @@ class CreateRepliesTable extends Migration
             $table->foreign('discussion_id')->references('id')->on('discussions')->onDelete('cascade');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->boolean('best_reply')->default(0);
             $table->timestamps();
         });
     }

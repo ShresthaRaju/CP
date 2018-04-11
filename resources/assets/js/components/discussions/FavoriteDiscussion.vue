@@ -1,11 +1,11 @@
 <template lang="html">
 
-  <b-tooltip :label=label
+  <b-tooltip :label="label"
     type="is-dark"
     position="is-right"
     animated>
     <span class="icon" @click="favorite">
-      <i :class="[{'fa fa-star-o':notFavorited},{'fa fa-star':favorited}]"></i>
+      <i :class="[{'fa fa-star-o':!favorited},{'fa fa-star':favorited}]"></i>
     </span>
   </b-tooltip>
 
@@ -26,7 +26,6 @@ export default {
   data() {
     return {
       label: "Favorite this discussion",
-      notFavorited: true,
       favorited: false,
     }
   },
@@ -37,8 +36,7 @@ export default {
           discussion: this.discussion
         })
         .then(response => {
-          if (this.notFavorited) {
-            this.notFavorited = false;
+          if (!this.favorited) {
             this.favorited = true;
             this.label = "Unfavorite this discussion";
             this.$toast.open({
@@ -49,7 +47,6 @@ export default {
 
           } else {
             this.favorited = false;
-            this.notFavorited = true;
             this.label = "Favorite this discussion";
             this.$toast.open({
               type: 'is-danger',
@@ -65,7 +62,6 @@ export default {
 
   mounted() {
     if (this.isFavorited) {
-      this.notFavorited = !this.isFavorited;
       this.favorited = this.isFavorited;
       this.label = "Unfavorite this discussion";
     }

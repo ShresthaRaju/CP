@@ -43,6 +43,7 @@ Route::prefix('discussion')->as('discussion.')->group(function () {
     Route::post('/{discussion}/reply', ['as'=>'reply.create','uses'=>'User\RepliesController@store']);
     Route::put('/replied/{reply}', ['as'=>'reply.update','uses'=>'User\RepliesController@update']);
     Route::delete('/replied/{reply}', ['as'=>'reply.delete','uses'=>'User\RepliesController@destroy']);
+    Route::put('/{discussion}/replied/best/{reply}', ['as'=>'reply.best','uses'=>'User\RepliesController@markBestReply']);
 
     //Favorite a discussions
     Route::post('/favorite', ['as'=>'favorite','uses'=>'PagesController@favorite']);

@@ -19,9 +19,12 @@
           <div class="content">
             <span class="title is-6">
               <a :href="'http://localhost:8000/user/@'+reply.user.username" class="m-r-5">{{reply.user.username}}</a>
-              <small class="has-text-grey-light">{{reply.created_at|formatDate}}</small>
+              <small class="has-text-grey-light">
+                <span class="icon"><i class="fa fa-clock-o"></i></span>{{reply.created_at|formatDate}}
+                <span class="title is-6 m-l-10">({{reply.user.experience}} XP)</span>
+              </small>
             </span>
-            <div class="reply m-t-5" v-if="selectedReply!=index">
+            <div class="reply m-t-5 has-text-justified" v-if="selectedReply!=index">
               <p v-html="$options.filters.formatReply(reply.reply)"></p>
             </div>
 
@@ -41,22 +44,45 @@
               </form>
             </div>
           </div>
-        </div>
+
+          <nav class="level is-mobile" id="best-reply" v-if="loggedin && user==disUserId">
+           <div class="level-left">
+             <b-tooltip label="Mark as best reply"
+               type="is-dark"
+               position="is-right"
+               animated>
+               <a class="level-item" @click.prevent="markBestReply(discussion,reply.id)">
+                 <span class="icon has-text-grey">
+                   <!-- <i :class="[{'fa fa-check-circle-o fa-lg':true},{'fa fa-check-circle fa-lg':reply.best_reply==1}]"></i> -->
+                   <i class="fa fa-check-circle fa-lg" v-if="reply.best_reply==1"></i>
+                   <i class="fa fa-check-circle-o fa-lg" v-else></i>
+                 </span>
+               </a>
+             </b-tooltip>
+           </div>
+         </nav>
+
+       </div> <!-- end of .content-->
 
         <div class="media-right" v-if="loggedin && user==reply.user.id">
           <b-tooltip label="Edit your reply"
             type="is-dark"
             position="is-left"
             animated>
-            <a @click.prevent="editReply(index,reply.reply)"><span class="icon has-text-grey"><i class="fa fa-pencil"></i></span></a>
+            <a @click.prevent="editReply(index,reply.reply)">
+              <span class="icon has-text-grey"><i class="fa fa-pencil"></i></span>
+            </a>
           </b-tooltip>
           <b-tooltip label="Delete this reply"
             type="is-dark"
             position="is-left"
             animated>
-            <a @click.prevent="deleteReply(index,reply.id)"><span class="icon has-text-danger"><i class="fa fa-trash"></i></span></a>
+            <a @click.prevent="deleteReply(index,reply.id)">
+              <span class="icon has-text-danger"><i class="fa fa-trash"></i></span>
+            </a>
           </b-tooltip>
         </div>
+
       </article>
       <hr>
     </div>
@@ -84,7 +110,7 @@ import Errors from '../../utilities/errors.js';
 
 export default {
 
-  props: ['discussion', 'loggedin', 'user'],
+  props: ['discussion', 'loggedin', 'user', 'disUserId'],
 
   data() {
     return {
@@ -93,6 +119,7 @@ export default {
       errors: new Errors(),
       selectedReply: null,
       updatedReply: '',
+      isBestReplySelected: false,
     }
   },
 
@@ -111,6 +138,11 @@ export default {
         .then(response => {
           this.reply = '';
           this.replies.unshift(response.data);
+          window.scrollTo({
+            left: 0,
+            top: 0,
+            behavior: "smooth"
+          });
         })
         .catch(error => this.errors.recordErrors(error.response.data.errors))
     },
@@ -146,11 +178,22 @@ export default {
           this.$snackbar.open(response.data);
         })
         .catch(error => console.log(error.response.data.errors))
+    },
+
+    markBestReply(discussion, reply) {
+      axios.put(`/discussion/${discussion}/replied/best/${reply}`, {
+          discussion: discussion,
+          reply: reply
+        })
+        .then(response => {
+          this.isBestReplySelected = !this.isBestReplySelected;
+        })
+        .catch()
     }
 
   },
 
-  created() {
+  mounted() {
     this.fetchAllReplies();
   },
 

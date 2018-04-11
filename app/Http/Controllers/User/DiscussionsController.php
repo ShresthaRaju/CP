@@ -12,6 +12,11 @@ use App\Http\Requests\users\DiscussionUpdateValidation;
 
 class DiscussionsController extends Controller
 {
+    //middleware (auth)
+    public function __construct()
+    {
+        $this->middleware('auth')->except('show');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -40,6 +45,7 @@ class DiscussionsController extends Controller
         $discussion->user_id=auth()->id();
 
         if ($discussion->save()) {
+            auth()->user()->increment('experience', 100);
             return response()->json(['redirect'=>route('discussion.show', $discussion->slug)]);
         } else {
             return back()->withInput();

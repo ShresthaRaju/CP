@@ -24,7 +24,7 @@ class DiscussionUpdateValidation extends FormRequest
     public function rules()
     {
         return [
-          'title'=>'bail|required|string|min:5|max:180|unique:discussions,title,'.$this->id,
+          'title'=>'bail|required|string|min:5|max:150|unique:discussions,title,'.$this->id,
           'description'=>'required'
         ];
     }

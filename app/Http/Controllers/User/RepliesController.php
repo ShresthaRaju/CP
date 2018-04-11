@@ -11,6 +11,12 @@ use Auth;
 
 class RepliesController extends Controller
 {
+    // middleware(auth)
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,6 +43,10 @@ class RepliesController extends Controller
           'reply'=>$request->reply,
           'user_id'=>Auth::id()
         ]);
+
+        if ($reply) {
+            auth()->user()->increment('experience', 20);
+        }
 
         $reply=Reply::where('id', $reply->id)->with('user')->first();
 
@@ -73,9 +83,18 @@ class RepliesController extends Controller
     public function destroy(Reply $reply)
     {
         if ($reply->delete()) {
+            auth()->user()->decrement('experience', 20);
             return $response['message']="The reply has been deleted !";
         } else {
             return $response['message']="Error deleting the reply !";
         }
+    }
+
+    // mark best reply
+    public function markBestReply(Discussion $discussion, Reply $reply)
+    {
+        $discussion->solved=1;
+        $discussion->update(['solved']);
+        $discussion->replies()->where('id', $reply->id)->update(['best_reply'=>1]);
     }
 }

@@ -20,10 +20,15 @@
       <div class="media-content">
         <div class="content">
           <span class="title is-6"><a>{{$discussion->channel->title}}</a></span>
-          <p><a href="{{route('discussion.show',['slug'=>$discussion->slug])}}" class="has-text-black-ter has-text-weight-semibold is-size-6 d-title">{{$discussion->title}}</a><br>
+          <p>
+            <a href="{{route('discussion.show',['slug'=>$discussion->slug])}}" class="has-text-black-ter has-text-weight-semibold is-size-6 d-title">{{$discussion->title}}</a><br>
             <small>
-              <span class="is-italic has-text-grey-light">{{$discussion->created_at->diffForHumans()}}</span>
-              <span class="m-l-10">BY <a href="{{route('userProfile',$discussion->user->username)}}" class="is-uppercase">{{$discussion->user->username}}</a></span>
+              <span class="is-italic has-text-grey-light">
+                <span class="icon"><i class="fa fa-clock-o"></i></span>{{$discussion->created_at->diffForHumans()}}
+              </span>
+              <span class="m-l-10">
+                BY <a href="{{route('userProfile',$discussion->user->username)}}" class="is-uppercase">{{$discussion->user->username}}</a>
+              </span>
             </small>
           </p>
           <p class="disc-desc has-text-justified">{{substr($discussion->description, 0 , 300)}}{{strlen($discussion->description)>300?'...':''}}</p>

@@ -9,8 +9,17 @@
 @section('main_content')
 <div class="columns">
   <div class="column is-three-quarters has-border">
-    <p class="m-b-20"> <span class="has-text-black-ter has-text-weight-bold is-size-4">{{$discussion->title}}</span><br>
-      <small><span class="is-italic has-text-grey-light">Published {{$discussion->created_at->diffForHumans()}}</span><span class="m-l-10">BY <a href="{{route('userProfile',$discussion->user->username)}}" class="is-uppercase has-text-weight-semibold">{{$discussion->user->username}}</a></span></small>
+    <p class="m-b-20">
+      <span class="has-text-black-ter has-text-weight-bold is-size-4">{{$discussion->title}}</span>
+      <br>
+      <small>
+        <span class="is-italic has-text-grey-light">
+          <span class="icon"><i class="fa fa-clock-o"></i></span>Published {{$discussion->created_at->diffForHumans()}}
+        </span>
+        <span class="m-l-10">
+          BY <a href="{{route('userProfile',$discussion->user->username)}}" class="is-uppercase has-text-weight-semibold">{{$discussion->user->username}}</a>
+        </span>
+      </small>
       <br>
       @if (Auth::check() && $discussion->user->id==Auth::id())
         <b-tooltip label="Edit this discussion"
@@ -31,7 +40,7 @@
     <hr>
 
     {{-- Vue Replies Component --}}
-    <Replies :discussion={{$discussion->id}} loggedin="{{Auth::check()}}" user="{{Auth::id()}}"></Replies>
+    <Replies :discussion={{$discussion->id}} :dis-user-id="{{$discussion->user->id}}" :loggedin="{{json_encode(Auth::check())}}" user="{{Auth::id()}}"></Replies>
 
     @guest
       <small><p class="has-text-weight-semibold has-text-centered">Please <a href="{{route('login')}}">Sign In</a> or <a href="{{route('register')}}">Create an account</a> to participate in this conversation.</p></small>

@@ -3,7 +3,7 @@
     <nav class="pagination is-rounded is-centered is-small">
       {{-- Previous Page Link --}}
       @if ($paginator->onFirstPage())
-          <a class="pagination-previous" disabled>&lsaquo;</a>
+          <a class="pagination-previous" disabled>&lsaquo;&lsaquo;</a>
       @else
           <a href="{{ $paginator->previousPageUrl() }}" class="pagination-previous" rel="prev">&lsaquo;&lsaquo;</a>
       @endif
@@ -33,7 +33,7 @@
 
           {{-- Next Page Link --}}
           @if ($paginator->hasMorePages())
-              <a href="{{ $paginator->nextPageUrl() }}" class="pagination-next" rel="next">&rsaquo;</a>
+              <a href="{{ $paginator->nextPageUrl() }}" class="pagination-next" rel="next">&rsaquo;&rsaquo;</a>
           @else
               <a class="pagination-next" disabled>&rsaquo;&rsaquo;</a>
           @endif

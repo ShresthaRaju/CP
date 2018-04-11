@@ -50541,13 +50541,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-  props: ['discussion', 'loggedin', 'user'],
+  props: ['discussion', 'loggedin', 'user', 'disUserId'],
 
   data: function data() {
     return {
@@ -50555,7 +50581,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       reply: '',
       errors: new __WEBPACK_IMPORTED_MODULE_1__utilities_errors_js__["a" /* default */](),
       selectedReply: null,
-      updatedReply: ''
+      updatedReply: '',
+      isBestReplySelected: false
     };
   },
 
@@ -50578,6 +50605,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).then(function (response) {
         _this2.reply = '';
         _this2.replies.unshift(response.data);
+        window.scrollTo({
+          left: 0,
+          top: 0,
+          behavior: "smooth"
+        });
       }).catch(function (error) {
         return _this2.errors.recordErrors(error.response.data.errors);
       });
@@ -50614,10 +50646,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).catch(function (error) {
         return console.log(error.response.data.errors);
       });
+    },
+    markBestReply: function markBestReply(discussion, reply) {
+      var _this5 = this;
+
+      axios.put('/discussion/' + discussion + '/replied/best/' + reply, {
+        discussion: discussion,
+        reply: reply
+      }).then(function (response) {
+        _this5.isBestReplySelected = !_this5.isBestReplySelected;
+      }).catch();
     }
   },
 
-  created: function created() {
+  mounted: function mounted() {
     this.fetchAllReplies();
   },
 
@@ -50711,20 +50753,31 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("small", { staticClass: "has-text-grey-light" }, [
-                        _vm._v(_vm._s(_vm._f("formatDate")(reply.created_at)))
+                        _vm._m(1, true),
+                        _vm._v(
+                          _vm._s(_vm._f("formatDate")(reply.created_at)) +
+                            "\n              "
+                        ),
+                        _c("span", { staticClass: "title is-6 m-l-10" }, [
+                          _vm._v("(" + _vm._s(reply.user.experience) + " XP)")
+                        ])
                       ])
                     ]),
                     _vm._v(" "),
                     _vm.selectedReply != index
-                      ? _c("div", { staticClass: "reply m-t-5" }, [
-                          _c("p", {
-                            domProps: {
-                              innerHTML: _vm._s(
-                                _vm.$options.filters.formatReply(reply.reply)
-                              )
-                            }
-                          })
-                        ])
+                      ? _c(
+                          "div",
+                          { staticClass: "reply m-t-5 has-text-justified" },
+                          [
+                            _c("p", {
+                              domProps: {
+                                innerHTML: _vm._s(
+                                  _vm.$options.filters.formatReply(reply.reply)
+                                )
+                              }
+                            })
+                          ]
+                        )
                       : _vm._e(),
                     _vm._v(" "),
                     _vm.selectedReply == index
@@ -50828,7 +50881,71 @@ var render = function() {
                           )
                         ])
                       : _vm._e()
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _vm.loggedin && _vm.user == _vm.disUserId
+                    ? _c(
+                        "nav",
+                        {
+                          staticClass: "level is-mobile",
+                          attrs: { id: "best-reply" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "level-left" },
+                            [
+                              _c(
+                                "b-tooltip",
+                                {
+                                  attrs: {
+                                    label: "Mark as best reply",
+                                    type: "is-dark",
+                                    position: "is-right",
+                                    animated: ""
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "level-item",
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          _vm.markBestReply(
+                                            _vm.discussion,
+                                            reply.id
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        { staticClass: "icon has-text-grey" },
+                                        [
+                                          reply.best_reply == 1
+                                            ? _c("i", {
+                                                staticClass:
+                                                  "fa fa-check-circle fa-lg"
+                                              })
+                                            : _c("i", {
+                                                staticClass:
+                                                  "fa fa-check-circle-o fa-lg"
+                                              })
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ]
+                      )
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _vm.loggedin && _vm.user == reply.user.id
@@ -50981,7 +51098,7 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(1)
+          _vm._m(2)
         ])
       : _vm._e()
   ])
@@ -50993,6 +51110,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon title is-4 m-r-10" }, [
       _c("i", { staticClass: "fa fa-comments-o" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fa fa-clock-o" })
     ])
   },
   function() {
@@ -51205,7 +51330,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       label: "Favorite this discussion",
-      notFavorited: true,
       favorited: false
     };
   },
@@ -51218,8 +51342,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.post("/discussion/favorite", {
         discussion: this.discussion
       }).then(function (response) {
-        if (_this.notFavorited) {
-          _this.notFavorited = false;
+        if (!_this.favorited) {
           _this.favorited = true;
           _this.label = "Unfavorite this discussion";
           _this.$toast.open({
@@ -51229,7 +51352,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           });
         } else {
           _this.favorited = false;
-          _this.notFavorited = true;
           _this.label = "Favorite this discussion";
           _this.$toast.open({
             type: 'is-danger',
@@ -51246,7 +51368,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   mounted: function mounted() {
     if (this.isFavorited) {
-      this.notFavorited = !this.isFavorited;
       this.favorited = this.isFavorited;
       this.label = "Unfavorite this discussion";
     }
@@ -51275,7 +51396,7 @@ var render = function() {
       _c("span", { staticClass: "icon", on: { click: _vm.favorite } }, [
         _c("i", {
           class: [
-            { "fa fa-star-o": _vm.notFavorited },
+            { "fa fa-star-o": !_vm.favorited },
             { "fa fa-star": _vm.favorited }
           ]
         })
@@ -51463,7 +51584,7 @@ var render = function() {
                         ? _c("img", {
                             attrs: {
                               src:
-                                "http://localhost:8000/images/user_image.png",
+                                "http://localhost:8000/images/user-profile-icon.jpg",
                               alt: "User image"
                             }
                           })
@@ -51496,7 +51617,25 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(0)
+            _c("div", { staticClass: "column has-text-right" }, [
+              _c("div", { attrs: { id: "xp-details" } }, [
+                _c(
+                  "h1",
+                  { staticClass: "title is-5 has-text-grey is-uppercase" },
+                  [_vm._v("Experience")]
+                ),
+                _vm._v(" "),
+                _c("h4", { staticClass: "title is-1" }, [
+                  _vm._v(_vm._s(_vm.user.experience))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  { staticClass: "title is-5 has-text-weight-semibold" },
+                  [_vm._v("0 Best Reply Awards")]
+                )
+              ])
+            ])
           ])
         ])
       ]),
@@ -51531,26 +51670,7 @@ var render = function() {
     _c("div", { staticClass: "tab-body" }, [_vm._t("default")], 2)
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "column has-text-right" }, [
-      _c("div", { attrs: { id: "xp-details" } }, [
-        _c("h1", { staticClass: "title is-5 has-text-grey is-uppercase" }, [
-          _vm._v("Experience")
-        ]),
-        _vm._v(" "),
-        _c("h4", { staticClass: "title is-1" }, [_vm._v("0")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "title is-5 has-text-weight-semibold" }, [
-          _vm._v("0 Best Reply Awards")
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

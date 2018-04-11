@@ -9,7 +9,7 @@
               <div class="card">
                 <div class="card-image">
                   <figure class="image is-4by3">
-                    <img src="http://localhost:8000/images/user_image.png" alt="User image" v-if="user.display_image===null">
+                    <img src="http://localhost:8000/images/user-profile-icon.jpg" alt="User image" v-if="user.display_image===null">
                     <img :src="'http://localhost:8000/images/users/'+user.display_image" alt="User image" v-else>
                   </figure>
                 </div>
@@ -26,7 +26,7 @@
             <div class="column has-text-right">
               <div id="xp-details">
                 <h1 class="title is-5 has-text-grey is-uppercase">Experience</h1>
-                <h4 class="title is-1">0</h4>
+                <h4 class="title is-1">{{user.experience}}</h4>
                 <p class="title is-5 has-text-weight-semibold">0 Best Reply Awards</p>
               </div>
             </div>
