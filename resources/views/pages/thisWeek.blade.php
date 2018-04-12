@@ -1,10 +1,13 @@
 @extends('layouts.user')
 
-@section('title','Welcome')
+@section('title','Popular Discussions Of This Week')
 
 @section('main_content')
 <div class="columns">
   <div class="column is-three-quarters has-border">
+    @if ($discussions->count()==0)
+      <h1 class="title is-4 has-text-centered">No relevant discussion at this time.</h1>
+    @endif
     @foreach ($discussions as $discussion)
     <article class="media">
       <figure class="media-left is-hidden-mobile">
@@ -46,9 +49,11 @@
       </div>
     </article>
     @endforeach
+
     <hr>
     {{-- pagination --}}
     {{$discussions->links('vendor.pagination.default')}}
+
   </div>
 
   <div class="column">
@@ -56,4 +61,6 @@
   </div>
 
 </div>
+
+
 @endsection

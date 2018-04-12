@@ -10,7 +10,31 @@ class Discussion extends Model
 {
     protected $fillable=['title','description','channel_id','user_id'];
 
+    protected $hidden = [
+        'updated_at','slug'
+    ];
 
+    /**
+     * Scope a query to only include solved discussions.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSolved($query)
+    {
+        return $query->where('solved', 1);
+    }
+
+    /**
+     * Scope a query to only include unsolved discussions.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeUnsolved($query)
+    {
+        return $query->where('solved', 0);
+    }
 
     public function channel()
     {
@@ -38,8 +62,4 @@ class Discussion extends Model
     {
         return $this->hasMany(Favorite::class);
     }
-
-    protected $hidden = [
-        'updated_at','slug'
-    ];
 }

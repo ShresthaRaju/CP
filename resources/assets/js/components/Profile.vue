@@ -27,7 +27,7 @@
               <div id="xp-details">
                 <h1 class="title is-5 has-text-grey is-uppercase">Experience</h1>
                 <h4 class="title is-1">{{user.experience}}</h4>
-                <p class="title is-5 has-text-weight-semibold">0 Best Reply Awards</p>
+                <p class="title is-5 has-text-weight-semibold">{{user.awards}} Best Reply Awards</p>
               </div>
             </div>
           </div>

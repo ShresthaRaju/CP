@@ -16,6 +16,9 @@ class DiscussionsController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('show');
+
+        //checks if currently logged in user is same as the one who created the discussion [for editing the discussion]
+        $this->middleware('checkUser')->only('edit');
     }
 
     /**

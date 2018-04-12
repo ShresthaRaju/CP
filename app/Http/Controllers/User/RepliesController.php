@@ -96,5 +96,6 @@ class RepliesController extends Controller
         $discussion->solved=1;
         $discussion->update(['solved']);
         $discussion->replies()->where('id', $reply->id)->update(['best_reply'=>1]);
+        $reply->user()->increment('awards', 1);
     }
 }

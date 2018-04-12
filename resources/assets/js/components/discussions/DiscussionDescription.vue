@@ -3,10 +3,12 @@
   <div id="discussion">
     <div class="disc-desc has-text-justified" v-html="formattedDiscussion"></div>
     <!--best reply panel -->
-    <nav class="panel m-t-30" v-for="(reply,index) in replies" :key="reply.id" v-if="reply.best_reply==1">
+    <nav class="panel m-t-30" v-for="(reply,index) in replies" :key="reply.id" v-if="reply.best_reply==1 || reply.id==isBestReply">
       <p class="panel-heading">
         <span class="is-size-5 has-text-white">Best Reply</span>
-        <span class="is-pulled-right is-size-7 has-text-white m-t-5">(As selected by {{discussion.user.username}})</span>
+        <span class="is-pulled-right is-size-7 has-text-white is-hidden-mobile m-t-5">
+          ( As selected by <span class="has-text-black-ter is-uppercase">{{discussion.user.username}}</span> )
+        </span>
       </p>
       <div class="panel-block">
         <article class="media m-t-20 m-b-20">
@@ -58,13 +60,22 @@ export default {
     return {
       formattedDiscussion: '',
       replies: [],
+      isBestReply: null,
     }
   },
 
   created() {
     this.formattedDiscussion = this.compiledMarkdown;
-    this.$on('repliesLoaded', (data) => {
-      this.replies = data;
+    this.$on('repliesLoaded', (replies) => {
+      this.replies = replies;
+    });
+    this.$on('bestReplySelected', (reply) => {
+      this.isBestReply = reply.id;
+      window.scrollTo({
+        left: 0,
+        top: 0,
+        behavior: "smooth"
+      });
     })
   },
 

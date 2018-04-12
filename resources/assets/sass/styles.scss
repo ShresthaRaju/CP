@@ -93,3 +93,22 @@ code {
 span#xp {
   color: #c4492b;
 }
+//best reply nav
+
+.panel {
+  max-width: 95%;
+}
+
+.panel-block .media-content {
+  overflow: hidden;
+}
+//navbar user image
+
+.nav-user-img {
+  border-radius: 50%;
+}
+//solved discussion
+
+span.solved i {
+  color: #ff6500;
+}

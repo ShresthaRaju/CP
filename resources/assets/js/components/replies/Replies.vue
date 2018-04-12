@@ -51,7 +51,7 @@
                type="is-dark"
                position="is-right"
                animated>
-               <a class="level-item" @click.prevent="markBestReply(index,discussion.id,reply.id)">
+               <a class="level-item" @click.prevent="markBestReply(index,discussion.id,reply)">
                  <span class="icon has-text-grey">
                    <!-- <i :class="[{'fa fa-check-circle-o fa-lg':true},{'fa fa-check-circle fa-lg':reply.best_reply==1}]"></i> -->
                    <i class="fa fa-check-circle fa-lg" v-if="reply.best_reply==1 || index==bestReply"></i>
@@ -184,13 +184,14 @@ export default {
     },
 
     markBestReply(replyIndex, discussion, reply) {
-      axios.put(`/discussion/${discussion}/replied/best/${reply}`, {
+      axios.put(`/discussion/${discussion}/replied/best/${reply.id}`, {
           discussion: discussion,
-          reply: reply
+          reply: reply.reply
         })
         .then(response => {
           this.bestReply = replyIndex;
           this.$snackbar.open("Reply maked as best");
+          this.$parent.$emit('bestReplySelected', reply);
         })
         .catch(error => console.log(error.response.data))
     }

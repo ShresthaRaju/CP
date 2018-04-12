@@ -8,6 +8,7 @@ use App\Models\Discussion;
 use App\Models\Channel;
 use App\Models\Favorite;
 use App\User;
+use Carbon\Carbon;
 
 class PagesController extends Controller
 {
@@ -19,10 +20,31 @@ class PagesController extends Controller
     }
 
     //renders most popular discussions
-    public function popular()
+    public function popularDiscussions()
     {
-        $discussions=Discussion::withCount('replies')->orderBy('replies_count', 'desc')->paginate(10);
-        return view('pages.popular', compact('discussions'));
+        $popularDiscussions=Discussion::withCount('replies')->orderBy('replies_count', 'desc')->paginate(10);
+        return view('pages.popularDiscussions', compact('popularDiscussions'));
+    }
+
+    //renders discussions that are posted within current week
+    public function popularDiscussionsThisWeek()
+    {
+        $discussions=Discussion::whereBetween('created_at', [Carbon::now()->subWeek(),Carbon::now()])->latest()->paginate(10);
+        return view('pages.thisWeek', compact('discussions'));
+    }
+
+    //renders discussions that are solved
+    public function solvedDiscussions()
+    {
+        $solvedDiscussions=Discussion::latest()->solved()->paginate(10);
+        return view('pages.solvedDiscussions', compact('solvedDiscussions'));
+    }
+
+    //renders discussions that are unsolved
+    public function unsolvedDiscussions()
+    {
+        $unsolvedDiscussions=Discussion::latest()->unsolved()->paginate(10);
+        return view('pages.unsolvedDiscussions', compact('unsolvedDiscussions'));
     }
 
     //renders discussions based on channel

@@ -9,11 +9,36 @@
     Choose a filter
   </p>
   <ul class="menu-list">
-    <li><a href="{{route('welcome')}}" class="{{Request::is('/')?'is-active':''}}"><span class="icon"><i class="fa fa-globe"></i></span><span>All Threads</span></a></li>
-    <li><a href="{{route('popular')}}" class="{{Request::is('popular')?'is-active':''}}"><span class="icon"><i class="fa fa-fire"></i></span><span>Popular All Time</span></a></li>
-    <li><a><span class="icon"><i class="fa fa-thumbs-up"></i></span><span>Solved</span></a></li>
-    <li><a><span class="icon"><i class="fa fa-lightbulb-o"></i></span><span>Unsolved</span></a></li>
-    <li><a><span class="icon"><i class="fa fa-list-ol"></i></span><span>LeaderBoard</span></a></li>
+    <li>
+      <a href="{{route('welcome')}}" class="{{Request::is('/')?'is-active':''}}">
+        <span class="icon"><i class="fa fa-globe"></i></span><span>All Threads</span>
+      </a>
+    </li>
+    <li>
+      <a href="{{route('popular')}}" class="{{Request::is('discussions/popular')?'is-active':''}}"><span class="icon">
+        <i class="fa fa-fire"></i></span><span>Popular All Time</span>
+      </a>
+    </li>
+    <li>
+      <a href="{{route('popularThisWeek')}}" class="{{Request::is('discussions/popular-this-week')?'is-active':''}}"><span class="icon">
+        <i class="fa fa-fire"></i></span><span>Popular This Week</span>
+      </a>
+    </li>
+    <li>
+      <a href="{{route('solved')}}" class="{{Request::is('discussions/solved')?'is-active':''}}">
+        <span class="icon"><i class="fa fa-thumbs-up"></i></span><span>Solved</span>
+      </a>
+    </li>
+    <li>
+      <a href="{{route('unsolved')}}" class="{{Request::is('discussions/unsolved')?'is-active':''}}">
+        <span class="icon"><i class="fa fa-lightbulb-o"></i></span><span>Unsolved</span>
+      </a>
+    </li>
+    <li>
+      <a>
+        <span class="icon"><i class="fa fa-list-ol"></i></span><span>LeaderBoard</span>
+      </a>
+    </li>
   </ul>
 </aside>
 

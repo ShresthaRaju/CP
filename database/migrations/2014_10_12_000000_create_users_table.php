@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password', 255);
             $table->text('display_image')->nullable();
             $table->integer('experience')->unsigned()->default(0);
+            $table->integer('awards')->unsigned()->default(0);
             $table->boolean('active')->default(0);
             $table->string('verification_token', 40)->nullable();
             $table->rememberToken();

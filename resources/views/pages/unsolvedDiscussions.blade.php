@@ -1,11 +1,11 @@
 @extends('layouts.user')
 
-@section('title','Welcome')
+@section('title','Unsolved Discussions')
 
 @section('main_content')
 <div class="columns">
   <div class="column is-three-quarters has-border">
-    @foreach ($discussions as $discussion)
+    @foreach ($unsolvedDiscussions as $discussion)
     <article class="media">
       <figure class="media-left is-hidden-mobile">
         <p class="image is-48x48">
@@ -13,9 +13,6 @@
             <img src="{{$discussion->user->display_image?asset('images/users/'.$discussion->user->display_image):asset('images/users/userImage.png')}}" alt="User Image" class="user-image">
           </a>
         </p>
-        @if ($discussion->solved)
-          <span class="icon solved"><i class="fa fa-check fa-2x m-l-25 m-t-20"></i></span>
-        @endif
       </figure>
       <div class="media-content">
         <div class="content">
@@ -46,9 +43,11 @@
       </div>
     </article>
     @endforeach
+
     <hr>
     {{-- pagination --}}
-    {{$discussions->links('vendor.pagination.default')}}
+    {{$unsolvedDiscussions->links('vendor.pagination.default')}}
+
   </div>
 
   <div class="column">
@@ -56,4 +55,6 @@
   </div>
 
 </div>
+
+
 @endsection
