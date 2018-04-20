@@ -32,6 +32,9 @@
                     <img src="{{$discussion->user->display_image?asset('images/users/'.$discussion->user->display_image):asset('images/users/userImage.png')}}" alt="User Image" class="user-image">
                   </a>
                 </p>
+                @if ($discussion->solved)
+                  <img src="{{asset('images/solved.png')}}" class="image is-32x32 m-l-10 m-t-5" alt="Solved" title="Solved">
+                @endif
               </figure>
               <div class="media-content">
                 <div class="content">
@@ -81,6 +84,9 @@
                     <img src="{{$favorite->discussion->user->display_image?asset('images/users/'.$favorite->discussion->user->display_image):asset('images/users/userImage.png')}}" alt="User Image" class="user-image">
                   </a>
                 </p>
+                @if ($favorite->discussion->solved)
+                  <img src="{{asset('images/solved.png')}}" class="image is-32x32 m-l-10 m-t-5" alt="Solved" title="Solved">
+                @endif
               </figure>
               <div class="media-content">
                 <div class="content">

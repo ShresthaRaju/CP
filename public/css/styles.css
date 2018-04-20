@@ -21,7 +21,8 @@
   text-decoration: underline;
 }
 
-.disc-desc, .reply {
+.disc-desc,
+.reply {
   font-size: 14px;
 }
 
@@ -32,7 +33,7 @@ pre {
   margin-top: 10px;
 }
 
-pre>code {
+pre > code {
   color: #fff;
   font-size: 11px;
 }
@@ -50,24 +51,32 @@ code {
   .replies article .media-right {
     visibility: hidden;
   }
+
   .replies article:hover .media-right {
     visibility: visible;
   }
 }
 
 @media screen and (max-width: 769px) {
-  #user-details, #xp-details {
+  #user-details,
+  #xp-details {
     text-align: center;
     margin-top: 0 !important;
     margin-bottom: 20px;
   }
-  #user-details h1, #xp-details h1 {
+
+  #user-details h1,
+  #xp-details h1 {
     font-size: 18px;
   }
-  #user-details h4, #xp-details h4 {
+
+  #user-details h4,
+  #xp-details h4 {
     font-size: 20px;
   }
-  #user-details p, #xp-details p {
+
+  #user-details p,
+  #xp-details p {
     font-size: 14px;
   }
 }
@@ -101,3 +110,4 @@ span#xp {
 span.solved i {
   color: #ff6500;
 }
+

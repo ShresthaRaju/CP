@@ -16,8 +16,9 @@
             <img src="{{$discussion->user->display_image?asset('images/users/'.$discussion->user->display_image):asset('images/users/userImage.png')}}" alt="User Image" class="user-image">
           </a>
         </p>
-        <span class="icon solved"><i class="fa fa-check fa-2x m-l-25 m-t-20"></i></span>
+        <img src="{{asset('images/solved.png')}}" class="image is-32x32 m-l-10 m-t-5" alt="Solved" title="Solved">
       </figure>
+
       <div class="media-content">
         <div class="content">
           <span class="title is-6">

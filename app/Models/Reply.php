@@ -8,6 +8,10 @@ class Reply extends Model
 {
     protected $fillable=['reply','discussion_id','user_id'];
 
+    // protected $dispatchesEvents=[
+    //   'created'=>Events\NewReply::class,
+    // ];
+
     public function discussion()
     {
         return $this->belongsTo('App\Models\Discussion');

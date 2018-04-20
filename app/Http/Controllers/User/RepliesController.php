@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Discussion;
 use Auth;
+use App\Events\NewReply;
 
 class RepliesController extends Controller
 {
@@ -49,6 +50,9 @@ class RepliesController extends Controller
         }
 
         $reply=Reply::where('id', $reply->id)->with('user')->first();
+
+        //broadcast the reply that has been created only to others [but not to the one who created]
+        broadcast(new NewReply($reply))->toOthers();
 
         return $reply;
     }

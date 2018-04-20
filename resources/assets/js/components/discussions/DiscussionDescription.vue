@@ -3,7 +3,7 @@
   <div id="discussion">
     <div class="disc-desc has-text-justified" v-html="formattedDiscussion"></div>
     <!--best reply panel -->
-    <nav class="panel m-t-30" v-for="(reply,index) in replies" :key="reply.id" v-if="reply.best_reply==1 || reply.id==isBestReply">
+    <!-- <nav class="panel m-t-30" v-for="(reply,index) in replies" :key="reply.id" v-if="reply.best_reply==1 || reply.id==isBestReply">
       <p class="panel-heading">
         <span class="is-size-5 has-text-white">Best Reply</span>
         <span class="is-pulled-right is-size-7 has-text-white is-hidden-mobile m-t-5">
@@ -37,7 +37,7 @@
            </div>
           </article>
       </div>
-    </nav>
+    </nav> -->
 
     <hr>
     <all-replies :discussion="discussion" :logged-in="loggedIn" :user="user"></all-replies>

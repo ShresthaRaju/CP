@@ -14,7 +14,7 @@
           </a>
         </p>
         @if ($discussion->solved)
-          <span class="icon solved"><i class="fa fa-check fa-2x m-l-25 m-t-20"></i></span>
+          <img src="{{asset('images/solved.png')}}" class="image is-32x32 m-l-10 m-t-5" alt="Solved" title="Solved">
         @endif
       </figure>
       <div class="media-content">

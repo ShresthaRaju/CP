@@ -150,6 +150,14 @@ export default {
         .catch(error => this.errors.recordErrors(error.response.data.errors))
     },
 
+    //triggered everytime a new reply is created [for real-time commenting system]
+    listenToReply() {
+      Echo.channel('discussion.' + this.discussion.id)
+        .listen('NewReply', (reply) => {
+          this.replies.unshift(reply.reply);
+        })
+    },
+
     editReply(index, reply) {
       this.selectedReply = index;
       this.updatedReply = reply;
@@ -200,6 +208,7 @@ export default {
 
   mounted() {
     this.fetchAllReplies();
+    this.listenToReply();
   },
 
   filters: {
