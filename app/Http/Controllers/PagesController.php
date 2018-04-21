@@ -8,6 +8,7 @@ use App\Models\Discussion;
 use App\Models\Channel;
 use App\Models\Favorite;
 use App\User;
+use App\Notifications\DiscussionFavorited;
 use Carbon\Carbon;
 
 class PagesController extends Controller
@@ -84,6 +85,7 @@ class PagesController extends Controller
             $favorite->user_id=$user->id;
             $favorite->discussion_id=$discussion_id;
             if ($favorite->save()) {
+                $favorite->discussion->user->notify(new DiscussionFavorited($favorite->discussion, $favorite->user));
                 return ['message'=>'Discussion added to your favorites'];
             }
         }

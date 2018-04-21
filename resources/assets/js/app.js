@@ -38,6 +38,7 @@ Vue.component('discussiondesc', require('./components/discussions/DiscussionDesc
 Vue.component('Favorite', require('./components/discussions/FavoriteDiscussion.vue'));
 Vue.component('Profile', require('./components/Profile.vue'));
 Vue.component('Tab', require('./components/Tab.vue'));
+Vue.component('Notification', require('./components/Notifications/Notification.vue'));
 
 const app = new Vue({
   el: '#app',

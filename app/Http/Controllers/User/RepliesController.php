@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Discussion;
 use Auth;
 use App\Events\NewReply;
+use App\Notifications\RepliedToPost;
 
 class RepliesController extends Controller
 {
@@ -53,6 +54,10 @@ class RepliesController extends Controller
 
         //broadcast the reply that has been created only to others [but not to the one who created]
         broadcast(new NewReply($reply))->toOthers();
+
+        $discussionOwner=$reply->discussion->user;
+
+        $discussionOwner->notify(new RepliedToPost($reply->discussion, $reply->user));
 
         return $reply;
     }

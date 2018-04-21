@@ -31,6 +31,10 @@
             </div>
         </div>
       @else
+        {{-- Vue Notification component --}}
+        <Notification class="is-hidden-mobile" :user-id="{{auth()->id()}}" :notifications="{{auth()->user()->notifications}}"
+        :unread-notifications="{{auth()->user()->unreadNotifications}}"></Notification>
+
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
             <figure class="is-hidden-mobile m-r-5">

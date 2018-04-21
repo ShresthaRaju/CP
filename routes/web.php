@@ -20,6 +20,11 @@ Route::get('/channels/{channelTitle}', 'PagesController@channel')->name('channel
 Route::get('/user/@{username}', 'PagesController@userProfile')->name('userProfile');
 Route::put('/user/{user}', 'Admin\UsersController@updateUser')->name('updateUser');
 
+//marking notifications as read
+Route::post('notification/{notification}/markasread', function ($notification) {
+    DB::table('notifications')->where('id', $notification)->update(['read_at'=>\Carbon\Carbon::now()]);
+})->middleware('auth');
+
 
 Auth::routes();
 
