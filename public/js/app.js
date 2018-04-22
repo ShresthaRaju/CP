@@ -55808,6 +55808,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -55823,7 +55824,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       errors: new __WEBPACK_IMPORTED_MODULE_1__utilities_errors_js__["a" /* default */](),
       selectedReply: null,
       updatedReply: '',
-      bestReply: null
+      label: 'Mark as best reply',
+      bestReply: null,
+      markBestHidden: false
     };
   },
 
@@ -55906,7 +55909,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         discussion: discussion,
         reply: reply.reply
       }).then(function (response) {
+        _this6.label = "Selected as best reply";
         _this6.bestReply = replyIndex;
+        _this6.markBestHidden = true;
         _this6.$snackbar.open("Reply maked as best");
         _this6.$parent.$emit('bestReplySelected', reply);
       }).catch(function (error) {
@@ -55918,6 +55923,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     this.fetchAllReplies();
     this.listenToReply();
+    if (this.discussion.solved == 1) {
+      this.label = "Selected as best reply";
+      this.markBestHidden = !this.markBestHidden;
+    }
   },
 
 
@@ -55963,19 +55972,13 @@ var render = function() {
                   _c("p", { staticClass: "image is-48x48" }, [
                     _c(
                       "a",
-                      {
-                        attrs: {
-                          href:
-                            "http://localhost:8000/user/@" + reply.user.username
-                        }
-                      },
+                      { attrs: { href: "/user/@" + reply.user.username } },
                       [
                         reply.user.display_image === null
                           ? _c("img", {
                               staticClass: "user-image",
                               attrs: {
-                                src:
-                                  "http://localhost:8000/images/users/userImage.png",
+                                src: "/images/users/userImage.png",
                                 alt: "User image"
                               }
                             })
@@ -55983,8 +55986,7 @@ var render = function() {
                               staticClass: "user-image",
                               attrs: {
                                 src:
-                                  "http://localhost:8000/images/users/" +
-                                  reply.user.display_image,
+                                  "/images/users/" + reply.user.display_image,
                                 alt: "User image"
                               }
                             })
@@ -56000,11 +56002,7 @@ var render = function() {
                         "a",
                         {
                           staticClass: "m-r-5",
-                          attrs: {
-                            href:
-                              "http://localhost:8000/user/@" +
-                              reply.user.username
-                          }
+                          attrs: { href: "/user/@" + reply.user.username }
                         },
                         [_vm._v(_vm._s(reply.user.username))]
                       ),
@@ -56169,7 +56167,7 @@ var render = function() {
                                 "b-tooltip",
                                 {
                                   attrs: {
-                                    label: "Mark as best reply",
+                                    label: _vm.label,
                                     type: "is-dark",
                                     position: "is-right",
                                     animated: ""
@@ -56192,22 +56190,36 @@ var render = function() {
                                       }
                                     },
                                     [
-                                      _c(
-                                        "span",
-                                        { staticClass: "icon has-text-grey" },
-                                        [
-                                          reply.best_reply == 1 ||
-                                          index == _vm.bestReply
-                                            ? _c("i", {
+                                      reply.best_reply == 1 ||
+                                      index == _vm.bestReply
+                                        ? _c(
+                                            "span",
+                                            {
+                                              staticClass: "icon has-text-grey"
+                                            },
+                                            [
+                                              _c("i", {
                                                 staticClass:
                                                   "fa fa-check-circle fa-lg"
                                               })
-                                            : _c("i", {
+                                            ]
+                                          )
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      !_vm.markBestHidden
+                                        ? _c(
+                                            "span",
+                                            {
+                                              staticClass: "icon has-text-grey"
+                                            },
+                                            [
+                                              _c("i", {
                                                 staticClass:
                                                   "fa fa-check-circle-o fa-lg"
                                               })
-                                        ]
-                                      )
+                                            ]
+                                          )
+                                        : _vm._e()
                                     ]
                                   )
                                 ]
@@ -56231,7 +56243,7 @@ var render = function() {
                             attrs: {
                               label: "Edit your reply",
                               type: "is-dark",
-                              position: "is-left",
+                              position: "is-right",
                               animated: ""
                             }
                           },
@@ -56433,6 +56445,121 @@ var render = function() {
         domProps: { innerHTML: _vm._s(_vm.formattedDiscussion) }
       }),
       _vm._v(" "),
+      _vm._l(_vm.replies, function(reply, index) {
+        return reply.best_reply == 1 || reply.id == _vm.isBestReply
+          ? _c("nav", { key: reply.id, staticClass: "panel m-t-30" }, [
+              _c("p", { staticClass: "panel-heading" }, [
+                _c("span", { staticClass: "is-size-5 has-text-white" }, [
+                  _vm._v("Best Reply")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass:
+                      "is-pulled-right is-size-7 has-text-white is-hidden-mobile m-t-5"
+                  },
+                  [
+                    _vm._v("\n        ( As selected by "),
+                    _c(
+                      "span",
+                      { staticClass: "has-text-black-ter is-uppercase" },
+                      [_vm._v(_vm._s(_vm.discussion.user.username))]
+                    ),
+                    _vm._v(" )\n      ")
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "panel-block" }, [
+                _c("article", { staticClass: "media m-t-20 m-b-20" }, [
+                  _c("figure", { staticClass: "media-left is-hidden-mobile" }, [
+                    _c("p", { staticClass: "image is-48x48" }, [
+                      _c(
+                        "a",
+                        { attrs: { href: "/user/@" + reply.user.username } },
+                        [
+                          reply.user.display_image === null
+                            ? _c("img", {
+                                staticClass: "user-image",
+                                attrs: {
+                                  src: "/images/users/userImage.png",
+                                  alt: "User image"
+                                }
+                              })
+                            : _c("img", {
+                                staticClass: "user-image",
+                                attrs: {
+                                  src:
+                                    "/images/users/" + reply.user.display_image,
+                                  alt: "User image"
+                                }
+                              })
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "media-content" }, [
+                    _c("div", { staticClass: "content" }, [
+                      _c("span", { staticClass: "title is-6" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "m-r-5",
+                            attrs: { href: "/user/@" + reply.user.username }
+                          },
+                          [_vm._v(_vm._s(reply.user.username))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "small",
+                          {
+                            staticClass: "has-text-grey-light is-hidden-mobile"
+                          },
+                          [
+                            _vm._m(0, true),
+                            _vm._v(
+                              _vm._s(_vm._f("formatDate")(reply.created_at)) +
+                                "\n                "
+                            ),
+                            _c(
+                              "span",
+                              {
+                                staticClass: "title is-6 m-l-10",
+                                attrs: { id: "xp" }
+                              },
+                              [
+                                _vm._v(
+                                  "(" + _vm._s(reply.user.experience) + " XP)"
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "reply m-t-5 has-text-justified" },
+                        [
+                          _c("p", {
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.$options.filters.formatReply(reply.reply)
+                              )
+                            }
+                          })
+                        ]
+                      )
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          : _vm._e()
+      }),
+      _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
       _c("all-replies", {
@@ -56443,10 +56570,19 @@ var render = function() {
         }
       })
     ],
-    1
+    2
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fa fa-clock-o" })
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -57140,7 +57276,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     var _this = this;
 
+    // notification sound
+    var notificationSound = new Audio();
+    notificationSound.src = "/sounds/notification.mp3";
+
     Echo.private('App.User.' + this.userId).notification(function (notification) {
+      notificationSound.play();
       var newNotification = {
         /*database sends the value of the "data" column
         by wrapping in an object named "data"

@@ -8,9 +8,9 @@
       <article class="media" v-for="(reply,index) in replies" :key="reply.id">
         <figure class="media-left is-hidden-mobile">
           <p class="image is-48x48">
-            <a :href="'http://localhost:8000/user/@'+reply.user.username">
-              <img src="http://localhost:8000/images/users/userImage.png" alt="User image" v-if="reply.user.display_image===null" class="user-image">
-              <img :src="'http://localhost:8000/images/users/'+reply.user.display_image" alt="User image" class="user-image"  v-else>
+            <a :href="'/user/@'+reply.user.username">
+              <img src="/images/users/userImage.png" alt="User image" v-if="reply.user.display_image===null" class="user-image">
+              <img :src="'/images/users/'+reply.user.display_image" alt="User image" class="user-image"  v-else>
             </a>
           </p>
         </figure>
@@ -18,7 +18,7 @@
         <div class="media-content">
           <div class="content">
             <span class="title is-6">
-              <a :href="'http://localhost:8000/user/@'+reply.user.username" class="m-r-5">{{reply.user.username}}</a>
+              <a :href="'/user/@'+reply.user.username" class="m-r-5">{{reply.user.username}}</a>
               <small class="has-text-grey-light is-hidden-mobile">
                 <span class="icon"><i class="fa fa-clock-o"></i></span>{{reply.created_at|formatDate}}
                 <span class="title is-6 m-l-10" id="xp">({{reply.user.experience}} XP)</span>
@@ -47,15 +47,16 @@
 
           <nav class="level is-mobile" id="best-reply" v-if="loggedIn && user==discussion.user.id">
            <div class="level-left">
-             <b-tooltip label="Mark as best reply"
+             <b-tooltip :label="label"
                type="is-dark"
                position="is-right"
                animated>
                <a class="level-item" @click.prevent="markBestReply(index,discussion.id,reply)">
-                 <span class="icon has-text-grey">
-                   <!-- <i :class="[{'fa fa-check-circle-o fa-lg':true},{'fa fa-check-circle fa-lg':reply.best_reply==1}]"></i> -->
-                   <i class="fa fa-check-circle fa-lg" v-if="reply.best_reply==1 || index==bestReply"></i>
-                   <i class="fa fa-check-circle-o fa-lg" v-else></i>
+                 <span class="icon has-text-grey" v-if="reply.best_reply==1 || index==bestReply">
+                   <i class="fa fa-check-circle fa-lg"></i>
+                 </span>
+                 <span class="icon has-text-grey" v-if="!markBestHidden">
+                   <i class="fa fa-check-circle-o fa-lg"></i>
                  </span>
                </a>
              </b-tooltip>
@@ -67,7 +68,7 @@
         <div class="media-right" v-if="loggedIn && user==reply.user.id">
           <b-tooltip label="Edit your reply"
             type="is-dark"
-            position="is-left"
+            position="is-right"
             animated>
             <a @click.prevent="editReply(index,reply.reply)">
               <span class="icon has-text-grey"><i class="fa fa-pencil"></i></span>
@@ -119,7 +120,9 @@ export default {
       errors: new Errors(),
       selectedReply: null,
       updatedReply: '',
+      label: 'Mark as best reply',
       bestReply: null,
+      markBestHidden: false,
     }
   },
 
@@ -197,7 +200,9 @@ export default {
           reply: reply.reply
         })
         .then(response => {
+          this.label = "Selected as best reply";
           this.bestReply = replyIndex;
+          this.markBestHidden = true;
           this.$snackbar.open("Reply maked as best");
           this.$parent.$emit('bestReplySelected', reply);
         })
@@ -209,6 +214,10 @@ export default {
   mounted() {
     this.fetchAllReplies();
     this.listenToReply();
+    if (this.discussion.solved == 1) {
+      this.label = "Selected as best reply";
+      this.markBestHidden = !this.markBestHidden;
+    }
   },
 
   filters: {

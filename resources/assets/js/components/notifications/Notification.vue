@@ -42,8 +42,13 @@ export default {
   },
 
   mounted() {
+    // notification sound
+    var notificationSound = new Audio();
+    notificationSound.src = "/sounds/notification.mp3";
+
     Echo.private('App.User.' + this.userId)
       .notification((notification) => {
+        notificationSound.play();
         let newNotification = {
           /*database sends the value of the "data" column
           by wrapping in an object named "data"

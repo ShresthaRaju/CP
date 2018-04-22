@@ -16,7 +16,7 @@
               {{notificationItem.data.user.username}}
             </span>
 
-             <span v-if='notificationItem.type=="App\\Notifications\\RepliedToPost"'>replied to your post:</span>
+             <span v-if="notificationItem.type=='App\\Notifications\\RepliedToPost'">replied to your post:</span>
              <!-- single backslash escapes the character so we have to put two backslashes [2backslashes=1, 4backslashes=2 and so on] -->
              <span v-else>favorited your post:</span>
 

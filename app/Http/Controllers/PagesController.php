@@ -85,7 +85,10 @@ class PagesController extends Controller
             $favorite->user_id=$user->id;
             $favorite->discussion_id=$discussion_id;
             if ($favorite->save()) {
-                $favorite->discussion->user->notify(new DiscussionFavorited($favorite->discussion, $favorite->user));
+                $discussionOwner=$favorite->discussion->user;
+                if ($discussionOwner!=$favorite->user) {
+                    $discussionOwner->notify(new DiscussionFavorited($favorite->discussion, $favorite->user));
+                }
                 return ['message'=>'Discussion added to your favorites'];
             }
         }

@@ -57,7 +57,10 @@ class RepliesController extends Controller
 
         $discussionOwner=$reply->discussion->user;
 
-        $discussionOwner->notify(new RepliedToPost($reply->discussion, $reply->user));
+        // notify the discussion owner only for other users comment
+        if ($discussionOwner!=$reply->user) {
+            $discussionOwner->notify(new RepliedToPost($reply->discussion, $reply->user));
+        }
 
         return $reply;
     }
@@ -103,8 +106,19 @@ class RepliesController extends Controller
     public function markBestReply(Discussion $discussion, Reply $reply)
     {
         $discussion->solved=1;
-        $discussion->update(['solved']);
-        $discussion->replies()->where('id', $reply->id)->update(['best_reply'=>1]);
-        $reply->user()->increment('awards', 1);
+        $discussion->save();
+
+        foreach ($discussion->replies as $rep) {
+            if ($rep==$reply) {
+                if ($rep->best_reply!=1) {
+                    $rep->best_reply=1;
+                    $rep->save();
+                    $rep->user()->increment('awards', 1);
+                }
+            } else {
+                $rep->best_reply=0;
+                $rep->save();
+            }
+        }
     }
 }
