@@ -16,9 +16,10 @@
               {{notificationItem.data.user.username}}
             </span>
 
-             <span v-if="notificationItem.type=='App\\Notifications\\RepliedToPost'">replied to your post:</span>
+             <!-- <span v-if="notificationItem.type=='App\\Notifications\\RepliedToPost'">replied to your post:</span>
              <!-- single backslash escapes the character so we have to put two backslashes [2backslashes=1, 4backslashes=2 and so on] -->
-             <span v-else>favorited your post:</span>
+             <!-- <span v-else>favorited your post:</span> -->
+             {{notification.data.message}}:
 
             <span class="has-text-weight-bold">
               {{notificationItem.data.discussion.title.substring(0,20)}}{{notificationItem.data.discussion.title.length>20?'...':''}}

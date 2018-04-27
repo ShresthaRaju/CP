@@ -17831,9 +17831,9 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(141);
-__webpack_require__(226);
-__webpack_require__(227);
-module.exports = __webpack_require__(228);
+__webpack_require__(229);
+__webpack_require__(230);
+module.exports = __webpack_require__(231);
 
 
 /***/ }),
@@ -17883,8 +17883,9 @@ Vue.component('editdiscussion', __webpack_require__(198));
 Vue.component('discussiondesc', __webpack_require__(201));
 Vue.component('Favorite', __webpack_require__(207));
 Vue.component('Profile', __webpack_require__(210));
-Vue.component('Tab', __webpack_require__(213));
-Vue.component('Notification', __webpack_require__(216));
+Vue.component('editprofile', __webpack_require__(213));
+Vue.component('Tab', __webpack_require__(216));
+Vue.component('Notification', __webpack_require__(219));
 
 var app = new Vue({
   el: '#app'
@@ -53793,6 +53794,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53880,9 +53882,15 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "[" +
+                    "[ " +
                       _vm._s(_vm.channel.discussions.length) +
-                      " Discussions]"
+                      " " +
+                      _vm._s(
+                        _vm.channel.discussions.length > 1
+                          ? "Discussions"
+                          : "Discussion"
+                      ) +
+                      " ]"
                   )
                 ]
               ),
@@ -53916,8 +53924,10 @@ var render = function() {
                             return _c("tr", [
                               _c("th", [_vm._v(_vm._s(index + 1))]),
                               _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(discussion.title))]),
+                              _vm._v(" "),
                               _c("td", [
-                                _c("a", [_vm._v(_vm._s(discussion.title))])
+                                _vm._v(_vm._s(discussion.replies.length))
                               ])
                             ])
                           })
@@ -54081,7 +54091,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Title")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Comments")])
+        _c("th", [_vm._v("Replies")])
       ])
     ])
   },
@@ -55978,7 +55988,7 @@ var render = function() {
                           ? _c("img", {
                               staticClass: "user-image",
                               attrs: {
-                                src: "/images/users/userImage.png",
+                                src: "/images/userImage.png",
                                 alt: "User image"
                               }
                             })
@@ -56870,6 +56880,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -56944,8 +56961,45 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "column" }, [
               _c("div", { attrs: { id: "user-details" } }, [
-                _c("h1", { staticClass: "title is-4 is-uppercase" }, [
-                  _vm._v(_vm._s("@") + _vm._s(_vm.user.username))
+                _c("h1", { staticClass: "title is-4" }, [
+                  _vm._v(
+                    _vm._s("@") +
+                      _vm._s(_vm.user.username) +
+                      "\n                "
+                  ),
+                  _vm.user.github
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "has-text-black-ter",
+                          attrs: {
+                            href: "https://github.com/" + _vm.user.github,
+                            title: "https://github.com/" + _vm.user.github,
+                            target: "_blank"
+                          }
+                        },
+                        [_vm._m(0)]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.user.linkedin
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "has-text-black-ter",
+                          attrs: {
+                            href:
+                              "https://www.linkedin.com/in/" +
+                              _vm.user.linkedin,
+                            title:
+                              "https://www.linkedin.com/in/" +
+                              _vm.user.linkedin,
+                            target: "_blank"
+                          }
+                        },
+                        [_vm._m(1)]
+                      )
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c("p", { staticClass: "title is-6" }, [
@@ -57010,7 +57064,24 @@ var render = function() {
     _c("div", { staticClass: "tab-body" }, [_vm._t("default")], 2)
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fa fa-github" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fa fa-linkedin-square" })
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -57030,6 +57101,710 @@ var normalizeComponent = __webpack_require__(1)
 var __vue_script__ = __webpack_require__(214)
 /* template */
 var __vue_template__ = __webpack_require__(215)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\EditProfile.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-45b33b18", Component.options)
+  } else {
+    hotAPI.reload("data-v-45b33b18", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 214 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utilities_errors_js__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+  props: ['user'],
+
+  data: function data() {
+    return {
+      errors: new __WEBPACK_IMPORTED_MODULE_0__utilities_errors_js__["a" /* default */](),
+      socialize: {
+        github: '',
+        linkedin: ''
+      },
+      passwords: {
+        current_password: '',
+        new_password: ''
+      },
+      passwordError: '',
+
+      selectedImage: null,
+      imageUrl: null,
+      percentUploaded: 0
+
+    };
+  },
+
+
+  methods: {
+    social: function social() {
+      var _this = this;
+
+      axios.put('/user/' + this.user.id + '/socialize', this.socialize).then(function (response) {
+        _this.socialize = '';
+        _this.$toast.open({
+          type: 'is-success',
+          message: response.data.success,
+          duration: 5000
+        });
+      }).catch(function (error) {
+        return _this.errors.recordErrors(error.response.data.errors);
+      });
+    },
+    changePassword: function changePassword() {
+      var _this2 = this;
+
+      axios.put('/user/' + this.user.id + '/changepassword', this.passwords).then(function (response) {
+        if (response.data.error) {
+          _this2.passwordError = response.data.error;
+        } else {
+          _this2.passwords = '';
+          _this2.passwordError = '';
+          _this2.$toast.open({
+            type: 'is-success',
+            message: response.data.success,
+            duration: 5000
+          });
+        }
+      }).catch(function (error) {
+        return _this2.errors.recordErrors(error.response.data.errors);
+      });
+    },
+    onImageSelected: function onImageSelected(event) {
+      this.selectedImage = event.target.files[0];
+      this.imageUrl = URL.createObjectURL(this.selectedImage);
+    },
+    uploadPicture: function uploadPicture() {
+      var _this3 = this;
+
+      var formData = new FormData();
+      formData.append('display_image', this.selectedImage, this.selectedImage.name);
+      axios.post('/user/' + this.user.id + '/uploadpicture', formData, {
+        onUploadProgress: function onUploadProgress(progressEvent) {
+          _this3.percentUploaded = Math.round(progressEvent.loaded * 100 / progressEvent.total);
+        }
+      }).then(function (response) {
+        _this3.percentUploaded = 0;
+        _this3.selectedImage = null;
+        _this3.imageUrl = null;
+        _this3.$toast.open({
+          type: 'is-success',
+          message: response.data.success,
+          duration: 5000
+        });
+      }).catch(function (error) {
+        return _this3.errors.recordErrors(error.response.data.errors);
+      });
+    }
+  }
+
+});
+
+/***/ }),
+/* 215 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { staticClass: "section" }, [
+    _c("div", { staticClass: "container m-t-10" }, [
+      _c("div", { staticClass: "columns" }, [
+        _c("div", { staticClass: "column is-one-third is-offset-2" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-content" }, [
+              _c(
+                "form",
+                {
+                  attrs: { method: "post" },
+                  on: {
+                    keydown: function($event) {
+                      _vm.errors.clearError($event.target.name)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "field" }, [
+                    _c("label", { staticClass: "label" }, [
+                      _vm._v("Socialize")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "control has-icons-right" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.socialize.github,
+                            expression: "socialize.github"
+                          }
+                        ],
+                        class: [
+                          "input",
+                          { "is-danger": _vm.errors.hasError("github") }
+                        ],
+                        attrs: {
+                          type: "text",
+                          placeholder: "Github Username...",
+                          name: "github"
+                        },
+                        domProps: { value: _vm.socialize.github },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.socialize,
+                              "github",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.hasError("github")
+                        ? _c(
+                            "span",
+                            { staticClass: "icon is-small is-right" },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-exclamation-triangle"
+                              })
+                            ]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _vm.errors.hasError("github")
+                      ? _c("p", { staticClass: "help is-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.getErrorMessage("github")))
+                        ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "field" }, [
+                    _c("div", { staticClass: "control has-icons-right" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.socialize.linkedin,
+                            expression: "socialize.linkedin"
+                          }
+                        ],
+                        class: [
+                          "input",
+                          { "is-danger": _vm.errors.hasError("linkedin") }
+                        ],
+                        attrs: {
+                          type: "text",
+                          placeholder: "LinkedIn Username...",
+                          name: "linkedin"
+                        },
+                        domProps: { value: _vm.socialize.linkedin },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.socialize,
+                              "linkedin",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.hasError("linkedin")
+                        ? _c(
+                            "span",
+                            { staticClass: "icon is-small is-right" },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-exclamation-triangle"
+                              })
+                            ]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _vm.errors.hasError("linkedin")
+                      ? _c("p", { staticClass: "help is-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.getErrorMessage("linkedin")))
+                        ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "button is-primary is-outlined is-fullwidth m-t-20",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.social($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card m-t-20" }, [
+            _c("div", { staticClass: "card-content" }, [
+              _c(
+                "form",
+                {
+                  attrs: { method: "POST" },
+                  on: {
+                    keydown: function($event) {
+                      _vm.errors.clearError($event.target.name)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "field" }, [
+                    _c("label", { staticClass: "label" }, [
+                      _vm._v("Change Password")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "control has-icons-right" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.passwords.current_password,
+                            expression: "passwords.current_password"
+                          }
+                        ],
+                        class: [
+                          "input",
+                          {
+                            "is-danger": _vm.errors.hasError("current_password")
+                          }
+                        ],
+                        attrs: {
+                          type: "password",
+                          placeholder: "Current Password...",
+                          name: "current_password"
+                        },
+                        domProps: { value: _vm.passwords.current_password },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.passwords,
+                              "current_password",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.hasError("current_password")
+                        ? _c(
+                            "span",
+                            { staticClass: "icon is-small is-right" },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-exclamation-triangle"
+                              })
+                            ]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _vm.errors.hasError("current_password")
+                      ? _c("p", { staticClass: "help is-danger" }, [
+                          _vm._v(
+                            _vm._s(
+                              _vm.errors.getErrorMessage("current_password")
+                            )
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.passwordError
+                      ? _c("p", { staticClass: "help is-danger" }, [
+                          _vm._v(_vm._s(_vm.passwordError))
+                        ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "field" }, [
+                    _c("div", { staticClass: "control has-icons-right" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.passwords.new_password,
+                            expression: "passwords.new_password"
+                          }
+                        ],
+                        class: [
+                          "input",
+                          { "is-danger": _vm.errors.hasError("new_password") }
+                        ],
+                        attrs: {
+                          type: "password",
+                          placeholder: "New Password...",
+                          name: "new_password"
+                        },
+                        domProps: { value: _vm.passwords.new_password },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.passwords,
+                              "new_password",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.hasError("new_password")
+                        ? _c(
+                            "span",
+                            { staticClass: "icon is-small is-right" },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-exclamation-triangle"
+                              })
+                            ]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _vm.errors.hasError("new_password")
+                      ? _c("p", { staticClass: "help is-danger" }, [
+                          _vm._v(
+                            _vm._s(_vm.errors.getErrorMessage("new_password"))
+                          )
+                        ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "button is-primary is-outlined is-fullwidth m-t-20",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.changePassword($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Change")]
+                  )
+                ]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "column is-one-third-desktop is-one-third-tablet is-offset-1"
+          },
+          [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-content" }, [
+                _vm.imageUrl
+                  ? _c("div", { staticClass: "has-text-centered" }, [
+                      _c("figure", [
+                        _c("p", { staticClass: "image is-1by1" }, [
+                          _c("img", {
+                            attrs: {
+                              src: _vm.imageUrl,
+                              alt: _vm.selectedImage.name
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "title is-6 m-t-5" }, [
+                        _vm._v(_vm._s(_vm.selectedImage.name))
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "progress",
+                        {
+                          staticClass: "progress is-small m-t-10 m-b-10",
+                          attrs: { max: "100" },
+                          domProps: { value: _vm.percentUploaded }
+                        },
+                        [_vm._v(_vm._s(_vm.percentUploaded) + "%")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "button is-small is-dark is-outlined",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              _vm.uploadPicture($event)
+                            }
+                          }
+                        },
+                        [_vm._v("Upload")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "button is-small is-danger",
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              _vm.imageUrl = null
+                            }
+                          }
+                        },
+                        [_vm._v("Cancel")]
+                      )
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("form", { attrs: { enctype: "multipart/form-data" } }, [
+                  !_vm.imageUrl
+                    ? _c("div", { staticClass: "field m-t-15" }, [
+                        _c("div", { staticClass: "file is-info has-name" }, [
+                          _c("label", { staticClass: "file-label" }, [
+                            _c("input", {
+                              staticClass: "file-input",
+                              attrs: {
+                                type: "file",
+                                name: "display_image",
+                                accept: "image/*"
+                              },
+                              on: { change: _vm.onImageSelected }
+                            }),
+                            _vm._v(" "),
+                            _vm._m(0),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "file-name" }, [
+                              _vm._v("Upload a picture...")
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm.errors.hasError("display_image")
+                          ? _c("p", { staticClass: "help is-danger" }, [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.errors.getErrorMessage("display_image")
+                                )
+                              )
+                            ])
+                          : _vm._e()
+                      ])
+                    : _vm._e()
+                ])
+              ])
+            ])
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "file-cta" }, [
+      _c("span", { staticClass: "file-icon" }, [
+        _c("i", { staticClass: "fa fa-upload" })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-45b33b18", module.exports)
+  }
+}
+
+/***/ }),
+/* 216 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(217)
+/* template */
+var __vue_template__ = __webpack_require__(218)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -57068,7 +57843,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 214 */
+/* 217 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -57113,7 +57888,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 215 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -57133,19 +57908,19 @@ if (false) {
 }
 
 /***/ }),
-/* 216 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(217)
+  __webpack_require__(220)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(219)
+var __vue_script__ = __webpack_require__(222)
 /* template */
-var __vue_template__ = __webpack_require__(225)
+var __vue_template__ = __webpack_require__(228)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -57184,13 +57959,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 217 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(218);
+var content = __webpack_require__(221);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -57210,7 +57985,7 @@ if(false) {
 }
 
 /***/ }),
-/* 218 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)(false);
@@ -57224,12 +57999,12 @@ exports.push([module.i, "\n.dropdown-trigger[data-v-0a738cb6]{\n  cursor:pointer
 
 
 /***/ }),
-/* 219 */
+/* 222 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__NotificationItem_vue__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__NotificationItem_vue__ = __webpack_require__(223);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__NotificationItem_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__NotificationItem_vue__);
 //
 //
@@ -57295,7 +58070,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           user: {
             username: notification.user.username,
             display_image: notification.user.display_image
-          }
+          },
+          message: notification.message
         }
       };
       _this.allNotifications.unshift(newNotification);
@@ -57313,19 +58089,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 220 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(221)
+  __webpack_require__(224)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(223)
+var __vue_script__ = __webpack_require__(226)
 /* template */
-var __vue_template__ = __webpack_require__(224)
+var __vue_template__ = __webpack_require__(227)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -57364,13 +58140,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 221 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(222);
+var content = __webpack_require__(225);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -57390,7 +58166,7 @@ if(false) {
 }
 
 /***/ }),
-/* 222 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)(false);
@@ -57404,13 +58180,14 @@ exports.push([module.i, "\n#notification-item[data-v-7001292e]{\n  background-co
 
 
 /***/ }),
-/* 223 */
+/* 226 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+//
 //
 //
 //
@@ -57486,7 +58263,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 224 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -57547,10 +58324,11 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm.notificationItem.type == "App\\Notifications\\RepliedToPost"
-                  ? _c("span", [_vm._v("replied to your post:")])
-                  : _c("span", [_vm._v("favorited your post:")]),
-                _vm._v(" "),
+                _vm._v(
+                  "\n           " +
+                    _vm._s(_vm.notification.data.message) +
+                    ":\n\n          "
+                ),
                 _c("span", { staticClass: "has-text-weight-bold" }, [
                   _vm._v(
                     "\n            " +
@@ -57597,7 +58375,7 @@ if (false) {
 }
 
 /***/ }),
-/* 225 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -57682,19 +58460,19 @@ if (false) {
 }
 
 /***/ }),
-/* 226 */
+/* 229 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 227 */
+/* 230 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 228 */
+/* 231 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

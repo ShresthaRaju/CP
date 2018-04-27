@@ -35,7 +35,7 @@
 
     {{-- Email status (sent or not)--}}
     @if (Session::has('status'))
-      <b-notification class="m-t-20">
+      <b-notification type="is-info" class="m-t-20">
         {{Session::get('status')}}
       </b-notification>
     @endif

@@ -62,7 +62,8 @@ export default {
             user: {
               username: notification.user.username,
               display_image: notification.user.display_image,
-            }
+            },
+            message: notification.message,
           }
         }
         this.allNotifications.unshift(newNotification);

@@ -39,7 +39,7 @@
           <a class="navbar-link">
             <figure class="is-hidden-mobile m-r-5">
               <p class="image is-24x24">
-                <img src="{{Auth::user()->display_image?asset('images/users/'.Auth::user()->display_image):asset('images/users/userImage.png')}}" alt="User Image" class="nav-user-img">
+                <img src="{{Auth::user()->display_image?asset('images/users/'.Auth::user()->display_image):asset('images/userImage.png')}}" alt="User Image" class="nav-user-img">
               </p>
             </figure>
             Welcome, {{Auth::user()->username}}

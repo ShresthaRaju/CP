@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 
 class ChannelsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +55,7 @@ class ChannelsController extends Controller
      */
     public function show(Channel $channel)
     {
-        return $channel->load('discussions');
+        return $channel->load('discussions.replies');
         // load() method loads the relationship after ther parent model has been loaded which in this case 'channel' is the parent model
     }
 

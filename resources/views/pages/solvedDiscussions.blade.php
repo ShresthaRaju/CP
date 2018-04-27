@@ -13,7 +13,7 @@
       <figure class="media-left is-hidden-mobile">
         <p class="image is-48x48">
           <a href="{{route('userProfile',$discussion->user->username)}}">
-            <img src="{{$discussion->user->display_image?asset('images/users/'.$discussion->user->display_image):asset('images/users/userImage.png')}}" alt="User Image" class="user-image">
+            <img src="{{$discussion->user->display_image?asset('images/users/'.$discussion->user->display_image):asset('images/userImage.png')}}" alt="User Image" class="user-image">
           </a>
         </p>
         <img src="{{asset('images/solved.png')}}" class="image is-32x32 m-l-10 m-t-5" alt="Solved" title="Solved">

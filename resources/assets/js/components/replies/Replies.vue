@@ -9,7 +9,7 @@
         <figure class="media-left is-hidden-mobile">
           <p class="image is-48x48">
             <a :href="'/user/@'+reply.user.username">
-              <img src="/images/users/userImage.png" alt="User image" v-if="reply.user.display_image===null" class="user-image">
+              <img src="/images/userImage.png" alt="User image" v-if="reply.user.display_image===null" class="user-image">
               <img :src="'/images/users/'+reply.user.display_image" alt="User image" class="user-image"  v-else>
             </a>
           </p>

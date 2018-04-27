@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->text('display_image')->nullable();
             $table->integer('experience')->unsigned()->default(0);
             $table->integer('awards')->unsigned()->default(0);
+            $table->string('github', 30)->nullable();
+            $table->string('linkedin', 30)->nullable();
             $table->boolean('active')->default(0);
             $table->string('verification_token', 40)->nullable();
             $table->rememberToken();

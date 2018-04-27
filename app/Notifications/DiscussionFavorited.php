@@ -56,6 +56,7 @@ class DiscussionFavorited extends Notification
             'username'=>$this->user->username,
             'display_image'=>$this->user->display_image,
           ],
+          'message'=>'favorited your post',
         ];
     }
 
@@ -76,6 +77,7 @@ class DiscussionFavorited extends Notification
             'username'=>$this->user->username,
             'display_image'=>$this->user->display_image,
           ],
+          'message'=>'favorited your post',
     ]);
     }
 

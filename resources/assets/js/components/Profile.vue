@@ -18,7 +18,14 @@
 
             <div class="column">
               <div id="user-details">
-                <h1 class="title is-4 is-uppercase">{{'@'}}{{user.username}}</h1>
+                <h1 class="title is-4">{{'@'}}{{user.username}}
+                  <a :href="'https://github.com/'+user.github" :title="'https://github.com/'+user.github" target="_blank" class="has-text-black-ter" v-if="user.github">
+                    <span class="icon"><i class="fa fa-github"></i></span>
+                  </a>
+                  <a :href="'https://www.linkedin.com/in/'+user.linkedin" :title="'https://www.linkedin.com/in/'+user.linkedin" target="_blank" class="has-text-black-ter" v-if="user.linkedin">
+                    <span class="icon"><i class="fa fa-linkedin-square"></i></span>
+                  </a>
+                </h1>
                 <p class="title is-6">Member Since <span class="has-text-weight-bold">{{user.created_at|formatDate}}</span></p>
               </div>
             </div>

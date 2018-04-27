@@ -37,6 +37,7 @@ Vue.component('editdiscussion', require('./components/discussions/EditDiscussion
 Vue.component('discussiondesc', require('./components/discussions/DiscussionDescription.vue'));
 Vue.component('Favorite', require('./components/discussions/FavoriteDiscussion.vue'));
 Vue.component('Profile', require('./components/Profile.vue'));
+Vue.component('editprofile', require('./components/EditProfile.vue'));
 Vue.component('Tab', require('./components/Tab.vue'));
 Vue.component('Notification', require('./components/Notifications/Notification.vue'));
 

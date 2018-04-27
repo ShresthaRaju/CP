@@ -24,30 +24,17 @@
     <div class="navbar-end">
       <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link">
-            Welcome, {{Auth::check()?Auth::user()->name:''}}
+            Welcome, {{Auth::guard('admin')->check()?Auth::user()->name:''}}
           </a>
 
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item">
-              <span class="icon"><i class="fa fa-thumbs-up"></i></span><span>Favorites</span>
-            </a>
-            <a class="navbar-item">
-              <span class="icon"><i class="fa fa-question-circle"></i></span><span>Questions</span>
-            </a>
-            <a class="navbar-item">
-              <span class="icon"><i class="fa fa-user"></i></span><span>Profile</span>
-            </a>
-            <a class="navbar-item">
-              <span class="icon"><i class="fa fa-cogs"></i></span><span>Settings</span>
-            </a>
-            <hr class="navbar-divider">
             <a class="navbar-item" href="{{ route('logout') }}"
                onclick="event.preventDefault();
-                             document.getElementById('logout-form').submit();">
+                             document.getElementById('admin-logout-form').submit();">
                 <span class="icon"><i class="fa fa-sign-out"></i></span><span>Logout</span>
             </a>
 
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            <form id="admin-logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
           </div>

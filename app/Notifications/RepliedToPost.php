@@ -56,6 +56,7 @@ class RepliedToPost extends Notification
             'username'=>$this->user->username,
             'display_image'=>$this->user->display_image,
           ],
+          'message'=>'replied to your post',
         ];
     }
 
@@ -76,6 +77,7 @@ class RepliedToPost extends Notification
             'username'=>$this->user->username,
             'display_image'=>$this->user->display_image,
           ],
+          'message'=>'replied to your post',
     ]);
     }
 

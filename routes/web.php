@@ -18,7 +18,9 @@ Route::get('/discussions/solved', 'PagesController@solvedDiscussions')->name('so
 Route::get('/discussions/unsolved', 'PagesController@unsolvedDiscussions')->name('unsolved');
 Route::get('/channels/{channelTitle}', 'PagesController@channel')->name('channel');
 Route::get('/user/@{username}', 'PagesController@userProfile')->name('userProfile');
-Route::put('/user/{user}', 'Admin\UsersController@updateUser')->name('updateUser');
+Route::put('/user/{user}/socialize', 'Admin\UsersController@socialize')->name('socialize');
+Route::put('/user/{user}/changepassword', 'Admin\UsersController@changePassword')->name('changePassword');
+Route::post('/user/{user}/uploadpicture', 'Admin\UsersController@uploadDisplayPicture')->name('uploadPicture');
 
 //marking notifications as read
 Route::post('notification/{notification}/markasread', function ($notification) {
@@ -30,9 +32,22 @@ Auth::routes();
 
 Route::get('verify/{verification_token}', 'Auth\RegisterController@verify')->name('verify');
 
+// login, logout and password resets for admin
 Route::prefix('admin')->as('admin.')->group(function () {
-    Route::view('dashboard', 'admin.dashboard')->name('dashboard');
-    Route::redirect('/', '/admin/dashboard', 301);
+    Route::get('login', 'Auth\AdminLoginController@showLoginForm')->name('login');
+    Route::post('login', 'Auth\AdminLoginController@login')->name('login.submit');
+    Route::post('logout', 'Auth\AdminLoginController@logout')->name('logout');
+    //Password Reset
+    Route::get('password/reset', 'Auth\AdminForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('password/email', 'Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    Route::get('password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('password/reset', 'Auth\AdminResetPasswordController@reset')->name('reset');
+});
+
+// Admin Tasks
+Route::prefix('admin')->as('admin.')->group(function () {
+    Route::view('dashboard', 'admin.dashboard')->name('dashboard')->middleware('auth:admin');
+    Route::redirect('/', '/admin/dashboard', 301)->middleware('auth:admin');
     Route::resource('users', 'Admin\UsersController')->except(['create','show','edit','update']);
     Route::resource('channels', 'Admin\ChannelsController')->except(['create','edit']);
     Route::resource('discussions', 'Admin\DiscussionsController')->except(['create','edit','update']);
