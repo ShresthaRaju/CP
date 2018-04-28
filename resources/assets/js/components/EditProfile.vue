@@ -134,13 +134,20 @@ export default {
     }
   },
 
+  mounted() {
+    if (this.user.github || this.user.linkedin) {
+      this.socialize.github = this.user.github;
+      this.socialize.linkedin = this.user.linkedin;
+    }
+  },
+
   methods: {
     social() {
       axios.put(`/user/${this.user.id}/socialize`, this.socialize)
         .then(response => {
           this.socialize = '';
           this.$toast.open({
-            type: 'is-success',
+            type: 'is-info',
             message: response.data.success,
             duration: 5000
           });
@@ -157,7 +164,7 @@ export default {
             this.passwords = '';
             this.passwordError = '';
             this.$toast.open({
-              type: 'is-success',
+              type: 'is-info',
               message: response.data.success,
               duration: 5000
             });
@@ -184,7 +191,7 @@ export default {
           this.selectedImage = null;
           this.imageUrl = null;
           this.$toast.open({
-            type: 'is-success',
+            type: 'is-info',
             message: response.data.success,
             duration: 5000
           });

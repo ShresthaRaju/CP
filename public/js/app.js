@@ -57280,6 +57280,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     };
   },
+  mounted: function mounted() {
+    if (this.user.github || this.user.linkedin) {
+      this.socialize.github = this.user.github;
+      this.socialize.linkedin = this.user.linkedin;
+    }
+  },
 
 
   methods: {
@@ -57289,7 +57295,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.put('/user/' + this.user.id + '/socialize', this.socialize).then(function (response) {
         _this.socialize = '';
         _this.$toast.open({
-          type: 'is-success',
+          type: 'is-info',
           message: response.data.success,
           duration: 5000
         });
@@ -57307,7 +57313,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this2.passwords = '';
           _this2.passwordError = '';
           _this2.$toast.open({
-            type: 'is-success',
+            type: 'is-info',
             message: response.data.success,
             duration: 5000
           });
@@ -57334,7 +57340,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this3.selectedImage = null;
         _this3.imageUrl = null;
         _this3.$toast.open({
-          type: 'is-success',
+          type: 'is-info',
           message: response.data.success,
           duration: 5000
         });
