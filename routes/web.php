@@ -16,6 +16,7 @@ Route::get('/discussions/popular', 'PagesController@popularDiscussions')->name('
 Route::get('/discussions/popular-this-week', 'PagesController@popularDiscussionsThisWeek')->name('popularThisWeek');
 Route::get('/discussions/solved', 'PagesController@solvedDiscussions')->name('solved');
 Route::get('/discussions/unsolved', 'PagesController@unsolvedDiscussions')->name('unsolved');
+Route::get('/discussions/leaderboard', 'PagesController@leaderboard')->name('leaderboard');
 Route::get('/channels/{channelTitle}', 'PagesController@channel')->name('channel');
 Route::get('/user/@{username}', 'PagesController@userProfile')->name('userProfile');
 Route::put('/user/{user}/socialize', 'Admin\UsersController@socialize')->name('socialize');

@@ -90,6 +90,22 @@ code {
   min-height: 50px;
 }
 
+.leaderboard-image {
+  border-radius: 50%;
+  max-width: 65px;
+  max-height: 65px;
+}
+
+.leaderboard-position {
+  font-size: 150px;
+  color: #f7f7f7;
+  line-height: 1;
+  @media screen and (max-width: 769px) {
+    font-size: 75px;
+    color: #f7f7f7;
+  }
+}
+
 span#xp {
   color: #c4492b;
 }

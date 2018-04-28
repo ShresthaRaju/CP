@@ -35,7 +35,7 @@
       </a>
     </li>
     <li>
-      <a>
+      <a  href="{{route('leaderboard')}}" class="{{Request::is('discussions/leaderboard')?'is-active':''}}">
         <span class="icon"><i class="fa fa-list-ol"></i></span><span>LeaderBoard</span>
       </a>
     </li>

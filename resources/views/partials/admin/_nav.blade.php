@@ -28,7 +28,7 @@
           </a>
 
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="{{ route('logout') }}"
+            <a class="navbar-item" href="{{ route('admin.logout') }}"
                onclick="event.preventDefault();
                              document.getElementById('admin-logout-form').submit();">
                 <span class="icon"><i class="fa fa-sign-out"></i></span><span>Logout</span>

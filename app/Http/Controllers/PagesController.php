@@ -93,4 +93,11 @@ class PagesController extends Controller
             }
         }
     }
+
+    //leaderboard section
+    public function leaderboard($value='')
+    {
+        $users=User::orderBy('experience', 'desc')->limit(20)->get();
+        return view('pages.leaderboard', compact('users'));
+    }
 }

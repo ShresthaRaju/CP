@@ -1,9 +1,11 @@
 @extends('layouts.admin')
 
-@section('title','Dashboard')
+@section('title','Admin Dashboard')
 
 @section('main_content')
 
-    <h1>This is admin dashboard.</h1>
-  
+    <p class="image">
+      <img src="{{asset('images/1.jpg')}}" alt="Dashboard Image">
+    </p>
+
 @endsection
