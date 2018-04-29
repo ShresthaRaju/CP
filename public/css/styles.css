@@ -98,14 +98,14 @@ code {
 }
 
 .leaderboard-position {
-  font-size: 150px;
+  font-size: 130px;
   color: #f7f7f7;
   line-height: 1;
 }
 
 @media screen and (max-width: 769px) {
   .leaderboard-position {
-    font-size: 75px;
+    font-size: 80px;
     color: #f7f7f7;
   }
 }
