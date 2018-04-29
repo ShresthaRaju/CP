@@ -5,7 +5,7 @@
       <article class="media">
         <figure class="media-left m-r-10">
           <span class="image is-24x24">
-            <img src="/images/users/userImage.png" alt="User image" v-if="notificationItem.data.user.display_image===null">
+            <img src="/images/userImage.png" alt="User image" v-if="notificationItem.data.user.display_image===null">
             <img :src="'/images/users/'+notificationItem.data.user.display_image" alt="User image" class="nav-user-img" v-else>
           </span>
         </figure>
@@ -15,10 +15,7 @@
             <span class="is-uppercase has-text-weight-bold">
               {{notificationItem.data.user.username}}
             </span>
-
-             <!-- <span v-if="notificationItem.type=='App\\Notifications\\RepliedToPost'">replied to your post:</span>
-             <!-- single backslash escapes the character so we have to put two backslashes [2backslashes=1, 4backslashes=2 and so on] -->
-             <!-- <span v-else>favorited your post:</span> -->
+            
              {{notification.data.message}}:
 
             <span class="has-text-weight-bold">

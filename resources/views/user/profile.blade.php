@@ -29,7 +29,7 @@
               <figure class="media-left is-hidden-mobile">
                 <p class="image is-48x48">
                   <a href="{{route('userProfile',$discussion->user->username)}}">
-                    <img src="{{$discussion->user->display_image?asset('images/users/'.$discussion->user->display_image):asset('images/users/userImage.png')}}" alt="User Image" class="user-image">
+                    <img src="{{$discussion->user->display_image?asset('images/users/'.$discussion->user->display_image):asset('images/userImage.png')}}" alt="User Image" class="user-image">
                   </a>
                 </p>
                 @if ($discussion->solved)
@@ -81,7 +81,7 @@
               <figure class="media-left is-hidden-mobile">
                 <p class="image is-48x48">
                   <a href="{{route('userProfile',$favorite->discussion->user->username)}}">
-                    <img src="{{$favorite->discussion->user->display_image?asset('images/users/'.$favorite->discussion->user->display_image):asset('images/users/userImage.png')}}" alt="User Image" class="user-image">
+                    <img src="{{$favorite->discussion->user->display_image?asset('images/users/'.$favorite->discussion->user->display_image):asset('images/userImage.png')}}" alt="User Image" class="user-image">
                   </a>
                 </p>
                 @if ($favorite->discussion->solved)

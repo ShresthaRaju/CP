@@ -20,6 +20,11 @@
 .d-title:hover {
   text-decoration: underline;
 }
+// discussion description
+
+.disc-desc {
+  max-width: 95%;
+}
 
 .disc-desc,
 .reply {
@@ -29,8 +34,8 @@
 pre {
   background-color: #474949;
   border-radius: 7px;
-  max-width: 95%;
-  margin-top: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 pre > code {
@@ -98,11 +103,11 @@ code {
 }
 
 .leaderboard-position {
-  font-size: 130px;
+  font-size: 120px;
   color: #f7f7f7;
   line-height: 1;
   @media screen and (max-width: 769px) {
-    font-size: 80px;
+    font-size: 70px;
     color: #f7f7f7;
   }
 }
