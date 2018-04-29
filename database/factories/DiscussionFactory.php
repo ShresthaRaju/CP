@@ -10,6 +10,6 @@ $factory->define(App\Models\Discussion::class, function (Faker $faker) {
         'slug'=>$slug,
         'description'=>$faker->paragraph(),
         'channel_id'=>rand(1, 10),
-        'user_id'=>rand(1, 10),
+        'user_id'=>rand(1, 2),
     ];
 });
