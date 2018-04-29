@@ -58226,9 +58226,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 
@@ -58299,10 +58296,7 @@ var render = function() {
               _c("span", { staticClass: "image is-24x24" }, [
                 _vm.notificationItem.data.user.display_image === null
                   ? _c("img", {
-                      attrs: {
-                        src: "/images/users/userImage.png",
-                        alt: "User image"
-                      }
+                      attrs: { src: "/images/userImage.png", alt: "User image" }
                     })
                   : _c("img", {
                       staticClass: "nav-user-img",
@@ -58329,9 +58323,8 @@ var render = function() {
                     )
                   ]
                 ),
-                _vm._v(" "),
                 _vm._v(
-                  "\n           " +
+                  "\n          \n           " +
                     _vm._s(_vm.notification.data.message) +
                     ":\n\n          "
                 ),
