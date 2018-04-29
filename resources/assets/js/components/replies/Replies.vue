@@ -88,6 +88,7 @@
       <hr>
     </div>
 
+    <!-- post your reply -->
     <div class="add-reply" v-if="loggedIn">
       <form @keydown="errors.clearError($event.target.name)">
         <div class="field">

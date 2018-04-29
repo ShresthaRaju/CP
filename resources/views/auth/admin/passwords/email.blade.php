@@ -13,7 +13,7 @@
             <div class="field">
               <label class="label">E-mail Address</label>
               <div class="control has-icons-left has-icons-right">
-                <input type="email" class="input {{$errors->has('email')?'is-danger':''}}" placeholder="Registered e-mail address..." name="email" value="{{ old('email') }}">
+                <input type="email" class="input {{$errors->has('email')?'is-danger':''}}" placeholder="Registered e-mail address..." name="email" value="{{ old('email') }}" required>
                 <span class="icon is-small is-left">
                   <i class="fa fa-envelope"></i>
                 </span>

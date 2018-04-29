@@ -18,7 +18,7 @@
             <div class="field">
               <label class="label">Fullname</label>
               <div class="control has-icons-left has-icons-right">
-                <input type="text" class="input {{$errors->has('name')?'is-danger':''}}" placeholder="Your fullname..." name="name" value="{{ old('name') }}">
+                <input type="text" class="input {{$errors->has('name')?'is-danger':''}}" placeholder="Your fullname..." name="name" value="{{ old('name') }}" required>
                 <span class="icon is-small is-left">
                   <i class="fa fa-user"></i>
                 </span>
@@ -37,7 +37,7 @@
             <div class="field">
               <label class="label">E-mail Address</label>
               <div class="control has-icons-left has-icons-right">
-                <input type="email" class="input {{$errors->has('email')?'is-danger':''}}" placeholder="Your email..." name="email" value="{{ old('email') }}">
+                <input type="email" class="input {{$errors->has('email')?'is-danger':''}}" placeholder="Your email..." name="email" value="{{ old('email') }}" required>
                 <span class="icon is-small is-left">
                   <i class="fa fa-envelope"></i>
                 </span>
@@ -56,7 +56,7 @@
             <div class="field">
               <label class="label">Username</label>
               <div class="control has-icons-left has-icons-right">
-                <input type="text" class="input {{$errors->has('username')?'is-danger':''}}" placeholder="Choose a username..." name="username" value="{{ old('username') }}">
+                <input type="text" class="input {{$errors->has('username')?'is-danger':''}}" placeholder="Choose a username..." name="username" value="{{ old('username') }}" required>
                 <span class="icon is-small is-left">
                   <i class="fa fa-user"></i>
                 </span>
@@ -75,7 +75,7 @@
             <div class="field">
               <label class="label">Password</label>
               <div class="control has-icons-left has-icons-right">
-                <input type="password" class="input {{$errors->has('password')?'is-danger':''}}" placeholder="Your password..." name="password">
+                <input type="password" class="input {{$errors->has('password')?'is-danger':''}}" placeholder="Your password..." name="password" required>
                 <span class="icon is-small is-left">
                   <i class="fa fa-lock"></i>
                 </span>
@@ -93,7 +93,7 @@
             <div class="field">
               <label class="label">Confirm Password</label>
               <div class="control has-icons-left has-icons-right">
-                <input type="password" class="input {{$errors->has('password_confirmation')?'is-danger':''}}" placeholder="Confirm password..." name="password_confirmation">
+                <input type="password" class="input {{$errors->has('password_confirmation')?'is-danger':''}}" placeholder="Confirm password..." name="password_confirmation" required>
                 <span class="icon is-small is-left">
                   <i class="fa fa-lock"></i>
                 </span>

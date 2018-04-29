@@ -8,7 +8,7 @@ $factory->define(App\Models\Discussion::class, function (Faker $faker) {
     return [
         'title'=>$title,
         'slug'=>$slug,
-        'description'=>$faker->paragraph(),
+        'description'=>$faker->paragraphs(3, true),
         'channel_id'=>rand(1, 10),
         'user_id'=>rand(1, 10),
     ];

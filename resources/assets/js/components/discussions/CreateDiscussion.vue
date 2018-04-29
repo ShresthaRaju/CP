@@ -32,7 +32,7 @@
           <div class="field">
             <label class="label">Ask away</label>
             <div class="control">
-              <textarea :class="['textarea',{'is-danger':errors.hasError('description')}]" placeholder="What do you need help with? Be spcefic, so that your peers are better able ot assist you..." rows="8" name="description" v-model="discussion.description"></textarea>
+              <textarea :class="['textarea',{'is-danger':errors.hasError('description')}]" placeholder="What do you need help with? Be spcefic, so that your peers are better able ot assist you..." rows="8" name="description" v-model="discussion.description" required></textarea>
             </div>
             <p class="help is-danger" v-if="errors.hasError('description')">{{errors.getErrorMessage('description')}}</p>
           </div>

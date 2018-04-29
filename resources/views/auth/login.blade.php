@@ -13,7 +13,7 @@
             <div class="field">
               <label class="label">E-mail Address</label>
               <div class="control has-icons-left has-icons-right">
-                <input type="email" class="input {{$errors->has('email')?'is-danger':''}}" placeholder="Your email..." name="email" value="{{ old('email') }}">
+                <input type="email" class="input {{$errors->has('email')?'is-danger':''}}" placeholder="Your email..." name="email" value="{{ old('email') }}" required>
                 <span class="icon is-small is-left">
                   <i class="fa fa-envelope"></i>
                 </span>
@@ -31,7 +31,7 @@
             <div class="field">
               <label class="label">Password</label>
               <div class="control has-icons-left has-icons-right">
-                <input type="password" class="input {{$errors->has('password')?'is-danger':''}}" placeholder="Your password..." name="password">
+                <input type="password" class="input {{$errors->has('password')?'is-danger':''}}" placeholder="Your password..." name="password" required>
                 <a href="{{route('password.request')}}" class="has-text-grey is-pulled-right is-italic m-t-5">Forgot password?</a>
                 <span class="icon is-small is-left">
                   <i class="fa fa-lock"></i>
