@@ -33,7 +33,7 @@ class User extends Authenticatable
 
     public function verified()
     {
-        return $this->active===1;
+        return $this->active==1;
     }
 
     public function discussions()
