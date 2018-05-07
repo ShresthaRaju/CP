@@ -54521,6 +54521,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -54650,10 +54655,10 @@ var render = function() {
                               _vm._s(
                                 discussion.description
                                   .replace(/(<([^>]+)>)/gi, "")
-                                  .substring(0, 70)
+                                  .substring(0, 55)
                               ) +
                                 _vm._s(
-                                  discussion.description.length > 70
+                                  discussion.description.length > 55
                                     ? "..."
                                     : ""
                                 )
@@ -54674,6 +54679,16 @@ var render = function() {
                                 _vm._f("formatDate")(discussion.created_at)
                               )
                             )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            discussion.solved == 1
+                              ? _c("span", { staticClass: "tag is-success" }, [
+                                  _vm._v("Solved")
+                                ])
+                              : _c("span", { staticClass: "tag is-warning" }, [
+                                  _vm._v("Unsolved")
+                                ])
                           ]),
                           _vm._v(" "),
                           _c(
@@ -54759,6 +54774,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Posted By")]),
         _vm._v(" "),
         _c("th", [_vm._v("Posted On")]),
+        _vm._v(" "),
+        _c("th"),
         _vm._v(" "),
         _c("th")
       ])
@@ -56518,7 +56535,7 @@ var render = function() {
                             ? _c("img", {
                                 staticClass: "user-image",
                                 attrs: {
-                                  src: "/images/users/userImage.png",
+                                  src: "/images/userImage.png",
                                   alt: "User image"
                                 }
                               })

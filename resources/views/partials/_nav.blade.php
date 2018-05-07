@@ -1,7 +1,7 @@
 <nav class="navbar has-shadow is-fixed-top">
   <div class="navbar-brand m-r-30">
     <a href="{{route('welcome')}}" class="navbar-item">
-      <img src="{{asset('images/brand.png')}}" alt="LaraForum" width="140" height="28">
+      <img src="{{asset('images/brand_img.png')}}" alt="LaraForum" width="140" height="28">
     </a>
 
     <div class="navbar-burger" id="collapse" onclick="document.getElementById('navMenu').classList.toggle('is-active');">

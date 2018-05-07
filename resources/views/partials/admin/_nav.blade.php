@@ -10,7 +10,7 @@
     </div>
 
     <a class="navbar-item" href="{{route('admin.dashboard')}}">
-      <img src="{{asset('images/brand.png')}}" alt="LaraForum" width="140" height="28">
+      <img src="{{asset('images/brand_img.png')}}" alt="LaraForum" width="140" height="28">
     </a>
 
     <div class="navbar-burger" onclick="document.getElementById('nav-menu').classList.toggle('is-active');">
