@@ -17891,6 +17891,11 @@ var app = new Vue({
   el: '#app'
 });
 
+// disable Vue devtool in production mode
+Vue.config.devtools = false;
+Vue.config.debug = false;
+Vue.config.silent = true;
+
 /***/ }),
 /* 142 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -52106,7 +52111,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       page_url = page_url || '/admin/users';
-      axios.get(page_url).then(function (response) {
+      var config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache, no-store, must-revalidate' //to prevent displaying json result when clicking back button in browser
+        }
+      };
+      axios.get(page_url, config).then(function (response) {
         // console.log(response.data);
         _this.users = response.data.data;
         _this.makePagination(response.data);
@@ -53603,7 +53614,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     fetchAllChannels: function fetchAllChannels() {
       var _this = this;
 
-      axios.get('/admin/channels').then(function (response) {
+      var config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache, no-store, must-revalidate'
+        }
+      };
+      axios.get('/admin/channels', config).then(function (response) {
         return _this.channels = response.data;
       }).catch(function (error) {
         return console.log(error.response.data);
@@ -54531,7 +54548,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       page_url = page_url || '/admin/discussions';
-      axios.get(page_url).then(function (response) {
+      var config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache, no-store, must-revalidate'
+        }
+      };
+      axios.get(page_url, config).then(function (response) {
         // console.log(response.data);
         _this.discussions = response.data.data;
         _this.makePagination(response.data);

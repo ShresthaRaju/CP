@@ -90,7 +90,13 @@ export default {
   methods: {
     fetchAll(page_url) {
       page_url = page_url || `/admin/users`
-      axios.get(page_url)
+      var config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache, no-store, must-revalidate', //to prevent displaying json result when clicking back button in browser
+        }
+      };
+      axios.get(page_url, config)
         .then(response => {
           // console.log(response.data);
           this.users = response.data.data;

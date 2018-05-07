@@ -74,7 +74,13 @@ export default {
   methods: {
     fetchAll(page_url) {
       page_url = page_url || `/admin/discussions`
-      axios.get(page_url)
+      var config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+        }
+      };
+      axios.get(page_url, config)
         .then(response => {
           // console.log(response.data);
           this.discussions = response.data.data;

@@ -44,3 +44,8 @@ Vue.component('Notification', require('./components/Notifications/Notification.v
 const app = new Vue({
   el: '#app',
 });
+
+// disable Vue devtool in production mode
+Vue.config.devtools = false
+Vue.config.debug = false
+Vue.config.silent = true

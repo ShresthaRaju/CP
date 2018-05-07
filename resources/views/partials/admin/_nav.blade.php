@@ -9,8 +9,8 @@
       </div>
     </div>
 
-    <a class="navbar-item">
-      <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+    <a class="navbar-item" href="{{route('admin.dashboard')}}">
+      <img src="{{asset('images/brand.png')}}" alt="LaraForum" width="140" height="28">
     </a>
 
     <div class="navbar-burger" onclick="document.getElementById('nav-menu').classList.toggle('is-active');">

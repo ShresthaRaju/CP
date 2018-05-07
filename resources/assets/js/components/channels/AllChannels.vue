@@ -101,7 +101,13 @@ export default {
   methods: {
 
     fetchAllChannels() {
-      axios.get('/admin/channels')
+      var config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+        }
+      };
+      axios.get('/admin/channels', config)
         .then(response => this.channels = response.data)
         .catch(error => console.log(error.response.data))
     },

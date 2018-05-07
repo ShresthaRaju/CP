@@ -17,6 +17,10 @@
   background-color: #00d1b2 !important;
 }
 
+.filter {
+  color: #9e4848;
+}
+
 .d-title:hover {
   text-decoration: underline;
 }

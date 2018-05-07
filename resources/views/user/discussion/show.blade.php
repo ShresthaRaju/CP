@@ -38,7 +38,7 @@
     <DiscussionDesc :discussion="{{json_encode($discussion)}}" :logged-in="{{json_encode(Auth::check())}}" :user="{{json_encode(Auth::id())}}"></DiscussionDesc>
 
     @guest
-      <small><p class="has-text-weight-semibold has-text-centered">Please <a href="{{route('login')}}">Sign In</a> or <a href="{{route('register')}}">Create an account</a> to participate in this conversation.</p></small>
+      <small><p class="has-text-weight-semibold has-text-centered">Please <a href="{{route('login')}}">Sign In</a> or <a href="{{route('register')}}">Create an account</a> to participate in this discussion.</p></small>
     @endguest
 
   </div>
