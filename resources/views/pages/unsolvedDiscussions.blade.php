@@ -22,8 +22,8 @@
           <p>
             <a href="{{route('discussion.show',['slug'=>$discussion->slug])}}" class="has-text-black-ter has-text-weight-semibold is-size-6 d-title">{{$discussion->title}}</a><br>
             <small>
-              <span class="is-italic has-text-grey-light m-r-5 is-hidden-mobile">
-                <span class="icon"><i class="fa fa-clock-o"></i></span>{{$discussion->created_at->diffForHumans()}}
+              <span class="is-italic has-text-grey-light m-r-5">
+                <i class="fa fa-clock-o"></i>{{$discussion->created_at->diffForHumans()}}
               </span>
               <span>
                 BY <a href="{{route('userProfile',$discussion->user->username)}}" class="is-uppercase">{{$discussion->user->username}}</a>

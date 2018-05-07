@@ -56788,7 +56788,7 @@ var render = function() {
       }
     },
     [
-      _c("span", { staticClass: "icon", on: { click: _vm.favorite } }, [
+      _c("span", { on: { click: _vm.favorite } }, [
         _c("i", {
           class: [
             { "fa fa-star-o": !_vm.favorited },

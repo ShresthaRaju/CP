@@ -4,7 +4,7 @@
     type="is-dark"
     position="is-right"
     animated>
-    <span class="icon" @click="favorite">
+    <span @click="favorite">
       <i :class="[{'fa fa-star-o':!favorited},{'fa fa-star':favorited}]"></i>
     </span>
   </b-tooltip>

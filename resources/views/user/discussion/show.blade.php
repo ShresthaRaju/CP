@@ -13,8 +13,8 @@
       <span class="has-text-black-ter has-text-weight-bold is-size-4">{{$discussion->title}}</span>
       <br>
       <small>
-        <span class="is-italic has-text-grey-light is-hidden-mobile m-r-5">
-          <span class="icon"><i class="fa fa-clock-o"></i></span>Published {{$discussion->created_at->diffForHumans()}}
+        <span class="is-italic has-text-grey-light m-r-5">
+          <i class="fa fa-clock-o"></i>Published {{$discussion->created_at->diffForHumans()}}
         </span>
         <span>
           BY <a href="{{route('userProfile',$discussion->user->username)}}" class="is-uppercase has-text-weight-semibold">{{$discussion->user->username}}</a>
