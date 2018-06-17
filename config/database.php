@@ -41,6 +41,13 @@ return [
             'prefix' => '',
         ],
 
+        //manually added for testing purpose only
+        'test_database' => [
+            'driver' => 'sqlite',
+            'database' => database_path('database.sqlite'),
+            'prefix' => '',
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),

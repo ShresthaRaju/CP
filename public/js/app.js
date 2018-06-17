@@ -52820,7 +52820,11 @@ var render = function() {
                 "button",
                 {
                   staticClass: "button is-primary is-fullwidth",
-                  attrs: { type: "submit", disabled: _vm.errors.hasAnyError() },
+                  attrs: {
+                    type: "submit",
+                    id: "createUser",
+                    disabled: _vm.errors.hasAnyError()
+                  },
                   on: {
                     click: function($event) {
                       $event.preventDefault()

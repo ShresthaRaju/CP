@@ -35,7 +35,7 @@
         <Notification class="is-hidden-mobile" :user-id="{{auth()->id()}}" :notifications="{{auth()->user()->notifications}}"
         :unread-notifications="{{auth()->user()->unreadNotifications}}"></Notification>
 
-        <div class="navbar-item has-dropdown is-hoverable">
+        <div class="navbar-item has-dropdown is-hoverable" id="profile">
           <a class="navbar-link">
             <figure class="is-hidden-mobile m-r-5">
               <p class="image is-24x24">

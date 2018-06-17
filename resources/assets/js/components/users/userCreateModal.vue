@@ -72,7 +72,7 @@
             true-value="Active" false-value="Inactive">{{user.active}}</b-switch>
           </div>
 
-          <button type="submit" class="button is-primary is-fullwidth" @click.prevent="createNewUser" :disabled="errors.hasAnyError()">Create</button>
+          <button type="submit" id="createUser" class="button is-primary is-fullwidth" @click.prevent="createNewUser" :disabled="errors.hasAnyError()">Create</button>
         </form>
       </section>
       <footer class="modal-card-foot">
