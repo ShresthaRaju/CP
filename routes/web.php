@@ -73,5 +73,5 @@ Route::prefix('discussion')->as('discussion.')->group(function () {
     Route::post('/favorite', ['as'=>'favorite','uses'=>'PagesController@favorite']);
 });
 
-
+  Route::view('/usermanual','user.usermanual')->name('usermanual');
 // Route::view('admins/{vue_capture?}', 'admin')->where('vue_capture', '[\/\w\.-]*'); // {vue-capture} is for vue js history mode

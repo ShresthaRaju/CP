@@ -95,7 +95,7 @@ class PagesController extends Controller
     }
 
     //leaderboard section
-    public function leaderboard($value='')
+    public function leaderboard()
     {
         $users=User::active()->orderBy('experience', 'desc')->limit(20)->get();
         return view('pages.leaderboard', compact('users'));

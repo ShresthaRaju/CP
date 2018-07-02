@@ -13,6 +13,7 @@ let mix = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
   .js('resources/assets/js/utilities/sidemenu.js', 'public/js/utilities')
+  .js('resources/assets/js/utilities/accordion.js', 'public/js/utilities')
   .sass('resources/assets/sass/app.scss', 'public/css')
   .sass('resources/assets/sass/styles.scss', 'public/css')
   .sass('resources/assets/sass/sidemenu.scss', 'public/css');

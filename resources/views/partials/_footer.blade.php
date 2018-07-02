@@ -2,7 +2,7 @@
   <div class="container">
     <div class="content has-text-centered">
       <p>
-        &copy; Discussion Forum {{date('Y')}}. All Rights Reserved.
+        &copy; LaraForum {{date('Y')}}. All Rights Reserved.
       </p>
     </div>
   </div>

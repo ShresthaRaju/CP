@@ -3,5 +3,6 @@
     "/css/app.css": "/css/app.css",
     "/css/styles.css": "/css/styles.css",
     "/css/sidemenu.css": "/css/sidemenu.css",
+    "/js/utilities/accordion.js": "/js/utilities/accordion.js",
     "/js/utilities/sidemenu.js": "/js/utilities/sidemenu.js"
 }

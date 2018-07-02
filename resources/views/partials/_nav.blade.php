@@ -16,6 +16,7 @@
       <a href="{{route('welcome')}}" class="navbar-item is-tab {{Request::is('/')?'is-active':''}}">Discussions</a>
       <a href="{{route('popular')}}" class="navbar-item is-tab {{Request::is('discussions/popular')?'is-active':''}}">Popular</a>
       <a href="{{route('leaderboard')}}" class="navbar-item is-tab {{Request::is('discussions/leaderboard')?'is-active':''}}">Leaderboard</a>
+      <a href="{{route('usermanual')}}" class="navbar-item is-tab {{Request::is('usermanual')?'is-active':''}}">User Manual</a>
     </div>
 
     <div class="navbar-end">
