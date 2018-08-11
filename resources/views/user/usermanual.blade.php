@@ -137,10 +137,10 @@
         </div>
       </article>
 
-      {{-- favoriting a discussion --}}
+      {{-- favorite a discussion --}}
       <article class="accordion">
         <div class="accordion-header toggle">
-          <p>Favoriting a discussion</p>
+          <p>Favorite a discussion</p>
           <button class="toggle" aria-label="toggle"></button>
         </div>
         <div class="accordion-body">

@@ -57300,6 +57300,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -57834,6 +57837,10 @@ var staticRenderFns = [
     return _c("span", { staticClass: "file-cta" }, [
       _c("span", { staticClass: "file-icon" }, [
         _c("i", { staticClass: "fa fa-upload" })
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "file-label" }, [
+        _vm._v("\n\t\t\t\t\t\t\tProfile\n\t\t\t\t\t\t")
       ])
     ])
   }

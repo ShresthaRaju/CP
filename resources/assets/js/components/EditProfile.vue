@@ -90,6 +90,9 @@
                         <span class="file-icon">
                           <i class="fa fa-upload"></i>
                         </span>
+						<span class="file-label">
+							Profile
+						</span>
                       </span>
                       <span class="file-name">Upload a picture...</span>
                     </label>
